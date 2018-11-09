@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Etherscan</title>
+</head>
+<body>
+
+<script src="/ETH/resources/js/tools/jquery-1.12.4.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+var apikey =  "YourApiKeyToken";
+var module =  "account";
+var url = "https://api.etherscan.io/api"
+
+/**
+ *  Get Ether Balance for a single Address
+ */
+ function getEtherBalance() {
+ 	
+ 	var address =  "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a";
+ 	var tag =  "latest";
+ 	var action =  "balance";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"tag" : tag,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get a list of 'Normal' Transactions By Address
+ *  Parameters:{address,startblock,endblock,sort,apikey}
+ */
+ function getNormalTXByAddress() {
+ 	
+ 	var address =  "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a";
+ 	var startblock =  "0";
+ 	var endblock =  "99999999";
+ 	var sort =  "asc";
+ 	var action =  "txlist";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"startblock" : startblock,
+ 			"endblock" : endblock,
+ 			"sort" : sort,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get a list of 'Normal' Transactions By Address(include pagelist)
+ *  Parameters:{address,startblock,endblock,sort,apikey}
+ */
+ function getNormalTXPageByAddress() {
+ 	
+ 	var address =  "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a";
+ 	var startblock =  "0";
+ 	var endblock =  "99999999";
+ 	var sort =  "asc";
+ 	var page =  "1";
+ 	var offset =  "10";
+ 	var action =  "txlist";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"startblock" : startblock,
+ 			"endblock" : endblock,
+ 			"sort" : sort,
+ 			"page" : page,
+ 			"offset" : offset,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get a list of 'Internal' Transactions By Address
+ *  Parameters:{address,startblock,endblock,sort,apikey}
+ *  403 没有权限访问此站
+ */
+ function getInternalTXByAddress() {
+ 	
+ 	var address =  "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a";
+ 	var startblock =  "0";
+ 	var endblock =  "99999999";
+ 	var sort =  "asc";
+ 	var page =  "1";
+ 	var offset =  "10";
+ 	var action =  "txlistinternal";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"startblock" : startblock,
+ 			"endblock" : endblock,
+ 			"sort" : sort,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get "Internal Transactions" by Transaction Hash
+ * Returned 'isError' values: 0=Ok, 1=Rejected/Cancelled)
+ * Returns up to a maximum of the last 10000 transactions only
+ *  403 没有权限访问此站
+ */
+ function getInternalTXByTxhash() {
+ 	
+ 	var txhash =  "0x40eb908387324f2b575b4879cd9d7188f69c8fc9d87c901b9e2daaea4b442170";
+ 	var action =  "txlistinternal";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"txhash" : txhash,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get a list of "ERC20 - Token Transfer Events" by Address
+ *  Returns up to a maximum of the last 10000 transactions only
+ */
+ function getListTXByAddress() {
+ 	
+ 	var action =  "tokentx";
+ 	var address =  "0x4e83362442b8d1bec281594cea3050c8eb01311c";
+ 	var startblock =  "0";
+ 	var endblock =  "99999999";
+ 	var sort =  "asc";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"startblock" : startblock,
+ 			"endblock" : endblock,
+ 			"sort" : sort,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get a list of "ERC20 - Token Transfer Events" by Address
+ *  To get transfer events for a specific token contract, include the contractaddress paramter)
+ *  page for show
+ */
+ function getTokentxByAddress() {
+ 	
+ 	var action =  "tokentx";
+ 	var address =  "0x4e83362442b8d1bec281594cea3050c8eb01311c";
+ 	var contractAddress =  "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2";
+ 	var startblock =  "0";
+ 	var endblock =  "99999999";
+ 	var sort =  "asc";
+ 	var page =  "1";
+ 	var offset =  "10";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"startblock" : startblock,
+ 			"endblock" : endblock,
+ 			"sort" : sort,
+ 			"page" : page,
+ 			"offset" : offset,
+ 			"apikey" : apikey,
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+ 
+ /**
+  *  Get list of Blocks Mined by Address
+  *  To get paginated results use page=<page number> and offset=<max records to return>)
+  *  page for show
+  */
+  function getMinedBlocksByAddress() {
+  	
+  	var action =  "getminedblocks";
+  	var address =  "0x9dd134d14d1e65f84b706d6f205cd5b1cd03a46b";
+  	var blocktype =  "blocks";
+  	var page =  "1";
+  	var offset =  "10";
+  	
+  	$.ajax({
+  		data : {
+  			"module" : module,
+  			"action" : action,
+  			"address" : address,
+  			"blocktype" : blocktype,
+  			"page" : page,
+  			"offset" : offset,
+  			"apikey" : apikey,
+  		},
+  		url : url,
+  		type : "get",
+  		dataType : "json",
+  		timeout:300000,
+  		success : function(data) {    console.log(data);
+
+  			
+
+  		}
+  	});
+  	
+  }	
+ 
+  
+  
+  
+  
+  
+  
+/* module:contact */
+var module = "contract";
+ 
+/**
+ *  Get Contract ABI for Verified Contract Source Codes
+ *  403 没有权限访问此站
+ */
+ function getContractABI() {
+ 	
+ 	var action =  "getabi";
+ 	var address =  "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"apikey" : apikey
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+/**
+ *  Get Contract Source Code for Verified Contract Source Codes 
+ */
+ function getContractSource() {
+ 	
+ 	var action =  "getsourcecode";
+ 	var address =  "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
+ 	
+ 	$.ajax({
+ 		data : {
+ 			"module" : module,
+ 			"action" : action,
+ 			"address" : address,
+ 			"apikey" : apikey
+ 		},
+ 		url : url,
+ 		type : "get",
+ 		dataType : "json",
+ 		timeout:300000,
+ 		success : function(data) {    console.log(data);
+
+ 			
+
+ 		}
+ 	});
+ 	
+ }	
+ 
+ 
+/**
+ *  Check Source code verification submission status:
+ */
+ function getCheckSource() {
+	
+	var guid = "ezq878u486pzijkvvmerl6a9mzwhv6sefgvqi5tkwceejc7tvn";
+	var action = "checkverifystatus";
+ 	
+	 $.ajax({
+		    type: "GET",
+		    url: "//api.etherscan.io/api",
+		    data: {
+		        guid: guid, 
+		        module: module,
+		        action: action
+		    },
+		    success: function (result) {       console.log(result)
+		       
+		    },
+		    error: function (result) {
+		        alert('error');
+		    }
+		});
+ 	
+ }	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /* module:transaction */
+ var module = "transaction";
+ 
+/**
+ *  [BETA] Check Contract Execution Status (if there was an error during contract execution) 
+ *  Note: isError":"0" = Pass , isError":"1" = Error during Contract Execution 
+ */
+ function getStatus() {
+	
+	var txhash = "0x15f8e5ea1079d9a0bb04a4c58ae5fe7654b5b2b4463375ff7ffb490aa0032f3a";
+	var action = "getstatus";
+ 	
+	 $.ajax({
+		 	data: {
+		        module: module,
+		        action: action,
+		        txhash: txhash,
+		        apikey: apikey
+		    },
+		    type: "get",
+		    url: url,
+		    success: function (data) {       console.log(data)
+		       
+		    }
+		});
+ 	
+ }	
+ 
+/**
+ *  [BETA] Check Transaction Receipt Status (Only applicable for Post Byzantium fork transactions) 
+ *  Note: status: 0 = Fail, 1 = Pass. Will return null/empty value for pre-byzantium fork 
+ */
+ function getTxreceiptstatus() {
+
+		var txhash = "0x513c1ba0bebf66436b5fed86ab668452b7805593c05073eb2d51d3a52f480a76";
+		var action = "gettxreceiptstatus";
+	 	
+		 $.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        txhash: txhash,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /* module:transaction */
+ var module = "block";
+ 
+/**
+ *  [BETA] Get Block And Uncle Rewards by BlockNo
+ */
+ function getRewardsByBlockNo() {
+
+		var blockNo = "2165403";
+		var action = "getblockreward";
+	 	
+		 $.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        blockNo: blockNo,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /* module:transaction */
+ var module = "logs";
+ 
+/**
+ *  Get Event Logs 
+ *  fromBlock and toBlock accepts the blocknumber (integer, NOT hex) or 'latest' (earliest & pending is NOT supported yet)
+ *  Topic Operator (opr) choices are either 'and' or 'or' and are restricted to the above choices only
+ *  fromBlock and toBlock parameters are required 
+ *  Either the address and/or topic(X) parameters are required, when multiple topic(X) parameters are used the topicX_X_opr (and|or operator) is also required
+ *  For performance & security considerations, only the first 1000 results are return. So please narrow down the filter parameters
+ */
+ function getEventLogs() {
+	
+		var action = "getLogs";
+		var fromBlock = "379224";
+		var toBlock = "latest";
+		var address = "0x33990122638b9132ca29c723bdf037f1a891a70c";
+		var topic0 = "0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545";
+	 	
+		 $.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        fromBlock: fromBlock,
+			        toBlock: toBlock,
+			        address: address,
+			        topic0: topic0,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ *  Get Event Logs area
+ *  同时含有多个地址，且地址的关系满足topic0_1_opr
+ */
+ function getEventLogsArea() {
+	
+		var action = "getLogs";
+		var fromBlock = "379224";
+		var toBlock = "latest";
+		var address = "0x33990122638b9132ca29c723bdf037f1a891a70c";
+		var topic0 = "0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545";
+		var topic0_1_opr = "and";
+		var topic1 = "0x72657075746174696f6e00000000000000000000000000000000000000000000";
+	 	
+		 $.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        fromBlock: fromBlock,
+			        toBlock: toBlock,
+			        address: address,
+			        topic0: topic0,
+			        topic0_1_opr: topic0_1_opr,
+			        topic1: topic1,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+
+ 
+ 
+ 
+ 
+ 
+ 
+ /* module:Geth/Parity Proxy APIs */
+ var module = "proxy";
+/**
+ * eth_blockNumber
+ * Returns the number of most recent block
+ */
+ function getEthBlockNumber() {
+	
+		var action = "eth_blockNumber";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getBlockByNumber
+ * Returns information about a block by block number.
+ */
+ function getEthBlockInfo() {
+	
+		var action = "eth_getBlockByNumber";
+		var tag = "0x10d4f";
+		var getEthBlockInfoBoolean = true;
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        tag: tag,
+			        boolean: getEthBlockInfoBoolean,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getUncleByBlockNumberAndIndex
+ * Returns information about a uncle by block number.
+ */
+ function getUncleByBlockNumberAndIndex() {
+	
+		var action = "eth_getUncleByBlockNumberAndIndex";
+		var tag = "0x210A9B";
+		var index = "0x0";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        tag: tag,
+			        index: index,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getBlockTransactionCountByNumber
+ * Returns the number of transactions in a block from a block matching the given block number
+ */
+ function getBlockTransactionCountByNumber() {
+	
+		var action = "eth_getBlockTransactionCountByNumber";
+		var tag = "0x10FB78";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getTransactionByHash
+ * Returns the information about a transaction requested by transaction hash
+ *  403 没有权限访问此站
+ */
+ function getTransactionByHash() {
+	
+		var action = "eth_getTransactionByHash";
+		var txhash = "0x1e2910a262b1008d0616a0beb24c1a491d78771baa54a33e66065e03b1f46bc1";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        txhash: txhash,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getTransactionByBlockNumberAndIndex
+ * Returns information about a transaction by block number and transaction index position
+ */
+ function getTransactionByBlockNumberAndIndex() {
+	
+		var action = "eth_getTransactionByBlockNumberAndIndex";
+		var tag = "0x10d4f";
+		var index = "0x0";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        tag: tag,
+			        index: index,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getTransactionCount
+ * Returns the number of transactions sent from an address
+ */
+ function getTransactionCount() {
+	
+		var action = "eth_getTransactionCount";
+		var address = "0x2910543af39aba0cd09dbb2d50200b3e800a63d2";
+		var tag = "latest";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        address: address,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_sendRawTransaction
+ * Creates new message call transaction or a contract creation for signed transactions
+ * Replace the hex value with your raw hex encoded transaction that you want to send.
+ */
+ function sendRawTransaction() {
+	
+		var action = "eth_sendRawTransaction";
+		var hex = "0xf904808000831cfde080";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        hex: hex,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getTransactionReceipt
+ * Returns the receipt of a transaction by transaction hash
+ */
+ function getTransactionReceipt() {
+	
+		var action = "eth_getTransactionReceipt";
+		var txhash = "0x1e2910a262b1008d0616a0beb24c1a491d78771baa54a33e66065e03b1f46bc1";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        txhash: txhash,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_call
+ * Executes a new message call immediately without creating a transaction on the block chain
+ * 立即执行新的消息调用，而不在块链上创建事务
+ */
+ function getEthCall() {
+	
+		var action = "eth_call";
+		var to = "0xAEEF46DB4855E25702F8237E8f403FddcaF931C0";
+		var data = "0x70a08231000000000000000000000000e16359506c028e51f16be38986ec5746251e9724";
+		var tag = "latest";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        to: to,
+			        data: data,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+/**
+ * eth_getCode
+ * Returns code at a given address
+ */
+ function getEthGetCode() {
+	
+		var action = "eth_getCode";
+		var address = "0xf75e354c5edc8efed9b59ee9f67a80845ade7d0c";
+		var tag = "latest";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        address: address,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+
+/**
+ * eth_getStorageAt (**experimental)
+ * Returns the value from a storage position at a given address.
+ */
+ function getStorageAt() {
+	
+		var action = "eth_getStorageAt";
+		var address = "0x6e03d9cce9d60f3e9f2597e13cd4c54c55330cfd";
+		var position = "0x0";
+		var tag = "latest";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        address: address,
+			        position: position,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+ 	
+ }	
+ 
+
+ /**
+  * eth_gasPrice
+  * Returns the current price per gas in wei.
+  */
+  function getGasPrice() {
+ 	
+ 		var action = "eth_gasPrice";
+
+ 		$.ajax({
+ 			 	data: {
+ 			        module: module,
+ 			        action: action,
+ 			        apikey: apikey
+ 			    },
+ 			    type: "get",
+ 			    url: url,
+ 			    success: function (data) {       console.log(data)
+ 			       
+ 			    }
+ 			});
+ 	 	
+  	
+  }	
+ 
+
+ /**
+  * eth_estimateGas
+  * Makes a call or transaction, which won't be added to the blockchain and returns the used gas, which can be used for estimating the used gas
+  */
+  function getEstimateGas() {
+ 	
+ 		var action = "eth_estimateGas";
+ 		var to = "0xf0160428a8552ac9bb7e050d90eeade4ddd52843";
+ 		var value = "0xff22";
+ 		var gasPrice = "0x051da038cc";
+ 		var gas = "0xffffff";
+
+ 		$.ajax({
+ 			 	data: {
+ 			        module: module,
+ 			        action: action,
+ 			        to: to,
+ 			        gasPrice: gasPrice,
+ 			        gas: gas,
+ 			        apikey: apikey
+ 			    },
+ 			    type: "get",
+ 			    url: url,
+ 			    success: function (data) {       console.log(data)
+ 			       
+ 			    }
+ 			});
+ 	 	
+  	
+  }	
+ 
+
+ 
+ 
+ 
+ 
+ /*Token Info */
+ var module = "stats";
+ /**
+  * Get ERC20-Token TotalSupply by ContractAddress
+  */
+  function getTokenByContractAddress() {
+ 	
+ 		var action = "tokensupply";
+ 		var contractaddress = "0x57d90b64a1a57749b0f932f1a3395792e12e7055";
+
+ 		$.ajax({
+ 			 	data: {
+ 			        module: module,
+ 			        action: action,
+ 			        contractaddress: contractaddress,
+ 			        apikey: apikey
+ 			    },
+ 			    type: "get",
+ 			    url: url,
+ 			    success: function (data) {       console.log(data)
+ 			       
+ 			    }
+ 			});
+ 	 	
+  	
+  }	
+ 
+ /**
+  *  Get Token TotalSupply by TokenName (Supported TokenNames: DGD, MKR, FirstBlood, HackerGold, ICONOMI, Pluton, REP, SNGLS). 
+  *  This has feature been deprecated, instead use the Api above to look up any ERC20 token supply by its contract address
+  */
+  function getTokenByTokenName() {
+ 	
+ 		var action = "tokensupply";
+ 		var tokenname = "DGD";
+
+ 		$.ajax({
+ 			 	data: {
+ 			        module: module,
+ 			        action: action,
+ 			        tokenname: tokenname,
+ 			        apikey: apikey
+ 			    },
+ 			    type: "get",
+ 			    url: url,
+ 			    success: function (data) {       console.log(data)
+ 			       
+ 			    }
+ 			});
+ 	 	
+  	
+  }	
+ 
+ 
+ 
+ 
+var module = "account";
+/**
+ *  Get ERC20-Token Account Balance for TokenContractAddress 
+ *  403 没有权限访问此站
+ */
+ function getAccountBalance() {
+		
+		var action = "tokenbalance";
+		var contractaddress = "0x57d90b64a1a57749b0f932f1a3395792e12e7055";
+		var address = "0xe04f27eb70e025b78871a2ad7eabe85e61212761";
+		var tag = "latest";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        contractaddress: contractaddress,
+			        address: address,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+	
+}
+ 
+/**
+ *  Get Token Account Balance by known TokenName (Supported TokenNames: DGD, MKR, FirstBlood, ICONOMI, Pluton, REP, SNGLS). 
+ *  This feature has been deprecated, instead use the Api above to look up any ERC20 token balance by its contract address
+ */
+ function getAccountBalanceByTokenName() {
+		
+		var action = "tokenbalance";
+		var tokenname = "DGD";
+		var address = "0x4366ddc115d8cf213c564da36e64c8ebaa30cdbd";
+		var tag = "latest";
+
+		$.ajax({
+			 	data: {
+			        module: module,
+			        action: action,
+			        tokenname: tokenname,
+			        address: address,
+			        tag: tag,
+			        apikey: apikey
+			    },
+			    type: "get",
+			    url: url,
+			    success: function (data) {       console.log(data)
+			       
+			    }
+			});
+	 	
+	
+}	
+ 
+ 
+ 
+ /*  General Stats   */
+ /**
+  *  Get Total Supply of Ether 
+  *  (Result returned in Wei, to get value in Ether divide resultAbove/1000000000000000000)
+  */
+  function getTotalSupply() {
+ 	
+ 		var action = "ethsupply";
+ 		var module = "stats";
+ 		$.ajax({
+ 			 	data: {
+ 			 		module: module,
+ 			        action: action,
+ 			        apikey: apikey
+ 			    },
+ 			    type: "get",
+ 			    url: url,
+ 			    success: function (data) {       console.log(data)
+ 			       
+ 			    }
+ 			});
+ 	 	
+  	
+  }	
+ 
+ /**
+  * Get ETHER LastPrice Price
+  *  403 没有权限访问此站
+  */
+  function getLastPrice() {
+ 	
+ 		var action = "ethprice";
+ 		var module = "stats";
+ 		$.ajax({
+ 			 	data: {
+ 			 		module: module,
+ 			        action: action,
+ 			        apikey: apikey
+ 			    },
+ 			    type: "get",
+ 			    url: url,
+ 			    success: function (data) {       console.log(data)
+ 			       
+ 			    }
+ 			});
+ 	 	
+  	
+  }	
+  
+  
+  
+  
+  
+ /*  Misc Tools and Utilities    */
+
+ 
+$(function() {
+	/* getEtherBalance();
+	getNormalTXByAddress();
+	getNormalTXPageByAddress();
+	//getInternalTXByAddress();
+	//getInternalTXByTxhash();
+	getTokentxByAddress();
+	getListTXByAddress();
+	//getMinedBlocksByAddress();
+	//getContractABI(); */
+	
+	/* getContractSource();
+	getCheckSource();
+	getStatus(); */
+	/* getTxreceiptstatus();
+	getRewardsByBlockNo(); */
+	getEventLogs();
+	getEventLogsArea();
+	getEthBlockNumber();
+	/* 
+	
+	getEthBlockInfo(); */
+	
+	
+	/* getUncleByBlockNumberAndIndex();
+	getBlockTransactionCountByNumber();
+	getTransactionByHash();
+	getTransactionByBlockNumberAndIndex();
+	getTransactionCount();
+	sendRawTransaction();
+	getTransactionReceipt();
+	getEthCall();
+	getEthGetCode();
+	getStorageAt();
+	getGasPrice();
+	getEstimateGas();
+	getTokenByContractAddress();
+	
+	
+	getTokenByTokenName();
+	
+	//getTransactionByHash();
+	getTransactionByBlockNumberAndIndex();
+	//getAccountBalance();
+	getAccountBalanceByTokenName();
+	getTotalSupply();
+	//getLastPrice(); */
+})
+</script>
+
+</body>
+</html>
