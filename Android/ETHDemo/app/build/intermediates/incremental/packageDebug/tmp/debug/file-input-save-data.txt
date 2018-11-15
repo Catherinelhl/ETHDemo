@@ -1,0 +1,27 @@
+#Internal package file, do not edit.
+#Thu Nov 15 18:30:01 CST 2018
+2.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/transforms/dexMerger/debug/2
+5.set=DEX
+0.path=wallet_info
+2.baseType=DIRECTORY
+3.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/transforms/dexMerger/debug/0
+2.set=DEX
+1.path=wallet_keystore
+4.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/transforms/dexMerger/debug/2
+count=6
+5.baseType=DIRECTORY
+2.path=classes.dex
+5.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/transforms/dexMerger/debug/1
+4.set=DEX
+3.path=classes.dex
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=classes2.dex
+1.baseType=DIRECTORY
+5.path=classes.dex
+0.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/merged_assets/debug/mergeDebugAssets/out
+0.baseType=DIRECTORY
+3.set=DEX
+1.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/merged_assets/debug/mergeDebugAssets/out
+4.baseType=DIRECTORY
+0.set=ASSET
