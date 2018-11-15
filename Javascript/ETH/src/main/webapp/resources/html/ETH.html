@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<h2>账号生成</h2>
+输入密码:
+<input type="text" id="createpwd" />
+<button type="button" onclick="createAccount()">生成账号</button>
+<p id='newcreate'>生成账号</p>
+<textarea id="jsonStr" rows="10" cols="120">
+{"address":"a983b670e3bce5aaf2ebc6643c8bca245c167cec","crypto":{"cipher":"aes-128-ctr","ciphertext":"d5576192b093f9e9dc02c066bfeaf024a7ecef2de8369a3c6c6a2c9da8d6d5b8","cipherparams":{"iv":"67129f36c72a3c19b8a931009bda1df8"},"mac":"b57200f427ea213cbf067ca77ffe9d1b14b4a0f5c20f4046ad7ceb33fc9e388a","kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"r":8,"p":1,"salt":"af6e63ec4abf6cc80d836ff6e611ca0c6e5dedda9d96bbc5ab7bc458b993fbe6"}},"id":"530089f1-618c-41c3-a480-a2affc8a74b3","version":3}
+</textarea>
+
+</br> 输入密码:
+<input type="text" id="pwd" />
+
+
+
+<button type="button" onclick="getPrivate()">获取到私钥</button>
+(会进行计算一段时间，密码错误会报错) 私钥为 :
+<h2 id="private"></h2>
+
+<textarea id="signStr" rows="10" cols="120">
+{"from":"0xa983b670e3bce5aaf2ebc6643c8bca245c167cec",
+ "to":"0x7854C8a4DbC0AB7E639626db2db11A4bD7D59D9E",
+ "value": "0x8AC7230489E80000",
+ "nonce": 115,
+ "gas" : "0x76c0",
+ "gasPrice": "0x9184e72a000"
+ }
+</textarea>
+</br>
+<button type="button" onclick="getSign()">进行签名</button>
+<button type="button" onclick="clean()">重置签名结果</button>
+（签名之前需要先计算出私钥） 调用geth sendRawTransaction 的时候 注意获取到nonce
+<h2 id="signResult">签名结果</h2>
+
+</br>
+
+	<script src="/ETH/resources/js/Etherscan/keythereum.js" type="text/javascript"></script>
+	<script src="/ETH/resources/js/Etherscan/keythereum.min.js" type="text/javascript"></script>
+	<script src="dist/bundle.js" type="text/javascript"></script>
+
+	<script>
+ 
+	function createAccount(){
+		var newAccountpwd = document.getElementById('createpwd').value;
+		console.log( "密码为："+newAccountpwd);
+		var params = { keyBytes: 32, ivBytes: 16 };
+		var dk = keythereum.create(params)
+		var options = {
+		  kdf: "scrypt",
+		  cipher: "aes-128-ctr",
+		  kdfparams: {
+			n:262144,
+			r : 8,
+			p : 1,
+			dklen: 32
+		  }
+		};
+	 
+	 
+		var keyObject = keythereum.dump(newAccountpwd, dk.privateKey, dk.salt, dk.iv, options);
+		
+		document.getElementById('newcreate').innerHTML = JSON.stringify(keyObject);
+	}
+	 
+	function clean()
+	{
+	 
+		document.getElementById('signResult').innerHTML = '';
+		
+		document.getElementById('signResulttest').innerHTML = '';
+	}
+	 
+	function shuzuTo16Str(as){
+		var rtnStr = '';
+		for(j = 0,len=as.length; j < len; j++) {
+			rtnStr += as[j].toString(16);
+		}
+		
+		return '0x' + rtnStr;
+	   
+		}	
+		
+		
+	const txDatatext = {
+		 from:'0x06EDaF5dC947b8409F4c26c8577Ed7290bF591e9',
+		 to:'0x7854C8a4DbC0AB7E639626db2db11A4bD7D59D9E',
+		 value: '0x8AC7230489E80000',
+		 nonce: 115,
+		 gas : "0x76c0",
+		 gasPrice: '0x9184e72a000'
+	 
+	}
+		
+	function getSign(){
+	 
+		var privatekey = "0x511c44eac19ea827ae4110d827e2392c204db0ddda0cc2bf6c63261fee83fe45"
+		console.log("私钥"+ privatekey);
+		var Data = document.getElementById('signStr').value;
+		
+		var objData = JSON.parse(Data);			console.log("objData: " + JSON.stringify(objData) );
+		let { sign, verify, unsign } = window.ethereumjs_tx_sign;
+		var out = sign(objData,privatekey);
+	 
+		var newout = JSON.parse(JSON.stringify(out));
+		
+		var privatekey2 = "0xa1db252341dfd77a26ce8c84b4388b4667e75e1506e3f8768601eeb1bce1167c";
+		var testSign = sign(txDatatext,privatekey2);
+		var newtestSign = JSON.parse(JSON.stringify(testSign));
+		
+		//rawTx
+		document.getElementById('signResult').innerHTML = newout.rawTx;
+		
+		document.getElementById('signResulttest').innerHTML = newtestSign.rawTx;
+	 
+	 
+	}
+	 
+	function getPrivate(){
+	 
+	 
+		
+		var jsonStr = document.getElementById('jsonStr').value;
+		console.log(jsonStr);
+		var keyObject = JSON.parse(jsonStr);
+		
+		var pwd =  document.getElementById('pwd').value;
+		console.log(pwd);
+		
+		var privatekey = keythereum.recover(pwd,keyObject);
+		
+		
+		var newKey = JSON.parse(JSON.stringify(privatekey));
+		
+		document.getElementById('private').innerHTML 
+		= shuzuTo16Str(newKey.data) ;
+		
+		console.log(privatekey);
+	 
+	 
+	}
+	 
+	 
+	 
+	var options = {
+	  kdf: "scrypt",
+	  cipher: "aes-128-ctr",
+	  kdfparams: {
+	    dklen:32,
+		n:262144,
+		p:1,
+		r:8,
+		
+	  }
+	};
+	 
+ 
+</script>
+
+
+</body>
+</html>

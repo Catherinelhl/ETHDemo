@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+<script src="/ETH/resources/js/tools/jquery-1.12.4.min.js"></script>
+
+<!-- ecc [Start] -->
+<script src="/ETH/resources/js/ecc/bitcore-lib.js"></script>
+<script src="/ETH/resources/js/ecc/bitcore-lib.min.js"></script>
+<script src="/ETH/resources/js/ecc/Crypto.js"></script>
+<script src="/ETH/resources/js/ecc/SHA256-2.5.4.js"></script>
+<script src="/ETH/resources/js/ecc/AES.js"></script>
+<script src="/ETH/resources/js/ecc/Crypto-JS-v2.0.0.js"></script>
+<script src="/ETH/resources/js/ecc/ecdsa-1.4.js"></script>
+<script src="/ETH/resources/js/ecc/encryption-1.3.js"></script>
+<script src="/ETH/resources/js/ecc/bitcoin.js"></script>
+<script src="/ETH/resources/js/ecc/base58.js"></script>
+<script src="/ETH/resources/js/ecc/SecureRandom.js"></script>
+<script src="/ETH/resources/js/ecc/eckey.js"></script>
+<script src="/ETH/resources/js/ecc/address.js"></script>
+<script src="/ETH/resources/js/ecc/util.js"></script>
+<script src="/ETH/resources/js/ecc/ecc.js"></script>
+<!-- ecc [End] -->
+
+<script type="text/javascript">
+
+var test = "3KZwZc4ipWbWYZvAdgmVS5ZTrDgiyHdWRW";
+var msg = Crypto.util.bytesToHex(test);  console.log("msg:" + msg);
+
+var test = '{"nonce":"0x00","gasPrice":"0x098bca5a00","gasLimit":"0x5208","to":"0x4148eb69f5aAD57c620eeDa23d7982977a17a550","value":"0x0de0b6b3a7640000","data":"0x","chainId":1}';
+var msg = Crypto.util.bytesToHex(Bitcoin.Util.dsha256(test));  console.log("msg:" + msg);
+
+function doSign("0x41e319f29b7a69b8567addabb196601d1d7be1e51a06e59fff2fd45a0fe15d22",msg) {
+
+	
+	//var privkey = bitcore.PrivateKey.fromWIF(privatekey);   //console.log("msg2",msg2);
+	var signStr = bitcore.Message.fromString(msg).sign(privkey);  	console.log("sign : ", signStr);
+	
+	return signStr;
+}
+
+
+</script>
+</body>
+</html>
