@@ -1,0 +1,6 @@
+framework module Pods_ETH_Sample {
+  umbrella header "Pods-ETH_Sample-umbrella.h"
+
+  export *
+  module * { export * }
+}
