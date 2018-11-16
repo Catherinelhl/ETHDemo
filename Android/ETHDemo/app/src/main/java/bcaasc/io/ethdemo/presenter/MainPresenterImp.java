@@ -4,7 +4,6 @@ import bcaasc.io.ethdemo.constants.Constants;
 import bcaasc.io.ethdemo.contract.MainContract;
 import bcaasc.io.ethdemo.tool.LogTool;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -45,8 +44,6 @@ public class MainPresenterImp implements MainContract.Presenter {
 
     private Web3j web3j;
     private Credentials credentials;
-    private String emptyAddress;
-
 
     private MainContract.View view;
 
@@ -54,16 +51,18 @@ public class MainPresenterImp implements MainContract.Presenter {
         this.view = view;
     }
 
-    /*************创建一个钱包文件**************/
-
+    /**
+     * 创建一个钱包文件
+     */
     @Override
     public void createAccount() {
-        String walletFileName0 = "";//文件名
-        String walletFilePath0 = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore";
+        String walletFileName = "";//文件名
+        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore";
         //钱包文件保持路径，请替换位自己的某文件夹路径
 
         try {
-            walletFileName0 = WalletUtils.generateNewWalletFile("123456", new File(walletFilePath0), false);
+            //useFullScrypt：是否使用全加密
+            walletFileName = WalletUtils.generateNewWalletFile(Constants.password, new File(walletFilePath), false);
         } catch (CipherException
                 | IOException
                 | InvalidAlgorithmParameterException
@@ -74,23 +73,21 @@ public class MainPresenterImp implements MainContract.Presenter {
         }
         //WalletUtils.generateFullNewWalletFile("password1",new File(walleFilePath1));
         //WalletUtils.generateLightNewWalletFile("password2",new File(walleFilePath2));
-        System.out.println("walletName: " + walletFileName0);
+        System.out.println("walletName: " + walletFileName);
     }
 
-    /********加载钱包文件**********/
-
+    /**
+     * 根据keystore信息加载钱包文件
+     */
     @Override
     public void loadWallet(File file) {
         String keystore = "{\"address\":\"07757733653a6670a4f7b8d30704378cb4cf89b2\",\"id\":\"428e5938-f0b3-41be-9957-de7c014581fb\",\"version\":3,\"crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"275e9e1c3ad350b5ac9b85d1cb826ea1a786817ee58bc096016f1f91e8be6d81\",\"cipherparams\":{\"iv\":\"cd8c8e0089f105a2575699be756b9a01\"},\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":4096,\"p\":6,\"r\":8,\"salt\":\"6dc98ae0c90c575529417ac932f6a91edaa2f7bdb0a7827edec7843803b953be\"},\"mac\":\"1b2062c587a2ba1444dc574d1f8d2c65c40ef36ad45f8cda851cf142e79620ac\"}}";
 
         writeKeyStoreToFile(keystore, file);
         String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore/UTC--2018-11-15T11-31-38.809--07757733653a6670a4f7b8d30704378cb4cf89b2.json";
-        String passWord = "123456";
         LogTool.d(TAG, file);
-        ///storage/emulated/0/Android/data/bcaasc.io.ethdemo/files/bcaas/
-
         try {
-            credentials = WalletUtils.loadCredentials(passWord, file);
+            credentials = WalletUtils.loadCredentials(Constants.password, file);
         } catch (IOException | CipherException e) {
             e.printStackTrace();
             LogTool.e(TAG, e.getMessage());
@@ -131,18 +128,18 @@ public class MainPresenterImp implements MainContract.Presenter {
     }
 
 
-    /*******连接以太坊客户端**************/
+    /**
+     * 连接以太坊客户端
+     */
 
     @Override
     public void connectETHClient() {
         LogTool.d(TAG, "connectETHClient");
-        //连接方式1：使用infura 提供的客户端
+        //连接方式:使用infura 提供的客户端
         //test net
-        web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
+//        web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
         //main net
-//        web3j = Web3jFactory.build(new HttpService("https://mainnet.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
-        //连接方式2：使用本地客户端
-        //web3j = Web3j.build(new HttpService("127.0.0.1:7545"));
+        web3j = Web3jFactory.build(new HttpService("https://mainnet.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
 
         Disposable subscribe = Observable.just(web3j.web3ClientVersion())
                 .map(new Function<Request<?, Web3ClientVersion>, String>() {
@@ -227,10 +224,12 @@ public class MainPresenterImp implements MainContract.Presenter {
      * 核心方法需要提供4个参数：
      * <p>
      * web3j实体
-     * Credentials 源账户
+     * Credentials 源账户所有信息
      * address 转出地址
      * value 数量
      * uint 单位
+     * <p>
+     * <p>
      * 等待片刻后，会返回转账结果
      *
      * @throws Exception
@@ -243,11 +242,10 @@ public class MainPresenterImp implements MainContract.Presenter {
         }
 
         //开始发送0.01 =eth到指定地址
-        TransactionReceipt send = null;
         BigDecimal amount = new BigDecimal(amountString);
         LogTool.d(TAG, "addressTo:" + addressTo);
         LogTool.d(TAG, "amount:" + amount);
-        LogTool.d(TAG, "publicKey:" + credentials.getEcKeyPair().getPrivateKey());
+        LogTool.d(TAG, "privateKey:" + credentials.getEcKeyPair().getPrivateKey());
         try {
             Disposable failure = Observable.just(Transfer.sendFunds(web3j, credentials, addressTo, amount, Convert.Unit.ETHER))
                     .map(new Function<RemoteCall<TransactionReceipt>, TransactionReceipt>() {
@@ -262,10 +260,11 @@ public class MainPresenterImp implements MainContract.Presenter {
                         @Override
                         public void accept(TransactionReceipt send) throws Exception {
                             if (send == null) {
-                                view.failure("failure");
+                                view.failure("failure send is null");
                             } else {
                                 LogTool.d(TAG, "Transaction complete:");
                                 LogTool.d(TAG, "trans hash=" + send.getTransactionHash());
+                                LogTool.d(TAG, "block hash" + send.getBlockHash());
                                 LogTool.d(TAG, "from :" + send.getFrom());
                                 LogTool.d(TAG, "to:" + send.getTo());
                                 LogTool.d(TAG, "gas used=" + send.getGasUsed());

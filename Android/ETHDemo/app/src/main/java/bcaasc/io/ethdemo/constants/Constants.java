@@ -18,4 +18,5 @@ public class Constants {
     public static final String feeString = "0.00001";
     public static final String amountString = "0.0021";
 
+    public static String password = "123456";
 }
