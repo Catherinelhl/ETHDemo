@@ -13,7 +13,7 @@ public class Constants {
     public static final long SleepTime800 = 800;
 
     public static String address = "0x07757733653a6670a4f7b8d30704378cb4cf89b2";
-//    public static String privateWIFKey = "93AaWXJMutsyX5KPCXzGjK9uPm18ezP5jiFjcCtvZwELYX9LAkk";
+    public static String addressTo = "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0";
 
     public static final String feeString = "0.00001";
     public static final String amountString = "0.0021";

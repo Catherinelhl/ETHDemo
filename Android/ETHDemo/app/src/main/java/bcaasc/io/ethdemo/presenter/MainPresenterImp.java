@@ -3,8 +3,9 @@ package bcaasc.io.ethdemo.presenter;
 import bcaasc.io.ethdemo.constants.Constants;
 import bcaasc.io.ethdemo.contract.MainContract;
 import bcaasc.io.ethdemo.tool.LogTool;
-import io.reactivex.Observable;
-import org.web3j.crypto.*;
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -165,16 +166,14 @@ public class MainPresenterImp implements MainContract.Presenter {
         //第二个参数：区块的参数，建议选最新区块
         EthGetBalance balance = null;
         try {
-            balance = web3j.ethGetBalance(Constants.address, DefaultBlockParameterName.EARLIEST).send();
+            balance = web3j.ethGetBalance(Constants.address, DefaultBlockParameterName.LATEST).send();
         } catch (IOException e) {
             e.printStackTrace();
             LogTool.e(TAG, e.getMessage());
         }
-        LogTool.d(TAG, "balanceETH:" + balance.getBalance().toString());
-
         //格式转化 wei-ether
         String balanceETH = Convert.fromWei(balance.getBalance().toString(), Convert.Unit.ETHER).toPlainString().concat(" ether");
-        LogTool.d(TAG, "balanceETH:" + balanceETH);
+        view.success("Balance：" + balanceETH);
     }
 
     @Override
@@ -197,7 +196,7 @@ public class MainPresenterImp implements MainContract.Presenter {
      * @throws Exception
      */
     @Override
-    public void publishTX() {
+    public void publishTX(String gas, String addressTo, String amountString) {
         if (web3j == null) return;
         if (credentials == null) {
             return;
@@ -206,13 +205,11 @@ public class MainPresenterImp implements MainContract.Presenter {
         LogTool.d(TAG, "privateKey:" + credentials.getEcKeyPair().getPrivateKey());
         LogTool.d(TAG, "publicKey:" + credentials.getEcKeyPair().getPublicKey());
         //开始发送0.01 =eth到指定地址
-        String address_to = "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0";
         TransactionReceipt send = null;
-        String amountString = "0.003";
         BigDecimal amount = new BigDecimal(amountString);
 
         try {
-            send = Transfer.sendFunds(web3j, credentials, address_to, amount, Convert.Unit.ETHER).send();
+            send = Transfer.sendFunds(web3j, credentials, addressTo, amount, Convert.Unit.ETHER).send();
         } catch (Exception e) {
             e.printStackTrace();
             LogTool.e(TAG, e.getMessage());

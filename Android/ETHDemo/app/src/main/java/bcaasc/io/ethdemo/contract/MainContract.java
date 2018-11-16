@@ -19,7 +19,7 @@ public interface MainContract {
         void connectETHClient();
         void getBalance();
         void getTXList();
-        void publishTX();
+        void publishTX(String gas,String addressTo,String amountString);
         void checkTXInfo();
     }
 }

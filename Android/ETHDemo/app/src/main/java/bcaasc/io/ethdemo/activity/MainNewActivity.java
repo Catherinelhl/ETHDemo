@@ -31,6 +31,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainNewActivity extends Activity implements MainContract.View {
 
+    @BindView(R.id.et_address_to)
+    EditText etAddressTo;
+    @BindView(R.id.et_amount)
+    EditText etAmount;
     private String TAG = MainNewActivity.class.getSimpleName();
 
     @BindView(R.id.tv_address)
@@ -142,7 +146,13 @@ public class MainNewActivity extends Activity implements MainContract.View {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                presenter.publishTX();
+                                String addressTo = etAddressTo.getText().toString();
+                                if (addressTo == null || addressTo == "") {
+                                    addressTo = Constants.addressTo;
+                                }
+                                String amountString = etAmount.getText().toString();
+                                //开始交易
+                                presenter.publishTX("0.0001", addressTo, amountString);
 
                             }
                         }).start();
