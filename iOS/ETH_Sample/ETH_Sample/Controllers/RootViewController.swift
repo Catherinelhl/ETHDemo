@@ -20,6 +20,7 @@ class RootViewController: UIViewController {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var sendAmountTextField: UITextField!
     @IBOutlet weak var jsonDataTextView: UITextView!
+    @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var feesLabel: UILabel!
     
     private var balance:Decimal = 0
@@ -30,7 +31,10 @@ class RootViewController: UIViewController {
         self.view.backgroundColor = .white
 
         myAddressLabel.text = "我的地址：" + myAddress
+        symbolLabel.text = currencySymbol
         feesLabel.text = "手续费：\(fees) " + currencySymbol
+        
+        balanceLabel.adjustsFontSizeToFitWidth = true
         
         myAddressLabel.adjustsFontSizeToFitWidth = true
         feesLabel.adjustsFontSizeToFitWidth = true
@@ -80,7 +84,7 @@ class RootViewController: UIViewController {
                 do{
                     let value = try response.mapJSON()
                     let json = JSON(value)
-                    self.balance = Decimal(json["final_balance"].doubleValue)
+                    self.balance = NSDecimalNumber.init(value: json["final_balance"].intValue).decimalValue
                     self.balanceLabel.text = "\(self.balance / rate)" + " " + currencySymbol
                     
                     self.jsonDataTextView.text = "\(value)"
