@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +32,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainNewActivity extends Activity implements MainContract.View {
 
+    @BindView(R.id.et_address_to)
+    EditText etAddressTo;
+    @BindView(R.id.et_amount)
+    EditText etAmount;
     private String TAG = MainNewActivity.class.getSimpleName();
 
     @BindView(R.id.tv_address)
@@ -61,13 +66,9 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
     private void initView() {
         tvAddress.setText(Constants.address);
+        etAmount.setText("0.003");
         presenter = new MainPresenterImp(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                presenter.connectETHClient();
-            }
-        }).start();
+        presenter.connectETHClient();
     }
 
     private void initListener() {
@@ -80,18 +81,13 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
                     @Override
                     public void onNext(Object o) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter.getBalance();
-
-                            }
-                        }).start();
+                        presenter.getBalance();
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        LogTool.e(TAG, e.getMessage());
 
                     }
 
@@ -109,19 +105,13 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
                     @Override
                     public void onNext(Object o) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter.getTXList();
-
-                            }
-                        }).start();
-
+                        presenter.getTXList();
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        LogTool.e(TAG, e.getMessage());
 
                     }
 
@@ -139,19 +129,20 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
                     @Override
                     public void onNext(Object o) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter.publishTX();
-
-                            }
-                        }).start();
+                        String addressTo = etAddressTo.getText().toString();
+                        LogTool.d(TAG, TextUtils.isEmpty(addressTo));
+                        if (TextUtils.isEmpty(addressTo)) {
+                            addressTo = Constants.addressTo;
+                        }
+                        String amountString = etAmount.getText().toString();
+                        //开始交易
+                        presenter.publishTX("0.0001", addressTo, amountString);
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogTool.e(TAG, e.getMessage());
                     }
 
                     @Override
@@ -177,6 +168,7 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
                     @Override
                     public void onError(Throwable e) {
+                        LogTool.e(TAG, e.getMessage());
 
                     }
 
