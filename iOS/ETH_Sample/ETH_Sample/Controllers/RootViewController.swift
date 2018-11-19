@@ -20,21 +20,20 @@ class RootViewController: UIViewController {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var sendAmountTextField: UITextField!
     @IBOutlet weak var jsonDataTextView: UITextView!
+    
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var feesLabel: UILabel!
     
     private var balance:Decimal = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
-
+        
         myAddressLabel.text = "我的地址：" + myAddress
         symbolLabel.text = currencySymbol
         feesLabel.text = "手续费：\(fees) " + currencySymbol
-        
-        balanceLabel.adjustsFontSizeToFitWidth = true
         
         myAddressLabel.adjustsFontSizeToFitWidth = true
         feesLabel.adjustsFontSizeToFitWidth = true
@@ -139,11 +138,21 @@ class RootViewController: UIViewController {
                         MyLog(errorString)
                         return
                     }
+                    if let errorString = json["error"].string {
+                        MyLog(errorString)
+                        return
+                    }
                     if let jsonDict = json.dictionaryObject ,
-                        let toSign = json["tosign"][0].string ,
-                        let signature = BitcoinTool.sign(toSign, privateKey: myPrivateKey) {
-
-                        self.sendTx(jsonDict, signature, myPublicKey)
+                        let toSignArr = json["tosign"].arrayObject as? [String] {
+                        var signatures = [String]()
+                        var publicKeys = [String]()
+                        for toSign in toSignArr {
+                            if let signature = BitcoinTool.sign(toSign, privateKey: myPrivateKey) {
+                                signatures.append(signature)
+                                publicKeys.append(myPublicKey)
+                            }
+                        }
+                        self.sendTx(jsonDict, signatures, publicKeys)
                     }
                 }catch let aError{
                     MyLog(aError)
@@ -155,8 +164,8 @@ class RootViewController: UIViewController {
         
     }
     // MARK: 发送交易
-    private func sendTx(_ jsonData:[String:Any],_ signature:String,_ publicKey:String){
-        ApiManagerProvider.request(.sendTx(txJson: jsonData, signature: signature, publicKey: publicKey)) { (result) in
+    private func sendTx(_ jsonData:[String:Any],_ signature:[String],_ publicKey:[String]){
+        ApiManagerProvider.request(.sendTx(txJson: jsonData, signatures: signature, publicKeys: publicKey)) { (result) in
             switch result {
             case .success(let response):
                 do{
@@ -165,9 +174,10 @@ class RootViewController: UIViewController {
                     let json = JSON(value)
                     if let errorString = json["errors"][0]["error"].string {
                         MyLog(errorString)
+                    }else if let errorString = json["error"].string {
+                        MyLog(errorString)
                     }else {
                         self.view.showToast("发送成功")
-                        self.getBalnce()
                     }
                 }catch let aError{
                     MyLog(aError)
@@ -199,7 +209,7 @@ class RootViewController: UIViewController {
 
 extension RootViewController : ScanViewControllerDelegate {
     func didReciveScanResult(_ result: String) {
-
+        
         reciveAddressTextField.text = result
     }
 }
