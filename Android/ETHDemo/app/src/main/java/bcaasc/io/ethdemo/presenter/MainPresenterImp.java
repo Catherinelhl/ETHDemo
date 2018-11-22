@@ -1,7 +1,11 @@
 package bcaasc.io.ethdemo.presenter;
 
+import android.text.TextUtils;
+import bcaasc.io.ethdemo.bean.ETHTXListResponse;
+import bcaasc.io.ethdemo.bean.TXListBean;
 import bcaasc.io.ethdemo.constants.Constants;
 import bcaasc.io.ethdemo.contract.MainContract;
+import bcaasc.io.ethdemo.http.MainInteractor;
 import bcaasc.io.ethdemo.tool.LogTool;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -9,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import kotlin.Deprecated;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
@@ -17,13 +22,15 @@ import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.protocol.core.methods.response.Web3ClientVersion;
-import org.web3j.protocol.exceptions.TransactionException;
+import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.RawTransactionManager;
+import org.web3j.tx.TransactionManager;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,6 +40,8 @@ import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * @author catherine.brainwilliam
@@ -46,9 +55,13 @@ public class MainPresenterImp implements MainContract.Presenter {
     private Credentials credentials;
 
     private MainContract.View view;
+    private String transactionHash;//得到此次交易的hash
+    private MainInteractor interactor;
 
     public MainPresenterImp(MainContract.View view) {
+
         this.view = view;
+        interactor = new MainInteractor();
     }
 
     /**
@@ -155,6 +168,7 @@ public class MainPresenterImp implements MainContract.Presenter {
                     public void accept(String web3ClientVersion) throws Exception {
                         //测试是否连接成功
                         view.success("version:" + web3ClientVersion);
+                        getBalance();
 
                     }
                 }, new Consumer<Throwable>() {
@@ -190,32 +204,128 @@ public class MainPresenterImp implements MainContract.Presenter {
         if (web3j == null) return;
         //第二个参数：区块的参数，建议选最新区块
         Disposable subscribe = Observable.just(web3j.ethGetBalance(Constants.address, DefaultBlockParameterName.LATEST))
-                .map(new Function<Request<?, EthGetBalance>, EthGetBalance>() {
+                .map(new Function<Request<?, EthGetBalance>, Future<EthGetBalance>>() {
                     @Override
-                    public EthGetBalance apply(Request<?, EthGetBalance> ethGetBalanceRequest) throws Exception {
-                        return ethGetBalanceRequest.send();
+                    public Future<EthGetBalance> apply(Request<?, EthGetBalance> ethGetBalanceRequest) throws Exception {
+                        //这里可以有异步，也可以同步：send()
+                        return ethGetBalanceRequest.sendAsync();
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<EthGetBalance>() {
+                .subscribe(new Consumer<Future<EthGetBalance>>() {
                     @Override
-                    public void accept(EthGetBalance ethGetBalance) throws Exception {
+                    public void accept(Future<EthGetBalance> ethGetBalanceFuture) throws Exception {
+                        EthGetBalance ethGetBalance = ethGetBalanceFuture.get();
                         //格式转化 wei-ether
                         String balanceETH = Convert.fromWei(ethGetBalance.getBalance().toString(), Convert.Unit.ETHER).toPlainString().concat(" ether");
                         view.success("Balance：" + balanceETH);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        view.failure(throwable.getCause().toString());
+                        LogTool.d(TAG, balanceETH);
+
                     }
                 });
     }
 
     @Override
-    public void getTXList() {
+    public void getGasPrice() {
+        if (web3j == null) return;
+        Disposable subscribe = Observable.just(web3j.ethGasPrice()).map(new Function<Request<?, EthGasPrice>, Future<EthGasPrice>>() {
+            @Override
+            public Future<EthGasPrice> apply(Request<?, EthGasPrice> ethGasPriceRequest) throws Exception {
+                return ethGasPriceRequest.sendAsync();
+            }
+        }).subscribe(new Consumer<Future<EthGasPrice>>() {
+            @Override
+            public void accept(Future<EthGasPrice> ethGasPriceFuture) throws Exception {
+                BigInteger bigInteger = ethGasPriceFuture.get().getGasPrice();
+                view.gasPriceSuccess(bigInteger);
+                LogTool.d(TAG, "gasPrice:" + bigInteger);
 
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                view.gasPriceFailure(throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getTXList() {
+        if (web3j == null) return;
+        getTxListByEtherscan();
+
+
+    }
+
+    /**
+     * 通过Etherscan直接网络请求进行查询
+     * <p>
+     * module=account
+     * * &action=txlist
+     * * &address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a
+     * * &startblock=0
+     * * &endblock=99999999
+     * * &sort=asc
+     * * &apikey=YourApiKeyToken
+     * <p>
+     * apikey 这里为null也行
+     */
+    private void getTxListByEtherscan() {
+        //desc 从高到低
+        //asc 从低到高
+        interactor.getTXList("account", "txlist", Constants.address, "0",
+                "99999999", "desc", Constants.APIKEY, new Callback<ETHTXListResponse>() {
+                    @Override
+                    public void onResponse(Call<ETHTXListResponse> call, Response<ETHTXListResponse> response) {
+                        if (response != null) {
+                            ETHTXListResponse ethtxListResponse = response.body();
+                            if (ethtxListResponse != null) {
+                                List<TXListBean> txListBeans = ethtxListResponse.getResult();
+                                if (txListBeans != null && txListBeans.size() > 0) {
+                                    for (TXListBean txListBean : txListBeans) {
+//                                        LogTool.d(TAG, response.body().getResult());
+                                        LogTool.d(TAG, "Hash:" + txListBean.getBlockHash() + ";status:" + txListBean.getConfirmations());
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ETHTXListResponse> call, Throwable t) {
+                        LogTool.e(TAG, t.getMessage());
+
+                    }
+                });
+
+    }
+
+    @Deprecated(message = "unuse")
+    private void getTXListByWeb3j() {
+        Disposable subscribe = Observable.just(web3j.ethGetTransactionReceipt(transactionHash)).
+                map(new Function<Request<?, EthGetTransactionReceipt>, EthGetTransactionReceipt>() {
+                    @Override
+                    public EthGetTransactionReceipt apply(Request<?, EthGetTransactionReceipt> ethGetTransactionReceiptRequest) throws Exception {
+                        return ethGetTransactionReceiptRequest.send();
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<EthGetTransactionReceipt>() {
+                    @Override
+                    public void accept(EthGetTransactionReceipt ethGetTransactionReceipt) throws Exception {
+                        LogTool.d(TAG, ethGetTransactionReceipt.getError());
+                        LogTool.d(TAG, ethGetTransactionReceipt.getId());
+                        LogTool.d(TAG, ethGetTransactionReceipt.getResult());
+                        view.success(ethGetTransactionReceipt.getRawResponse());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        view.failure(throwable.getMessage());
+                    }
+                });
     }
 
     /****************交易*****************/
@@ -227,70 +337,123 @@ public class MainPresenterImp implements MainContract.Presenter {
      * Credentials 源账户所有信息
      * address 转出地址
      * value 数量
-     * uint 单位
-     * <p>
-     * <p>
+     * unit 单位
      * 等待片刻后，会返回转账结果
      *
      * @throws Exception
      */
     @Override
-    public void publishTX(String gas, String addressTo, String amountString) {
+    public void publishTX(BigInteger gasPrice, String addressTo, String amountString) {
         if (web3j == null) return;
         if (credentials == null) {
             return;
         }
 
-        //开始发送0.01 =eth到指定地址
         BigDecimal amount = new BigDecimal(amountString);
         LogTool.d(TAG, "addressTo:" + addressTo);
         LogTool.d(TAG, "amount:" + amount);
+        LogTool.d(TAG, "gasPrice:" + gasPrice);
         LogTool.d(TAG, "privateKey:" + credentials.getEcKeyPair().getPrivateKey());
-        try {
-            Disposable failure = Observable.just(Transfer.sendFunds(web3j, credentials, addressTo, amount, Convert.Unit.ETHER))
-                    .map(new Function<RemoteCall<TransactionReceipt>, TransactionReceipt>() {
-                        @Override
-                        public TransactionReceipt apply(RemoteCall<TransactionReceipt> transactionReceiptRemoteCall) throws Exception {
-                            return transactionReceiptRemoteCall.send();
+        TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
+        Transfer transfer = new Transfer(web3j, transactionManager);
+        Disposable disposable = Observable.just(transfer.sendFunds(addressTo, amount, Convert.Unit.ETHER, gasPrice, BigInteger.valueOf(21000)))
+                .map(new Function<RemoteCall<TransactionReceipt>, TransactionReceipt>() {
+                    @Override
+                    public TransactionReceipt apply(RemoteCall<TransactionReceipt> transactionReceiptRemoteCall) throws Exception {
+                        LogTool.d(TAG, "pushing");
+                        return transactionReceiptRemoteCall.send();
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<TransactionReceipt>() {
+                    @Override
+                    public void accept(TransactionReceipt send) throws Exception {
+                        if (send == null) {
+                            view.failure("failure send is null");
+                        } else {
+                            LogTool.d(TAG, "Transaction complete:");
+                            LogTool.d(TAG, "trans hash=" + send.getTransactionHash());
+                            LogTool.d(TAG, "block hash" + send.getBlockHash());
+                            LogTool.d(TAG, "from :" + send.getFrom());
+                            LogTool.d(TAG, "to:" + send.getTo());
+                            LogTool.d(TAG, "gas used=" + send.getGasUsed());
+                            LogTool.d(TAG, "status: " + send.getStatus());
+                            transactionHash = send.getTransactionHash();
+                            view.success(transactionHash);
                         }
-                    })
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<TransactionReceipt>() {
-                        @Override
-                        public void accept(TransactionReceipt send) throws Exception {
-                            if (send == null) {
-                                view.failure("failure send is null");
-                            } else {
-                                LogTool.d(TAG, "Transaction complete:");
-                                LogTool.d(TAG, "trans hash=" + send.getTransactionHash());
-                                LogTool.d(TAG, "block hash" + send.getBlockHash());
-                                LogTool.d(TAG, "from :" + send.getFrom());
-                                LogTool.d(TAG, "to:" + send.getTo());
-                                LogTool.d(TAG, "gas used=" + send.getGasUsed());
-                                LogTool.d(TAG, "status: " + send.getStatus());
-                                view.success(send.getTransactionHash());
-                            }
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            view.failure(throwable.getCause().toString());
-                            LogTool.e(TAG, String.valueOf(throwable));
-                        }
-                    });
-        } catch (InterruptedException
-                | IOException
-                | TransactionException e) {
-            e.printStackTrace();
-        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        view.failure(throwable.getMessage());
+                        LogTool.e(TAG, throwable.getMessage());
+                    }
+                });
 
 
     }
 
     @Override
     public void checkTXInfo() {
+        transactionHash = "0x30eade438fc33f5de3c03514d760cde3fdefdbe343fd323508f51d3d3a2c9558";
+        if (web3j == null) return;
+        if (TextUtils.isEmpty(transactionHash)) {
+            view.failure("transactionHash is empty!!");
+            return;
+        }
+        Disposable subscribe = Observable.just(web3j.ethGetTransactionByHash(transactionHash))
+                .map(new Function<Request<?, EthTransaction>, Future<EthTransaction>>() {
 
+                    @Override
+                    public Future<EthTransaction> apply(Request<?, EthTransaction> ethTransactionRequest) throws Exception {
+                        return ethTransactionRequest.sendAsync();
+                    }
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Future<EthTransaction>>() {
+                    @Override
+                    public void accept(Future<EthTransaction> ethTransactionFuture) throws Exception {
+                        EthTransaction ethTransaction = ethTransactionFuture.get();
+                        Transaction transaction = ethTransaction.getTransaction();
+                        LogTool.d(TAG, transaction);
+                        LogTool.d(TAG, "getBlockNumber:" + transaction.getBlockNumber());
+                        LogTool.d(TAG, "getBlockHash:" + transaction.getBlockHash());
+                        LogTool.d(TAG, "getBlockNumberRaw:" + transaction.getBlockNumberRaw());
+                        LogTool.d(TAG, "getGasPriceRaw:" + transaction.getGasPriceRaw());
+                        LogTool.d(TAG, "getGasPrice:" + transaction.getGasPrice());
+                        LogTool.d(TAG, "getGasRaw:" + transaction.getGasRaw());
+                        LogTool.d(TAG, "getHash:" + transaction.getHash());
+                        LogTool.d(TAG, "getInput:" + transaction.getInput());
+                        LogTool.d(TAG, "getNonceRaw:" + transaction.getNonceRaw());
+                        LogTool.d(TAG, "getS:" + transaction.getS());
+                        LogTool.d(TAG, "getR:" + transaction.getR());
+                        LogTool.d(TAG, "getRaw:" + transaction.getRaw());
+                        LogTool.d(TAG, "getFrom:" + transaction.getFrom());
+                        LogTool.d(TAG, "getTo:" + transaction.getTo());
+                        LogTool.d(TAG, "getTransactionIndexRaw:" + transaction.getTransactionIndexRaw());
+                        LogTool.d(TAG, "getTransactionIndex:" + transaction.getTransactionIndex());
+                        LogTool.d(TAG, "getValue:" + transaction.getValue());
+                        LogTool.d(TAG, "getValueRaw:" + transaction.getValueRaw());
+                        LogTool.d(TAG, "getCreates:" + transaction.getCreates());
+                        if (transaction == null) {
+                            view.failure("transaction is empty!!");
+                            return;
+                        }
+                        view.success(transaction.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        LogTool.e(TAG, throwable.getCause().toString());
+                        view.failure(throwable.getMessage());
+                    }
+                });
+
+    }
+
+    @Override
+    public void cancelSubscribe() {
     }
 
 //    /*** 查询代币余额 */

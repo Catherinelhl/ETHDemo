@@ -1,36 +1,33 @@
 package bcaasc.io.ethdemo.http;
 
+import bcaasc.io.ethdemo.bean.ETHTXListResponse;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
 public interface HttpApi {
 
-//
-//    /*获取当前钱包的余额*/
-//    @GET("/balance")
-//    Call<String> getBalance(@Query("active") String address);
-//
-//    /*获取当前钱包的未交易区块*/
-//    @GET("/unspent")
-//    Call<BtcUnspentOutputsResponse> getUnspentTransactionOutputs(@Query("active") String address);
-//
-//    /*发送交易*/
-//    @FormUrlEncoded
-//    @POST("/pushtx")
-//    Call<String> pushTX(@Field("tx") String tx);
-//
-//
-//    /*发送交易*/
-//    @FormUrlEncoded
-//    @POST("rawtx/{tx_hash}")
-//    Call<String> getTransactionOfBinary(@Field("tx") String tx);
-//
-//    /*获取交易记录*/
-//    @GET("/rawaddr/{address}")
-//    Call<String> getTransactionList(@Path("address") String address);
-//
-//    /*获取未确认的区块*/
-//    @GET("/unconfirmed-transactions?format=json")
-//    Observable<String> getUnconfirmedTransaction();
-//
-//    /*You can also request the transaction to return in binary form (Hex encoded) using ?format=hex*/
-//    @GET("/rawtx/{tx_hash}")
-//    Call<Transaction> getTXInfoByHash(@Path("tx_hash") String hash);
+
+    /**
+     * asc ：
+     * desc：
+     * /api?module=account
+     * &action=txlist
+     * &address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a
+     * &startblock=0
+     * &endblock=99999999
+     * &sort=asc
+     * &apikey=YourApiKeyToken
+     *
+     * @return
+     */
+    /*获取交易记录*/
+    @GET("/api")
+    Call<ETHTXListResponse> getTransactionList(@Query("module") String module,
+                                               @Query("action") String action,
+                                               @Query("address") String address,
+                                               @Query("startblock") String startblock,
+                                               @Query("endblock") String endblock,
+                                               @Query("sort") String sort,
+                                               @Query("apikey") String apikey);
 }

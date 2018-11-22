@@ -1,35 +1,20 @@
 package bcaasc.io.ethdemo.http;
 
+import bcaasc.io.ethdemo.bean.ETHTXListResponse;
+import bcaasc.io.ethdemo.http.retrofit.RetrofitFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+
 /**
  * @author catherine.brainwilliam
  * @since 2018/11/13
  */
 public class MainInteractor {
 
-//
-//    public void getBalance(String address, Callback<String> callBackListener) {
-//        HttpApi httpApi = RetrofitFactory.getInstance().create(HttpApi.class);
-//        Call<String> call = httpApi.getBalance(address);
-//        call.enqueue(callBackListener);
-//    }
-//    public void getTXList(String address, Callback<String> callBackListener) {
-//        HttpApi httpApi = RetrofitFactory.getInstance().create(HttpApi.class);
-//        Call<String> call = httpApi.getTransactionList(address);
-//        call.enqueue(callBackListener);
-//    }
-//    public void getUnspent(String address, Callback<BtcUnspentOutputsResponse> callBackListener) {
-//        HttpApi httpApi = RetrofitFactory.getInstance().create(HttpApi.class);
-//        Call<BtcUnspentOutputsResponse> call = httpApi.getUnspentTransactionOutputs(address);
-//        call.enqueue(callBackListener);
-//    }
-//    public void pushTX(String rawHash, Callback<String> callBackListener) {
-//        HttpApi httpApi = RetrofitFactory.getInstance().create(HttpApi.class);
-//        Call<String> call = httpApi.pushTX(rawHash);
-//        call.enqueue(callBackListener);
-//    }
-//    public void getTXInfoByHash(String rawHash, Callback<Transaction> callBackListener) {
-//        HttpApi httpApi = RetrofitFactory.getInstance().create(HttpApi.class);
-//        Call<Transaction> call = httpApi.getTXInfoByHash(rawHash);
-//        call.enqueue(callBackListener);
-//    }
+    public void getTXList(String module, String action, String address, String startblock, String endblock,
+                          String sort, String apikey, Callback<ETHTXListResponse> callBackListener) {
+        HttpApi httpApi = RetrofitFactory.getInstance().create(HttpApi.class);
+        Call<ETHTXListResponse> call = httpApi.getTransactionList(module, action, address, startblock, endblock, sort, apikey);
+        call.enqueue(callBackListener);
+    }
 }
