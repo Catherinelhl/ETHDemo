@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import web3swift
 
 var myAddress:String {
     get{
@@ -65,13 +66,20 @@ var fees:Decimal {
             return (gasPrice * 21000) / rate
         }
     }
+    set{}
 }
 
-var gasPrice:Decimal {
-    get{
-        return 5 * pow(10, 9)
+/// wei
+var gasPrice:Decimal = 5 * pow(10, 9)
+
+var infura : NetworkId {
+    if coinType == .ethMain {
+        return .mainnet
+    }else {
+        return .ropsten
     }
 }
+
 
 var currencySymbol:String {
     get{
@@ -91,7 +99,7 @@ func MyLog<T>(_ message : T,file:String = #file,methodName: String = #function, 
     let fileName = (file as NSString).lastPathComponent
     let dateForm = DateFormatter.init()
     dateForm.dateFormat = "HH:mm:ss:SSS"
-    print("[\(fileName)][\(lineNumber)][\(dateForm.string(from: Date()))]\(methodName):\(message)")
+    print("debug:[\(fileName)][\(lineNumber)][\(dateForm.string(from: Date()))]\(methodName):\(message)")
     #endif
     
 }

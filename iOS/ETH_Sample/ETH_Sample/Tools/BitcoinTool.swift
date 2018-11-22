@@ -6,6 +6,7 @@
 //  Copyright © 2018 orangeblock.com. All rights reserved.
 //
 
+#if false
 import Foundation
 import BitcoinKit
 
@@ -137,3 +138,5 @@ class BitcoinTool {
     }
     
 }
+
+#endif

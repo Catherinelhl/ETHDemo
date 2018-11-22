@@ -10,13 +10,13 @@ import Foundation
 import CryptoSwift
 
 extension Data {
-    init?(btcHex:String) {
-        let len = btcHex.count / 2
+    init?(fromHex:String) {
+        let len = fromHex.count / 2
         var data = Data(capacity: len)
         for i in 0..<len {
-            let j = btcHex.index(btcHex.startIndex, offsetBy: i * 2)
-            let k = btcHex.index(j, offsetBy: 2)
-            let bytes = btcHex[j..<k]
+            let j = fromHex.index(fromHex.startIndex, offsetBy: i * 2)
+            let k = fromHex.index(j, offsetBy: 2)
+            let bytes = fromHex[j..<k]
             if var num = UInt8(bytes, radix: 16) {
                 data.append(&num, count: 1)
             } else {
@@ -31,7 +31,7 @@ extension Data {
     var ethAddressString : String? {
         get {
             let stringToEncrypt = self.toHexString().dropFirst(2).toString()
-            if let data = Data(btcHex: stringToEncrypt) {
+            if let data = Data(fromHex: stringToEncrypt) {
                 return "0x" + SHA3(variant: .keccak256).calculate(for: data.bytes).toHexString().dropFirst(24).toString()
             }else {
                 return nil
