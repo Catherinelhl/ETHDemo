@@ -1,51 +1,3319 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <link href="https://max.maicoin.com/assets/favicon.ico" rel="shortcut icon"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-57x57.png" rel="apple-touch-icon-precomposed" sizes="57x57"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-60x60.png" rel="apple-touch-icon-precomposed" sizes="60x60"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-120x120.png" rel="apple-touch-icon-precomposed" sizes="120x120"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-76x76.png" rel="apple-touch-icon-precomposed" sizes="76x76"/>
+    <link href="https://max.maicoin.com/apple-touch-icon-152x152.png" rel="apple-touch-icon-precomposed" sizes="152x152"/>
+    <link href="https://max.maicoin.com/favicon-196x196.png" rel="icon" sizes="196x196" type="image/png"/>
+    <link href="https://max.maicoin.com/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+    <link href="https://max.maicoin.com/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+    <link href="https://max.maicoin.com/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+    <link href="https://max.maicoin.com/favicon-128.png" rel="icon" sizes="128x128" type="image/png"/>
+    <meta content="MAX" name="application-name"/>
+    <meta content="#FFFFFF" name="msapplication-TileColor"/>
+    <meta content="mstile-144x144.png" name="msapplication-TileImage"/>
+    <meta content="mstile-70x70.png" name="msapplication-square70x70logo"/>
+    <meta content="mstile-150x150.png" name="msapplication-square150x150logo"/>
+    <meta content="mstile-310x150.png" name="msapplication-wide310x150logo"/>
+    <meta content="mstile-310x310.png" name="msapplication-square310x310logo"/>
+    <script>
+        //<![CDATA[
+        window.gon = {};
+        gon.global = {"max_fiat_accounts": 1};
+        gon.env = "production";
+        gon.local = "en";
+        gon.market = {
+            "sort_order": 14,
+            "visible": true,
+            "id": "ethusdt",
+            "code": 17,
+            "name": "ETH\/USDT",
+            "base_unit": "eth",
+            "quote_unit": "usdt",
+            "bid": {"currency": "usdt", "fixed": 2},
+            "ask": {"currency": "eth", "fixed": 5},
+            "matching_queue_type": "market"
+        };
+        gon.ticker = {
+            "at": 1542269494,
+            "buy": 183.96,
+            "sell": 184.0,
+            "open": 210.24,
+            "low": 177.33,
+            "high": 210.5,
+            "last": 183.97,
+            "volume": 21952.86409
+        };
+        gon.markets = {
+            "maxtwd": {
+                "name": "MAX\/TWD",
+                "base_unit": "max",
+                "quote_unit": "twd",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2}
+            },
+            "btctwd": {
+                "name": "BTC\/TWD",
+                "base_unit": "btc",
+                "quote_unit": "twd",
+                "ask": {"currency": "btc", "fixed": 8},
+                "bid": {"currency": "twd", "fixed": 1}
+            },
+            "ethtwd": {
+                "name": "ETH\/TWD",
+                "base_unit": "eth",
+                "quote_unit": "twd",
+                "ask": {"currency": "eth", "fixed": 6},
+                "bid": {"currency": "twd", "fixed": 1}
+            },
+            "ltctwd": {
+                "name": "LTC\/TWD",
+                "base_unit": "ltc",
+                "quote_unit": "twd",
+                "ask": {"currency": "ltc", "fixed": 4},
+                "bid": {"currency": "twd", "fixed": 1}
+            },
+            "mithtwd": {
+                "name": "MITH\/TWD",
+                "base_unit": "mith",
+                "quote_unit": "twd",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3}
+            },
+            "bchtwd": {
+                "name": "BCH\/TWD",
+                "base_unit": "bch",
+                "quote_unit": "twd",
+                "ask": {"currency": "bch", "fixed": 6},
+                "bid": {"currency": "twd", "fixed": 1}
+            },
+            "usdttwd": {
+                "name": "USDT\/TWD",
+                "base_unit": "usdt",
+                "quote_unit": "twd",
+                "ask": {"currency": "usdt", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2}
+            },
+            "maxbtc": {
+                "name": "MAX\/BTC",
+                "base_unit": "max",
+                "quote_unit": "btc",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "maxeth": {
+                "name": "MAX\/ETH",
+                "base_unit": "max",
+                "quote_unit": "eth",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "trxtwd": {
+                "name": "TRX\/TWD",
+                "base_unit": "trx",
+                "quote_unit": "twd",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4}
+            },
+            "ethbtc": {
+                "name": "ETH\/BTC",
+                "base_unit": "eth",
+                "quote_unit": "btc",
+                "ask": {"currency": "eth", "fixed": 4},
+                "bid": {"currency": "btc", "fixed": 6}
+            },
+            "trxeth": {
+                "name": "TRX\/ETH",
+                "base_unit": "trx",
+                "quote_unit": "eth",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8}
+            },
+            "maxusdt": {
+                "name": "MAX\/USDT",
+                "base_unit": "max",
+                "quote_unit": "usdt",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 3}
+            },
+            "btcusdt": {
+                "name": "BTC\/USDT",
+                "base_unit": "btc",
+                "quote_unit": "usdt",
+                "ask": {"currency": "btc", "fixed": 6},
+                "bid": {"currency": "usdt", "fixed": 2}
+            },
+            "ethusdt": {
+                "name": "ETH\/USDT",
+                "base_unit": "eth",
+                "quote_unit": "usdt",
+                "ask": {"currency": "eth", "fixed": 5},
+                "bid": {"currency": "usdt", "fixed": 2}
+            },
+            "bchusdt": {
+                "name": "BCH\/USDT",
+                "base_unit": "bch",
+                "quote_unit": "usdt",
+                "ask": {"currency": "bch", "fixed": 5},
+                "bid": {"currency": "usdt", "fixed": 2}
+            },
+            "ltcusdt": {
+                "name": "LTC\/USDT",
+                "base_unit": "ltc",
+                "quote_unit": "usdt",
+                "ask": {"currency": "ltc", "fixed": 5},
+                "bid": {"currency": "usdt", "fixed": 2}
+            },
+            "mithbtc": {
+                "name": "MITH\/BTC",
+                "base_unit": "mith",
+                "quote_unit": "btc",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "mithusdt": {
+                "name": "MITH\/USDT",
+                "base_unit": "mith",
+                "quote_unit": "usdt",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5}
+            },
+            "cccxbtc": {
+                "name": "CCCX\/BTC",
+                "base_unit": "cccx",
+                "quote_unit": "btc",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "cccxeth": {
+                "name": "CCCX\/ETH",
+                "base_unit": "cccx",
+                "quote_unit": "eth",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8}
+            },
+            "cccxtwd": {
+                "name": "CCCX\/TWD",
+                "base_unit": "cccx",
+                "quote_unit": "twd",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4}
+            },
+            "cccxusdt": {
+                "name": "CCCX\/USDT",
+                "base_unit": "cccx",
+                "quote_unit": "usdt",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "usdt", "fixed": 6}
+            },
+            "eosbtc": {
+                "name": "EOS\/BTC",
+                "base_unit": "eos",
+                "quote_unit": "btc",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "eoseth": {
+                "name": "EOS\/ETH",
+                "base_unit": "eos",
+                "quote_unit": "eth",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "eostwd": {
+                "name": "EOS\/TWD",
+                "base_unit": "eos",
+                "quote_unit": "twd",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "twd", "fixed": 3}
+            },
+            "eosusdt": {
+                "name": "EOS\/USDT",
+                "base_unit": "eos",
+                "quote_unit": "usdt",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "usdt", "fixed": 5}
+            },
+            "palbtc": {
+                "name": "PAL\/BTC",
+                "base_unit": "pal",
+                "quote_unit": "btc",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "paleth": {
+                "name": "PAL\/ETH",
+                "base_unit": "pal",
+                "quote_unit": "eth",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8}
+            },
+            "paltwd": {
+                "name": "PAL\/TWD",
+                "base_unit": "pal",
+                "quote_unit": "twd",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4}
+            },
+            "batbtc": {
+                "name": "BAT\/BTC",
+                "base_unit": "bat",
+                "quote_unit": "btc",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "bateth": {
+                "name": "BAT\/ETH",
+                "base_unit": "bat",
+                "quote_unit": "eth",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "battwd": {
+                "name": "BAT\/TWD",
+                "base_unit": "bat",
+                "quote_unit": "twd",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3}
+            },
+            "batusdt": {
+                "name": "BAT\/USDT",
+                "base_unit": "bat",
+                "quote_unit": "usdt",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5}
+            },
+            "zrxbtc": {
+                "name": "ZRX\/BTC",
+                "base_unit": "zrx",
+                "quote_unit": "btc",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "zrxeth": {
+                "name": "ZRX\/ETH",
+                "base_unit": "zrx",
+                "quote_unit": "eth",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "zrxtwd": {
+                "name": "ZRX\/TWD",
+                "base_unit": "zrx",
+                "quote_unit": "twd",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2}
+            },
+            "zrxusdt": {
+                "name": "ZRX\/USDT",
+                "base_unit": "zrx",
+                "quote_unit": "usdt",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 4}
+            },
+            "gntbtc": {
+                "name": "GNT\/BTC",
+                "base_unit": "gnt",
+                "quote_unit": "btc",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "gnteth": {
+                "name": "GNT\/ETH",
+                "base_unit": "gnt",
+                "quote_unit": "eth",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "gnttwd": {
+                "name": "GNT\/TWD",
+                "base_unit": "gnt",
+                "quote_unit": "twd",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3}
+            },
+            "gntusdt": {
+                "name": "GNT\/USDT",
+                "base_unit": "gnt",
+                "quote_unit": "usdt",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5}
+            },
+            "omgbtc": {
+                "name": "OMG\/BTC",
+                "base_unit": "omg",
+                "quote_unit": "btc",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "omgeth": {
+                "name": "OMG\/ETH",
+                "base_unit": "omg",
+                "quote_unit": "eth",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "omgtwd": {
+                "name": "OMG\/TWD",
+                "base_unit": "omg",
+                "quote_unit": "twd",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "twd", "fixed": 3}
+            },
+            "omgusdt": {
+                "name": "OMG\/USDT",
+                "base_unit": "omg",
+                "quote_unit": "usdt",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "usdt", "fixed": 5}
+            },
+            "kncbtc": {
+                "name": "KNC\/BTC",
+                "base_unit": "knc",
+                "quote_unit": "btc",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "knceth": {
+                "name": "KNC\/ETH",
+                "base_unit": "knc",
+                "quote_unit": "eth",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "knctwd": {
+                "name": "KNC\/TWD",
+                "base_unit": "knc",
+                "quote_unit": "twd",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2}
+            },
+            "kncusdt": {
+                "name": "KNC\/USDT",
+                "base_unit": "knc",
+                "quote_unit": "usdt",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 4}
+            },
+            "maxtwdt": {
+                "name": "MAX\/TWDT",
+                "base_unit": "max",
+                "quote_unit": "twdt",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2}
+            },
+            "btctwdt": {
+                "name": "BTC\/TWDT",
+                "base_unit": "btc",
+                "quote_unit": "twdt",
+                "ask": {"currency": "btc", "fixed": 8},
+                "bid": {"currency": "twdt", "fixed": 1}
+            },
+            "ethtwdt": {
+                "name": "ETH\/TWDT",
+                "base_unit": "eth",
+                "quote_unit": "twdt",
+                "ask": {"currency": "eth", "fixed": 6},
+                "bid": {"currency": "twdt", "fixed": 1}
+            },
+            "ltctwdt": {
+                "name": "LTC\/TWDT",
+                "base_unit": "ltc",
+                "quote_unit": "twdt",
+                "ask": {"currency": "ltc", "fixed": 4},
+                "bid": {"currency": "twdt", "fixed": 1}
+            },
+            "mithtwdt": {
+                "name": "MITH\/TWDT",
+                "base_unit": "mith",
+                "quote_unit": "twdt",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3}
+            },
+            "bchtwdt": {
+                "name": "BCH\/TWDT",
+                "base_unit": "bch",
+                "quote_unit": "twdt",
+                "ask": {"currency": "bch", "fixed": 6},
+                "bid": {"currency": "twdt", "fixed": 1}
+            },
+            "usdttwdt": {
+                "name": "USDT\/TWDT",
+                "base_unit": "usdt",
+                "quote_unit": "twdt",
+                "ask": {"currency": "usdt", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2}
+            },
+            "trxtwdt": {
+                "name": "TRX\/TWDT",
+                "base_unit": "trx",
+                "quote_unit": "twdt",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "twdt", "fixed": 4}
+            },
+            "cccxtwdt": {
+                "name": "CCCX\/TWDT",
+                "base_unit": "cccx",
+                "quote_unit": "twdt",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "twdt", "fixed": 4}
+            },
+            "eostwdt": {
+                "name": "EOS\/TWDT",
+                "base_unit": "eos",
+                "quote_unit": "twdt",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "twdt", "fixed": 3}
+            },
+            "battwdt": {
+                "name": "BAT\/TWDT",
+                "base_unit": "bat",
+                "quote_unit": "twdt",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3}
+            },
+            "zrxtwdt": {
+                "name": "ZRX\/TWDT",
+                "base_unit": "zrx",
+                "quote_unit": "twdt",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2}
+            },
+            "gnttwdt": {
+                "name": "GNT\/TWDT",
+                "base_unit": "gnt",
+                "quote_unit": "twdt",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3}
+            },
+            "omgtwdt": {
+                "name": "OMG\/TWDT",
+                "base_unit": "omg",
+                "quote_unit": "twdt",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "twdt", "fixed": 3}
+            },
+            "knctwdt": {
+                "name": "KNC\/TWDT",
+                "base_unit": "knc",
+                "quote_unit": "twdt",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2}
+            },
+            "xrptwd": {
+                "name": "XRP\/TWD",
+                "base_unit": "xrp",
+                "quote_unit": "twd",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3}
+            },
+            "xrpusdt": {
+                "name": "XRP\/USDT",
+                "base_unit": "xrp",
+                "quote_unit": "usdt",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5}
+            },
+            "trxbtc": {
+                "name": "TRX\/BTC",
+                "base_unit": "trx",
+                "quote_unit": "btc",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "btc", "fixed": 8}
+            },
+            "mitheth": {
+                "name": "MITH\/ETH",
+                "base_unit": "mith",
+                "quote_unit": "eth",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6}
+            },
+            "ltcmax": {
+                "name": "LTC\/MAX",
+                "base_unit": "ltc",
+                "quote_unit": "max",
+                "ask": {"currency": "ltc", "fixed": 5},
+                "bid": {"currency": "max", "fixed": 2}
+            },
+            "bchmax": {
+                "name": "BCH\/MAX",
+                "base_unit": "bch",
+                "quote_unit": "max",
+                "ask": {"currency": "bch", "fixed": 5},
+                "bid": {"currency": "max", "fixed": 2}
+            },
+            "mithmax": {
+                "name": "MITH\/MAX",
+                "base_unit": "mith",
+                "quote_unit": "max",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5}
+            },
+            "trxusdt": {
+                "name": "TRX\/USDT",
+                "base_unit": "trx",
+                "quote_unit": "usdt",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "usdt", "fixed": 6}
+            },
+            "trxmax": {
+                "name": "TRX\/MAX",
+                "base_unit": "trx",
+                "quote_unit": "max",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6}
+            },
+            "cccxmax": {
+                "name": "CCCX\/MAX",
+                "base_unit": "cccx",
+                "quote_unit": "max",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6}
+            },
+            "palmax": {
+                "name": "PAL\/MAX",
+                "base_unit": "pal",
+                "quote_unit": "max",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6}
+            },
+            "eosmax": {
+                "name": "EOS\/MAX",
+                "base_unit": "eos",
+                "quote_unit": "max",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "max", "fixed": 5}
+            },
+            "batmax": {
+                "name": "BAT\/MAX",
+                "base_unit": "bat",
+                "quote_unit": "max",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5}
+            },
+            "zrxmax": {
+                "name": "ZRX\/MAX",
+                "base_unit": "zrx",
+                "quote_unit": "max",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 4}
+            },
+            "gntmax": {
+                "name": "GNT\/MAX",
+                "base_unit": "gnt",
+                "quote_unit": "max",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5}
+            },
+            "omgmax": {
+                "name": "OMG\/MAX",
+                "base_unit": "omg",
+                "quote_unit": "max",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "max", "fixed": 5}
+            },
+            "kncmax": {
+                "name": "KNC\/MAX",
+                "base_unit": "knc",
+                "quote_unit": "max",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 4}
+            },
+            "paltwdt": {
+                "name": "PAL\/TWDT",
+                "base_unit": "pal",
+                "quote_unit": "twdt",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "twdt", "fixed": 4}
+            },
+            "xrpmax": {
+                "name": "XRP\/MAX",
+                "base_unit": "xrp",
+                "quote_unit": "max",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5}
+            },
+            "fmfmax": {
+                "name": "FMF\/MAX",
+                "base_unit": "fmf",
+                "quote_unit": "max",
+                "ask": {"currency": "fmf", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6}
+            },
+            "fmfeth": {
+                "name": "FMF\/ETH",
+                "base_unit": "fmf",
+                "quote_unit": "eth",
+                "ask": {"currency": "fmf", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8}
+            }
+        };
+        gon.market_groups = ["twd", "btc", "eth", "usdt", "twdt", "max"];
+        gon.kline_iframe_src = "https:\/\/tradingchart.maicoin.com";
+        gon.google_recaptcha_key = "6LdcCnAUAAAAAELbtFW6uH_3yLklRH-AlsPr8zAT";
+        gon.session_key = "_mlive_sehttps://tradingchart.maicoin.com/kline?symbol=ethusdt&interval=360&basePrecision=5&quotePrecision=2&themeMode=web&webModession";
+        gon.session_expire = "3600";
+        gon.extend_session_path = "\/session\/extends";
+        gon.expired_session_path = "\/session\/expired";
+        gon.pusher = {
+            "key": "jb10W3zIxR98blDAg8BWUalZzLa6U5T5",
+            "wsHost": "io.maicoin.com",
+            "wsPort": "8080",
+            "wssPort": "8080",
+            "encrypted": true
+        };
+        gon.clipboard = {"click": "Click to copy", "done": "Copied"};
+        gon.i18n = {
+            "password_strength": {
+                "invalid_password": "Your password must be at least 8 characters, and include one upper case letter, one lower case letter and one digit.",
+                "strength": "Password Strength",
+                "very_weak": "Very weak",
+                "weak": "Weak",
+                "fair": "Fair",
+                "good": "Good",
+                "strong": "Strong"
+            },
+            "password_confirm": {"error": "Invalid password confirmation"},
+            "brand": "MAX Exchange",
+            "ask": " Ask",
+            "bid": " Bid",
+            "cancel": "Cancel",
+            "switch": {"notification": "Notify"},
+            "notification": {
+                "title": "MAX Exchange",
+                "enabled": "Notification enabled.",
+                "new_trade": "%{kind} order#%{id} executed at %{price} %{quote_unit} for %{volume} %{base_unit}\u3002"
+            },
+            "time": {"minute": "m", "hour": "Hour", "day": "Day", "week": "Week", "month": "Month", "year": "Year"},
+            "chart": {
+                "price": "Price",
+                "volume": "Volume",
+                "open": "Open",
+                "high": "High",
+                "low": "Low",
+                "close": "Close",
+                "candlestick": "Candlestick",
+                "line": "Line",
+                "zoom": "Zoom",
+                "depth": "Depth",
+                "depth_title": "Market Depth"
+            },
+            "place_order": {
+                "price_high": "HIGH",
+                "price_low": "LOW",
+                "full_bid": "FULL",
+                "full_ask": "EMPTY",
+                "suspended": "SUSPENDED",
+                "errors": {
+                    "stop_price": {
+                        "required": "Stop Price is required",
+                        "not_positive": "Stop Price should be a positive number"
+                    },
+                    "price": {
+                        "required": "Limit Price is required",
+                        "not_positive": "Price should be a positive number"
+                    },
+                    "volume": {"required": "Volume is required", "not_positive": "Volume should be a positive number"},
+                    "total": {
+                        "required": "Total is required",
+                        "not_positive": "Total should be a positive number",
+                        "amount_too_small": "Order volume too small, the total amount of your order should be larger than %{min} %{unit}"
+                    },
+                    "price_negative": "Limit Price should be a positive number",
+                    "stop_price_negative": "Stop Price should be a positive number",
+                    "price_present": "Limit Price should not be present",
+                    "stop_price_greater_than_price": "Buy order's Stop Price should be equal\/lower than Limit Price",
+                    "stop_price_less_than_price": "Sell order's Stop Price should be equal\/higher than Limit Price",
+                    "stop_price_greater_than_last_trade": "Sell order's Stop Price should be lower than current market price.",
+                    "stop_price_less_than_last_trade": "Buy order's Stop Price should be higher than current market price.",
+                    "insufficient_market_depth": "Market is not deep enough to fulfill your order",
+                    "insufficient_balance_or_small_volume": "Account balance is insufficient or order volume is too small",
+                    "insufficient_balance": "Account balance is insufficient, please adjust order limit price or order volume",
+                    "amount_too_small": "The total amount of your order is too small",
+                    "volume_too_large": "Order will move market price too much. Please reduce your order size",
+                    "trade_suspended": "Trading suspended",
+                    "submit_error": "Failed to submit order, please contact customer service.",
+                    "twd_amount_too_small": "Order volume too small, the total amount of your order should be larger than 10 TWD",
+                    "btc_amount_too_small": "Order volume too small, the total amount of your order should be larger than 0.00005 BTC",
+                    "eth_amount_too_small": "Order volume too small, the total amount of your order should be larger than 0.0005 ETH",
+                    "usdt_amount_too_small": "Order volume too small, the total amount of your order should be larger than 0.5 USDT",
+                    "twdt_amount_too_small": "Order volume too small, the total amount of your order should be larger than 10 TWDT",
+                    "max_amount_too_small": "Order volume too small, the total amount of your order should be larger than 1 MAX"
+                },
+                "warnings": {
+                    "limit_bid": "Please confirm that you want to limit buy at least 5% higher than the lowest Ask on the order book.",
+                    "limit_ask": "Please confirm that you want to limit sell at least 5% lower than the highest Bid on the order book.",
+                    "market_bid": "Please confirm that you want to market buy more than 50% of your available balance.",
+                    "market_ask": "Please confirm that you want to market sell more than 50% of your available balance."
+                }
+            },
+            "trade_state": {
+                "new": "New",
+                "partial": "Partial",
+                "cancel": "Cancelled",
+                "convert": "Executed",
+                "done": "Executed"
+            },
+            "order_type": {
+                "limit": "Limit",
+                "market": "Market",
+                "stop_limit": "Stop Limit",
+                "stop_market": "Stop Market"
+            },
+            "my_orders": {
+                "stop_price": "Stop",
+                "limit_price": "Limit",
+                "avg_price": "Avg.",
+                "unfilled": "Unfilled",
+                "total_volume": "Total",
+                "create_time": "Create Time",
+                "close_time": "Close Time"
+            },
+            "market_trade": {"mine": "Mine"},
+            "verify": {
+                "documents": {
+                    "empty": "Please upload documents first",
+                    "too_large": "File size must be less than 10 MB",
+                    "invalid_format": "File must be in jpg, jpeg or png format"
+                }
+            }
+        };
+        gon.currencies = {
+            "eth": {"code": "eth", "symbol": "\u039e", "name": "Ethereum", "isCoin": true},
+            "trx": {"code": "trx", "symbol": "TRX", "name": "Tronix", "isCoin": true},
+            "gnt": {"code": "gnt", "symbol": "GNT", "name": "Golem", "isCoin": true},
+            "bch": {"code": "bch", "symbol": "\u0e3fH", "name": "Bitcoin Cash", "isCoin": true},
+            "pal": {"code": "pal", "symbol": "PAL", "name": "PolicyPal Network", "isCoin": true},
+            "twdt": {"code": "twdt", "symbol": "NT$", "name": "TWDT-ETH", "isCoin": true},
+            "btc": {"code": "btc", "symbol": "\u0e3f", "name": "Bitcoin", "isCoin": true},
+            "twd": {"code": "twd", "symbol": "NT$", "name": "New Taiwan Dollar", "isCoin": false},
+            "bat": {"code": "bat", "symbol": "BAT", "name": "Basic Attention Token", "isCoin": true},
+            "cccx": {"code": "cccx", "symbol": "CCCX", "name": "Clipper Coin", "isCoin": true},
+            "mith": {"code": "mith", "symbol": "MITH", "name": "Mithril", "isCoin": true},
+            "max": {"code": "max", "symbol": "MAX", "name": "MAX Token", "isCoin": true},
+            "zrx": {"code": "zrx", "symbol": "ZRX", "name": "0x", "isCoin": true},
+            "fmf": {"code": "fmf", "symbol": "FMF", "name": "Formosa Financial", "isCoin": true},
+            "knc": {"code": "knc", "symbol": "KNC", "name": "Kyber Network", "isCoin": true},
+            "omg": {"code": "omg", "symbol": "OMG", "name": "OmiseGO", "isCoin": true},
+            "eos": {"code": "eos", "symbol": "EOS", "name": "EOS", "isCoin": true},
+            "ltc": {"code": "ltc", "symbol": "\u0141", "name": "Litecoin", "isCoin": true},
+            "usdt": {"code": "usdt", "symbol": "$", "name": "Tether", "isCoin": true},
+            "xrp": {"code": "xrp", "symbol": "XRP", "name": "Ripple", "isCoin": true}
+        };
+        gon.fiat_currency = "twd";
+        gon.display_exchange_rate = {
+            "code": "usdt",
+            "symbol": "USDT",
+            "default": 30,
+            "type": "coin",
+            "market": "usdttwd",
+            "precision": 2
+        };
+        gon.tickers = {
+            "btctwd": {
+                "name": "BTC\/TWD",
+                "base_unit": "btc",
+                "quote_unit": "twd",
+                "ask": {"currency": "btc", "fixed": 8},
+                "bid": {"currency": "twd", "fixed": 1},
+                "at": 1542269494,
+                "buy": 176001.0,
+                "sell": 179699.9,
+                "open": 193805.0,
+                "low": 174001.0,
+                "high": 194950.0,
+                "last": 176001.0,
+                "volume": 51.7781332
+            },
+            "ethtwd": {
+                "name": "ETH\/TWD",
+                "base_unit": "eth",
+                "quote_unit": "twd",
+                "ask": {"currency": "eth", "fixed": 6},
+                "bid": {"currency": "twd", "fixed": 1},
+                "at": 1542269494,
+                "buy": 5600.0,
+                "sell": 5625.0,
+                "open": 6300.0,
+                "low": 5453.0,
+                "high": 6399.0,
+                "last": 5600.0,
+                "volume": 1917.82567
+            },
+            "ltctwd": {
+                "name": "LTC\/TWD",
+                "base_unit": "ltc",
+                "quote_unit": "twd",
+                "ask": {"currency": "ltc", "fixed": 4},
+                "bid": {"currency": "twd", "fixed": 1},
+                "at": 1542269494,
+                "buy": 1310.0,
+                "sell": 1488.0,
+                "open": 1570.0,
+                "low": 1310.0,
+                "high": 1580.0,
+                "last": 1310.0,
+                "volume": 276.5643
+            },
+            "mithtwd": {
+                "name": "MITH\/TWD",
+                "base_unit": "mith",
+                "quote_unit": "twd",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3},
+                "at": 1542269494,
+                "buy": 7.693,
+                "sell": 7.7,
+                "open": 7.85,
+                "low": 7.1,
+                "high": 7.98,
+                "last": 7.7,
+                "volume": 117610.22
+            },
+            "bchtwd": {
+                "name": "BCH\/TWD",
+                "base_unit": "bch",
+                "quote_unit": "twd",
+                "ask": {"currency": "bch", "fixed": 6},
+                "bid": {"currency": "twd", "fixed": 1},
+                "at": 1542269494,
+                "buy": 13456.3,
+                "sell": 14451.8,
+                "open": 15315.3,
+                "low": 13000.0,
+                "high": 15500.0,
+                "last": 13706.9,
+                "volume": 8.406389
+            },
+            "usdttwd": {
+                "name": "USDT\/TWD",
+                "base_unit": "usdt",
+                "quote_unit": "twd",
+                "ask": {"currency": "usdt", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2},
+                "at": 1542269494,
+                "buy": 30.43,
+                "sell": 30.59,
+                "open": 30.01,
+                "low": 29.9,
+                "high": 30.92,
+                "last": 30.59,
+                "volume": 424589.84
+            },
+            "ethbtc": {
+                "name": "ETH\/BTC",
+                "base_unit": "eth",
+                "quote_unit": "btc",
+                "ask": {"currency": "eth", "fixed": 4},
+                "bid": {"currency": "btc", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.03177,
+                "sell": 0.031853,
+                "open": 0.032418,
+                "low": 0.03,
+                "high": 0.032418,
+                "last": 0.031663,
+                "volume": 5.8076
+            },
+            "mitheth": {
+                "name": "MITH\/ETH",
+                "base_unit": "mith",
+                "quote_unit": "eth",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.0012,
+                "sell": 0.00145,
+                "open": 0.001252,
+                "low": 0.00145,
+                "high": 0.001451,
+                "last": 0.00145,
+                "volume": 2537.52
+            },
+            "trxtwd": {
+                "name": "TRX\/TWD",
+                "base_unit": "trx",
+                "quote_unit": "twd",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.5611,
+                "sell": 0.638,
+                "open": 0.6506,
+                "low": 0.55,
+                "high": 0.6923,
+                "last": 0.5516,
+                "volume": 22849.0
+            },
+            "trxbtc": {
+                "name": "TRX\/BTC",
+                "base_unit": "trx",
+                "quote_unit": "btc",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00000334,
+                "sell": 0.00000335,
+                "open": 0.0000035,
+                "low": 0.00000328,
+                "high": 0.00000342,
+                "last": 0.00000329,
+                "volume": 10385.2
+            },
+            "trxeth": {
+                "name": "TRX\/ETH",
+                "base_unit": "trx",
+                "quote_unit": "eth",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00009519,
+                "sell": 0.00011667,
+                "open": 0.00011667,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00011667,
+                "volume": 0.0
+            },
+            "trxusdt": {
+                "name": "TRX\/USDT",
+                "base_unit": "trx",
+                "quote_unit": "usdt",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "usdt", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.019313,
+                "sell": 0.019422,
+                "open": 0.022278,
+                "low": 0.018961,
+                "high": 0.021306,
+                "last": 0.018961,
+                "volume": 11123.8
+            },
+            "btcusdt": {
+                "name": "BTC\/USDT",
+                "base_unit": "btc",
+                "quote_unit": "usdt",
+                "ask": {"currency": "btc", "fixed": 6},
+                "bid": {"currency": "usdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 5771.02,
+                "sell": 5780.89,
+                "open": 6474.97,
+                "low": 5646.25,
+                "high": 6500.0,
+                "last": 5781.16,
+                "volume": 773.109082
+            },
+            "ethusdt": {
+                "name": "ETH\/USDT",
+                "base_unit": "eth",
+                "quote_unit": "usdt",
+                "ask": {"currency": "eth", "fixed": 5},
+                "bid": {"currency": "usdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 183.96,
+                "sell": 184.0,
+                "open": 210.24,
+                "low": 177.33,
+                "high": 210.5,
+                "last": 183.97,
+                "volume": 21952.86409
+            },
+            "bchusdt": {
+                "name": "BCH\/USDT",
+                "base_unit": "bch",
+                "quote_unit": "usdt",
+                "ask": {"currency": "bch", "fixed": 5},
+                "bid": {"currency": "usdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 51.0,
+                "sell": 630.0,
+                "open": 501.0,
+                "low": 455.0,
+                "high": 500.0,
+                "last": 455.0,
+                "volume": 0.89355
+            },
+            "ltcusdt": {
+                "name": "LTC\/USDT",
+                "base_unit": "ltc",
+                "quote_unit": "usdt",
+                "ask": {"currency": "ltc", "fixed": 5},
+                "bid": {"currency": "usdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 12.1,
+                "sell": 49.36,
+                "open": 50.94,
+                "low": 48.34,
+                "high": 51.11,
+                "last": 48.5,
+                "volume": 147.33696
+            },
+            "mithbtc": {
+                "name": "MITH\/BTC",
+                "base_unit": "mith",
+                "quote_unit": "btc",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.000035,
+                "sell": 0.000058,
+                "open": 0.000042,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.000042,
+                "volume": 0.0
+            },
+            "mithusdt": {
+                "name": "MITH\/USDT",
+                "base_unit": "mith",
+                "quote_unit": "usdt",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5},
+                "at": 1542269494,
+                "buy": 0.23,
+                "sell": 0.265,
+                "open": 0.265,
+                "low": 0.22,
+                "high": 0.265,
+                "last": 0.22,
+                "volume": 18577.27
+            },
+            "cccxbtc": {
+                "name": "CCCX\/BTC",
+                "base_unit": "cccx",
+                "quote_unit": "btc",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.0000001,
+                "sell": 0.00000026,
+                "open": 0.00000024,
+                "low": 0.0000001,
+                "high": 0.00000025,
+                "last": 0.00000018,
+                "volume": 612787.9
+            },
+            "cccxeth": {
+                "name": "CCCX\/ETH",
+                "base_unit": "cccx",
+                "quote_unit": "eth",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.000003,
+                "sell": 0.0000048,
+                "open": 0.00000398,
+                "low": 0.000003,
+                "high": 0.00000432,
+                "last": 0.00000304,
+                "volume": 3972852.0
+            },
+            "cccxtwd": {
+                "name": "CCCX\/TWD",
+                "base_unit": "cccx",
+                "quote_unit": "twd",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.021,
+                "sell": 0.023,
+                "open": 0.024,
+                "low": 0.02,
+                "high": 0.024,
+                "last": 0.023,
+                "volume": 665841.2
+            },
+            "cccxusdt": {
+                "name": "CCCX\/USDT",
+                "base_unit": "cccx",
+                "quote_unit": "usdt",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "usdt", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.000022,
+                "sell": 0.0013,
+                "open": 0.001004,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.001004,
+                "volume": 0.0
+            },
+            "eosbtc": {
+                "name": "EOS\/BTC",
+                "base_unit": "eos",
+                "quote_unit": "btc",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00000614,
+                "sell": 0.0548,
+                "open": 0.000853,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.000853,
+                "volume": 0.0
+            },
+            "eoseth": {
+                "name": "EOS\/ETH",
+                "base_unit": "eos",
+                "quote_unit": "eth",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.025241,
+                "sell": 0.025805,
+                "open": 0.025078,
+                "low": 0.024962,
+                "high": 0.025823,
+                "last": 0.025823,
+                "volume": 28.572
+            },
+            "eostwd": {
+                "name": "EOS\/TWD",
+                "base_unit": "eos",
+                "quote_unit": "twd",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "twd", "fixed": 3},
+                "at": 1542269494,
+                "buy": 140.5,
+                "sell": 159.347,
+                "open": 160.0,
+                "low": 140.0,
+                "high": 165.0,
+                "last": 164.0,
+                "volume": 1495.683
+            },
+            "eosusdt": {
+                "name": "EOS\/USDT",
+                "base_unit": "eos",
+                "quote_unit": "usdt",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "usdt", "fixed": 5},
+                "at": 1542269494,
+                "buy": 4.64211,
+                "sell": 4.7452,
+                "open": 5.62026,
+                "low": 4.64429,
+                "high": 5.01,
+                "last": 4.6458,
+                "volume": 32.482
+            },
+            "palbtc": {
+                "name": "PAL\/BTC",
+                "base_unit": "pal",
+                "quote_unit": "btc",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00000012,
+                "sell": 0.00000296,
+                "open": 0.000001,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.000001,
+                "volume": 0.0
+            },
+            "paleth": {
+                "name": "PAL\/ETH",
+                "base_unit": "pal",
+                "quote_unit": "eth",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.0000218,
+                "sell": 0.00016,
+                "open": 0.00022,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00022,
+                "volume": 0.0
+            },
+            "paltwd": {
+                "name": "PAL\/TWD",
+                "base_unit": "pal",
+                "quote_unit": "twd",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.2201,
+                "sell": 0.235,
+                "open": 0.22,
+                "low": 0.22,
+                "high": 0.2201,
+                "last": 0.2201,
+                "volume": 160.0
+            },
+            "palusdt": {
+                "name": "PAL\/USDT",
+                "base_unit": "pal",
+                "quote_unit": "usdt",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "usdt", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "batbtc": {
+                "name": "BAT\/BTC",
+                "base_unit": "bat",
+                "quote_unit": "btc",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.0000025,
+                "sell": 0.00006666,
+                "open": 0.00006666,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00006666,
+                "volume": 0.0
+            },
+            "bateth": {
+                "name": "BAT\/ETH",
+                "base_unit": "bat",
+                "quote_unit": "eth",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.000199,
+                "sell": 0.002999,
+                "open": 0.0033,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0033,
+                "volume": 0.0
+            },
+            "battwd": {
+                "name": "BAT\/TWD",
+                "base_unit": "bat",
+                "quote_unit": "twd",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3},
+                "at": 1542269494,
+                "buy": 6.5,
+                "sell": 8.8,
+                "open": 6.833,
+                "low": 6.5,
+                "high": 6.9,
+                "last": 6.5,
+                "volume": 2925.23
+            },
+            "batusdt": {
+                "name": "BAT\/USDT",
+                "base_unit": "bat",
+                "quote_unit": "usdt",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5},
+                "at": 1542269494,
+                "buy": 0.05001,
+                "sell": 1.35,
+                "open": 0.41,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.41,
+                "volume": 0.0
+            },
+            "zrxbtc": {
+                "name": "ZRX\/BTC",
+                "base_unit": "zrx",
+                "quote_unit": "btc",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00001761,
+                "sell": 0.0006,
+                "open": 0.00010794,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00010794,
+                "volume": 0.0
+            },
+            "zrxeth": {
+                "name": "ZRX\/ETH",
+                "base_unit": "zrx",
+                "quote_unit": "eth",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.002309,
+                "sell": 0.0085,
+                "open": 0.0085,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0085,
+                "volume": 0.0
+            },
+            "zrxtwd": {
+                "name": "ZRX\/TWD",
+                "base_unit": "zrx",
+                "quote_unit": "twd",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2},
+                "at": 1542269494,
+                "buy": 17.16,
+                "sell": 32.99,
+                "open": 33.98,
+                "low": 20.0,
+                "high": 20.0,
+                "last": 20.0,
+                "volume": 176.52
+            },
+            "zrxusdt": {
+                "name": "ZRX\/USDT",
+                "base_unit": "zrx",
+                "quote_unit": "usdt",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.1355,
+                "sell": 0.6,
+                "open": 0.648,
+                "low": 0.1355,
+                "high": 0.643,
+                "last": 0.56,
+                "volume": 2637453.15
+            },
+            "gntbtc": {
+                "name": "GNT\/BTC",
+                "base_unit": "gnt",
+                "quote_unit": "btc",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00000021,
+                "sell": 0.002181,
+                "open": 0.00002481,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00002481,
+                "volume": 0.0
+            },
+            "gnteth": {
+                "name": "GNT\/ETH",
+                "base_unit": "gnt",
+                "quote_unit": "eth",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.00065,
+                "sell": 0.028999,
+                "open": 0.028999,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.028999,
+                "volume": 0.0
+            },
+            "gnttwd": {
+                "name": "GNT\/TWD",
+                "base_unit": "gnt",
+                "quote_unit": "twd",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3},
+                "at": 1542269494,
+                "buy": 4.1,
+                "sell": 6.996,
+                "open": 7.498,
+                "low": 4.1,
+                "high": 4.5,
+                "last": 4.1,
+                "volume": 4076.3
+            },
+            "gntusdt": {
+                "name": "GNT\/USDT",
+                "base_unit": "gnt",
+                "quote_unit": "usdt",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5},
+                "at": 1542269494,
+                "buy": 0.1,
+                "sell": 0.3,
+                "open": 0.153,
+                "low": 0.126,
+                "high": 0.2,
+                "last": 0.126,
+                "volume": 11829204.99
+            },
+            "omgbtc": {
+                "name": "OMG\/BTC",
+                "base_unit": "omg",
+                "quote_unit": "btc",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00003257,
+                "sell": 0.00124999,
+                "open": 0.00003257,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00003257,
+                "volume": 0.0
+            },
+            "omgeth": {
+                "name": "OMG\/ETH",
+                "base_unit": "omg",
+                "quote_unit": "eth",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.01,
+                "sell": 0.368,
+                "open": 0.499999,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.499999,
+                "volume": 0.0
+            },
+            "omgtwd": {
+                "name": "OMG\/TWD",
+                "base_unit": "omg",
+                "quote_unit": "twd",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "twd", "fixed": 3},
+                "at": 1542269494,
+                "buy": 78.619,
+                "sell": 102.58,
+                "open": 95.186,
+                "low": 90.0,
+                "high": 102.58,
+                "last": 102.58,
+                "volume": 152.038
+            },
+            "omgusdt": {
+                "name": "OMG\/USDT",
+                "base_unit": "omg",
+                "quote_unit": "usdt",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "usdt", "fixed": 5},
+                "at": 1542269494,
+                "buy": 0.90004,
+                "sell": 6.7,
+                "open": 0.90003,
+                "low": 0.90005,
+                "high": 0.90005,
+                "last": 0.90005,
+                "volume": 18015.0
+            },
+            "kncbtc": {
+                "name": "KNC\/BTC",
+                "base_unit": "knc",
+                "quote_unit": "btc",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00000124,
+                "sell": 0.00095,
+                "open": 0.00007456,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.00007456,
+                "volume": 0.0
+            },
+            "knceth": {
+                "name": "KNC\/ETH",
+                "base_unit": "knc",
+                "quote_unit": "eth",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.00178,
+                "sell": 0.0899,
+                "open": 0.099997,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.099997,
+                "volume": 0.0
+            },
+            "knctwd": {
+                "name": "KNC\/TWD",
+                "base_unit": "knc",
+                "quote_unit": "twd",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2},
+                "at": 1542269494,
+                "buy": 10.05,
+                "sell": 19.87,
+                "open": 10.03,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 10.03,
+                "volume": 0.0
+            },
+            "kncusdt": {
+                "name": "KNC\/USDT",
+                "base_unit": "knc",
+                "quote_unit": "usdt",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.1,
+                "sell": 2.8998,
+                "open": 2.899,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 2.899,
+                "volume": 0.0
+            },
+            "btctwdt": {
+                "name": "BTC\/TWDT",
+                "base_unit": "btc",
+                "quote_unit": "twdt",
+                "ask": {"currency": "btc", "fixed": 8},
+                "bid": {"currency": "twdt", "fixed": 1},
+                "at": 1542269494,
+                "buy": 170000.2,
+                "sell": 195200.0,
+                "open": 193700.0,
+                "low": 175500.0,
+                "high": 192500.1,
+                "last": 175500.0,
+                "volume": 0.010552
+            },
+            "ethtwdt": {
+                "name": "ETH\/TWDT",
+                "base_unit": "eth",
+                "quote_unit": "twdt",
+                "ask": {"currency": "eth", "fixed": 6},
+                "bid": {"currency": "twdt", "fixed": 1},
+                "at": 1542269494,
+                "buy": 2500.2,
+                "sell": 7100.0,
+                "open": 6350.0,
+                "low": 5500.0,
+                "high": 6399.0,
+                "last": 5500.0,
+                "volume": 9.800547
+            },
+            "ltctwdt": {
+                "name": "LTC\/TWDT",
+                "base_unit": "ltc",
+                "quote_unit": "twdt",
+                "ask": {"currency": "ltc", "fixed": 4},
+                "bid": {"currency": "twdt", "fixed": 1},
+                "at": 1542269494,
+                "buy": 500.1,
+                "sell": 9000.0,
+                "open": 1665.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 1665.0,
+                "volume": 0.0
+            },
+            "mithtwdt": {
+                "name": "MITH\/TWDT",
+                "base_unit": "mith",
+                "quote_unit": "twdt",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 0.08,
+                "sell": 8.0,
+                "open": 8.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 8.0,
+                "volume": 0.0
+            },
+            "bchtwdt": {
+                "name": "BCH\/TWDT",
+                "base_unit": "bch",
+                "quote_unit": "twdt",
+                "ask": {"currency": "bch", "fixed": 6},
+                "bid": {"currency": "twdt", "fixed": 1},
+                "at": 1542269494,
+                "buy": 500.0,
+                "sell": 49996.0,
+                "open": 14000.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 14000.0,
+                "volume": 0.0
+            },
+            "usdttwdt": {
+                "name": "USDT\/TWDT",
+                "base_unit": "usdt",
+                "quote_unit": "twdt",
+                "ask": {"currency": "usdt", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 29.5,
+                "sell": 30.7,
+                "open": 30.03,
+                "low": 29.5,
+                "high": 30.7,
+                "last": 30.7,
+                "volume": 1601.39
+            },
+            "trxtwdt": {
+                "name": "TRX\/TWDT",
+                "base_unit": "trx",
+                "quote_unit": "twdt",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "twdt", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.1001,
+                "sell": 1.5989,
+                "open": 0.1011,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.1011,
+                "volume": 0.0
+            },
+            "cccxtwdt": {
+                "name": "CCCX\/TWDT",
+                "base_unit": "cccx",
+                "quote_unit": "twdt",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "twdt", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.018,
+                "sell": 0.0497,
+                "open": 0.0251,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0251,
+                "volume": 0.0
+            },
+            "eostwdt": {
+                "name": "EOS\/TWDT",
+                "base_unit": "eos",
+                "quote_unit": "twdt",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "twdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 6.501,
+                "sell": 5000.0,
+                "open": 17.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 17.0,
+                "volume": 0.0
+            },
+            "paltwdt": {
+                "name": "PAL\/TWDT",
+                "base_unit": "pal",
+                "quote_unit": "twdt",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "twdt", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.001,
+                "sell": 921.82,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "battwdt": {
+                "name": "BAT\/TWDT",
+                "base_unit": "bat",
+                "quote_unit": "twdt",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 1.623,
+                "sell": 100.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "zrxtwdt": {
+                "name": "ZRX\/TWDT",
+                "base_unit": "zrx",
+                "quote_unit": "twdt",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 0.1,
+                "sell": 150.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "gnttwdt": {
+                "name": "GNT\/TWDT",
+                "base_unit": "gnt",
+                "quote_unit": "twdt",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 0.006,
+                "sell": 201.1,
+                "open": 235.9,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 235.9,
+                "volume": 0.0
+            },
+            "omgtwdt": {
+                "name": "OMG\/TWDT",
+                "base_unit": "omg",
+                "quote_unit": "twdt",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "twdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 0.009,
+                "sell": 1531.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "knctwdt": {
+                "name": "KNC\/TWDT",
+                "base_unit": "knc",
+                "quote_unit": "twdt",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 0.1,
+                "sell": 199.7,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "twdttwd": {
+                "name": "TWDT\/TWD",
+                "base_unit": "twdt",
+                "quote_unit": "twd",
+                "ask": {"currency": "twdt", "fixed": 0},
+                "bid": {"currency": "twd", "fixed": 0},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "xrpbtc": {
+                "name": "XRP\/BTC",
+                "base_unit": "xrp",
+                "quote_unit": "btc",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "xrpeth": {
+                "name": "XRP\/ETH",
+                "base_unit": "xrp",
+                "quote_unit": "eth",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "xrptwd": {
+                "name": "XRP\/TWD",
+                "base_unit": "xrp",
+                "quote_unit": "twd",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 3},
+                "at": 1542269494,
+                "buy": 14.2,
+                "sell": 15.868,
+                "open": 15.35,
+                "low": 14.0,
+                "high": 16.5,
+                "last": 16.0,
+                "volume": 12047.82
+            },
+            "xrpusdt": {
+                "name": "XRP\/USDT",
+                "base_unit": "xrp",
+                "quote_unit": "usdt",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 5},
+                "at": 1542269494,
+                "buy": 0.47026,
+                "sell": 0.47213,
+                "open": 0.51753,
+                "low": 0.421,
+                "high": 0.49614,
+                "last": 0.47437,
+                "volume": 2475.82
+            },
+            "xrptwdt": {
+                "name": "XRP\/TWDT",
+                "base_unit": "xrp",
+                "quote_unit": "twdt",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "fmftwd": {
+                "name": "FMF\/TWD",
+                "base_unit": "fmf",
+                "quote_unit": "twd",
+                "ask": {"currency": "fmf", "fixed": 1},
+                "bid": {"currency": "twd", "fixed": 4},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "fmfusdt": {
+                "name": "FMF\/USDT",
+                "base_unit": "fmf",
+                "quote_unit": "usdt",
+                "ask": {"currency": "fmf", "fixed": 1},
+                "bid": {"currency": "usdt", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.0,
+                "sell": 0.0,
+                "open": 0.0,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.0,
+                "volume": 0.0
+            },
+            "maxbtc": {
+                "name": "MAX\/BTC",
+                "base_unit": "max",
+                "quote_unit": "btc",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "btc", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00001763,
+                "sell": 0.00002168,
+                "open": 0.000019,
+                "low": 0.000017,
+                "high": 0.0000217,
+                "last": 0.0000217,
+                "volume": 7979.2
+            },
+            "maxeth": {
+                "name": "MAX\/ETH",
+                "base_unit": "max",
+                "quote_unit": "eth",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "eth", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.000611,
+                "sell": 0.000687,
+                "open": 0.0006,
+                "low": 0.00056,
+                "high": 0.000688,
+                "last": 0.000625,
+                "volume": 144761.86
+            },
+            "ltcmax": {
+                "name": "LTC\/MAX",
+                "base_unit": "ltc",
+                "quote_unit": "max",
+                "ask": {"currency": "ltc", "fixed": 5},
+                "bid": {"currency": "max", "fixed": 2},
+                "at": 1542269494,
+                "buy": 281.01,
+                "sell": 395.0,
+                "open": 381.0,
+                "low": 375.02,
+                "high": 400.01,
+                "last": 375.02,
+                "volume": 2.59992
+            },
+            "bchmax": {
+                "name": "BCH\/MAX",
+                "base_unit": "bch",
+                "quote_unit": "max",
+                "ask": {"currency": "bch", "fixed": 5},
+                "bid": {"currency": "max", "fixed": 2},
+                "at": 1542269494,
+                "buy": 3590.02,
+                "sell": 4900.0,
+                "open": 4300.0,
+                "low": 3590.01,
+                "high": 4080.0,
+                "last": 3590.01,
+                "volume": 0.30045
+            },
+            "mithmax": {
+                "name": "MITH\/MAX",
+                "base_unit": "mith",
+                "quote_unit": "max",
+                "ask": {"currency": "mith", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5},
+                "at": 1542269494,
+                "buy": 1.88003,
+                "sell": 2.3,
+                "open": 1.73003,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 1.73003,
+                "volume": 0.0
+            },
+            "maxusdt": {
+                "name": "MAX\/USDT",
+                "base_unit": "max",
+                "quote_unit": "usdt",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "usdt", "fixed": 3},
+                "at": 1542269494,
+                "buy": 0.116,
+                "sell": 0.124,
+                "open": 0.124,
+                "low": 0.105,
+                "high": 0.133,
+                "last": 0.124,
+                "volume": 382883.55
+            },
+            "trxmax": {
+                "name": "TRX\/MAX",
+                "base_unit": "trx",
+                "quote_unit": "max",
+                "ask": {"currency": "trx", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.091002,
+                "sell": 0.2,
+                "open": 0.160005,
+                "low": 0.160004,
+                "high": 0.160006,
+                "last": 0.160004,
+                "volume": 6749.7
+            },
+            "cccxmax": {
+                "name": "CCCX\/MAX",
+                "base_unit": "cccx",
+                "quote_unit": "max",
+                "ask": {"currency": "cccx", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.005,
+                "sell": 0.006,
+                "open": 0.006,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.006,
+                "volume": 0.0
+            },
+            "palmax": {
+                "name": "PAL\/MAX",
+                "base_unit": "pal",
+                "quote_unit": "max",
+                "ask": {"currency": "pal", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.0302,
+                "sell": 0.104,
+                "open": 0.019288,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 0.019288,
+                "volume": 0.0
+            },
+            "eosmax": {
+                "name": "EOS\/MAX",
+                "base_unit": "eos",
+                "quote_unit": "max",
+                "ask": {"currency": "eos", "fixed": 3},
+                "bid": {"currency": "max", "fixed": 5},
+                "at": 1542269494,
+                "buy": 34.65635,
+                "sell": 45.0,
+                "open": 43.0,
+                "low": 34.65635,
+                "high": 34.65635,
+                "last": 34.65635,
+                "volume": 0.061
+            },
+            "batmax": {
+                "name": "BAT\/MAX",
+                "base_unit": "bat",
+                "quote_unit": "max",
+                "ask": {"currency": "bat", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5},
+                "at": 1542269494,
+                "buy": 1.60013,
+                "sell": 2.69999,
+                "open": 2.6,
+                "low": 0.0,
+                "high": 0.0,
+                "last": 2.6,
+                "volume": 0.0
+            },
+            "zrxmax": {
+                "name": "ZRX\/MAX",
+                "base_unit": "zrx",
+                "quote_unit": "max",
+                "ask": {"currency": "zrx", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 4},
+                "at": 1542269494,
+                "buy": 2.5143,
+                "sell": 6.99,
+                "open": 4.732,
+                "low": 2.5118,
+                "high": 4.7302,
+                "last": 2.5123,
+                "volume": 3180.25
+            },
+            "gntmax": {
+                "name": "GNT\/MAX",
+                "base_unit": "gnt",
+                "quote_unit": "max",
+                "ask": {"currency": "gnt", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5},
+                "at": 1542269494,
+                "buy": 0.71026,
+                "sell": 1.99998,
+                "open": 1.13951,
+                "low": 0.70095,
+                "high": 0.71022,
+                "last": 0.71022,
+                "volume": 14039.16
+            },
+            "omgmax": {
+                "name": "OMG\/MAX",
+                "base_unit": "omg",
+                "quote_unit": "max",
+                "ask": {"currency": "omg", "fixed": 3},
+                "bid": {"currency": "max", "fixed": 5},
+                "at": 1542269494,
+                "buy": 20.00004,
+                "sell": 411.0,
+                "open": 15.001,
+                "low": 20.00002,
+                "high": 30.0,
+                "last": 20.00004,
+                "volume": 36.72
+            },
+            "kncmax": {
+                "name": "KNC\/MAX",
+                "base_unit": "knc",
+                "quote_unit": "max",
+                "ask": {"currency": "knc", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 4},
+                "at": 1542269494,
+                "buy": 2.1004,
+                "sell": 8.0,
+                "open": 2.0008,
+                "low": 2.1003,
+                "high": 2.1003,
+                "last": 2.1003,
+                "volume": 4.57
+            },
+            "maxtwdt": {
+                "name": "MAX\/TWDT",
+                "base_unit": "max",
+                "quote_unit": "twdt",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "twdt", "fixed": 2},
+                "at": 1542269494,
+                "buy": 0.02,
+                "sell": 5.49,
+                "open": 5.49,
+                "low": 5.49,
+                "high": 5.49,
+                "last": 5.49,
+                "volume": 16.76
+            },
+            "xrpmax": {
+                "name": "XRP\/MAX",
+                "base_unit": "xrp",
+                "quote_unit": "max",
+                "ask": {"currency": "xrp", "fixed": 2},
+                "bid": {"currency": "max", "fixed": 5},
+                "at": 1542269494,
+                "buy": 3.71,
+                "sell": 4.49999,
+                "open": 4.49999,
+                "low": 3.71,
+                "high": 3.79002,
+                "last": 3.71,
+                "volume": 16.55
+            },
+            "fmfmax": {
+                "name": "FMF\/MAX",
+                "base_unit": "fmf",
+                "quote_unit": "max",
+                "ask": {"currency": "fmf", "fixed": 1},
+                "bid": {"currency": "max", "fixed": 6},
+                "at": 1542269494,
+                "buy": 0.01111,
+                "sell": 0.0388,
+                "open": 0.03,
+                "low": 0.010006,
+                "high": 0.010006,
+                "last": 0.010006,
+                "volume": 201.2
+            },
+            "maxtwd": {
+                "name": "MAX\/TWD",
+                "base_unit": "max",
+                "quote_unit": "twd",
+                "ask": {"currency": "max", "fixed": 2},
+                "bid": {"currency": "twd", "fixed": 2},
+                "at": 1542269494,
+                "buy": 3.6,
+                "sell": 3.78,
+                "open": 3.59,
+                "low": 3.4,
+                "high": 3.99,
+                "last": 3.77,
+                "volume": 53950.92
+            },
+            "fmfeth": {
+                "name": "FMF\/ETH",
+                "base_unit": "fmf",
+                "quote_unit": "eth",
+                "ask": {"currency": "fmf", "fixed": 1},
+                "bid": {"currency": "eth", "fixed": 8},
+                "at": 1542269494,
+                "buy": 0.00001815,
+                "sell": 0.00001834,
+                "open": 0.00001808,
+                "low": 0.00001803,
+                "high": 0.00001967,
+                "last": 0.00001817,
+                "volume": 1251818.3
+            }
+        };
+        gon.asks = [[184.0, 4.0], [184.37, 8.0], [184.74, 16.0], [185.11, 32.0], [200.9, 4.0], [200.99, 0.14892], [205.0, 0.52047], [210.41, 0.019], [211.42, 0.15275], [215.47, 1.75697], [223.1, 1.42095], [224.0, 0.95332], [224.9, 0.74962], [230.0, 0.5], [255.0, 0.07258], [260.0, 0.07258], [270.0, 0.14516], [300.0, 0.5], [400.0, 29.22547], [450.0, 0.5], [500.0, 0.5], [550.0, 0.5], [2000.0, 0.00383], [10000.0, 0.0001], [20006.0, 0.001]];
+        gon.bids = [[183.96, 2.9921], [183.49, 4.0], [183.12, 8.0], [182.75, 16.0], [182.39, 32.0], [30.0, 1.0], [26.0, 12.6923], [22.0, 5.0], [21.22, 10.0], [0.01, 1000.0]];
+        gon.trades = [{
+            "tid": 2758643,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269470,
+            "price": "183.97",
+            "amount": "22.25146"
+        }, {
+            "tid": 2758635,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269437,
+            "price": "183.98",
+            "amount": "7.95391"
+        }, {
+            "tid": 2758631,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269404,
+            "price": "183.97",
+            "amount": "3.43831"
+        }, {
+            "tid": 2758617,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269348,
+            "price": "184.23",
+            "amount": "19.12468"
+        }, {
+            "tid": 2758610,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269315,
+            "price": "184.24",
+            "amount": "1.30067"
+        }, {
+            "tid": 2758605,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269282,
+            "price": "184.36",
+            "amount": "0.22138"
+        }, {
+            "tid": 2758600,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269256,
+            "price": "184.27",
+            "amount": "26.4101"
+        }, {
+            "tid": 2758596,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269228,
+            "price": "184.26",
+            "amount": "14.65681"
+        }, {
+            "tid": 2758587,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269192,
+            "price": "184.34",
+            "amount": "14.99724"
+        }, {
+            "tid": 2758577,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269131,
+            "price": "183.91",
+            "amount": "3.74936"
+        }, {
+            "tid": 2758569,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269070,
+            "price": "184.02",
+            "amount": "18.87402"
+        }, {
+            "tid": 2758560,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269044,
+            "price": "183.77",
+            "amount": "11.77838"
+        }, {
+            "tid": 2758558,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542269014,
+            "price": "183.77",
+            "amount": "19.49634"
+        }, {
+            "tid": 2758550,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268953,
+            "price": "183.79",
+            "amount": "13.63387"
+        }, {
+            "tid": 2758547,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268923,
+            "price": "183.61",
+            "amount": "26.61956"
+        }, {
+            "tid": 2758534,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268806,
+            "price": "183.61",
+            "amount": "6.64785"
+        }, {
+            "tid": 2758528,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268748,
+            "price": "183.31",
+            "amount": "24.44742"
+        }, {
+            "tid": 2758526,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268719,
+            "price": "183.34",
+            "amount": "22.66027"
+        }, {
+            "tid": 2758522,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268686,
+            "price": "183.29",
+            "amount": "8.95632"
+        }, {
+            "tid": 2758518,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268655,
+            "price": "183.35",
+            "amount": "22.68743"
+        }, {
+            "tid": 2758515,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268628,
+            "price": "183.36",
+            "amount": "21.52535"
+        }, {
+            "tid": 2758493,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268474,
+            "price": "183.26",
+            "amount": "11.47123"
+        }, {
+            "tid": 2758473,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268299,
+            "price": "183.2",
+            "amount": "15.89815"
+        }, {
+            "tid": 2758470,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268267,
+            "price": "183.26",
+            "amount": "20.36559"
+        }, {
+            "tid": 2758463,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268205,
+            "price": "183.04",
+            "amount": "6.81263"
+        }, {
+            "tid": 2758461,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542268176,
+            "price": "183.24",
+            "amount": "23.3513"
+        }, {
+            "tid": 2758429,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267967,
+            "price": "183.43",
+            "amount": "10.76879"
+        }, {
+            "tid": 2758426,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267937,
+            "price": "183.66",
+            "amount": "15.72833"
+        }, {
+            "tid": 2758397,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267694,
+            "price": "183.69",
+            "amount": "16.62912"
+        }, {
+            "tid": 2758394,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267666,
+            "price": "183.97",
+            "amount": "14.39153"
+        }, {
+            "tid": 2758391,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267632,
+            "price": "183.37",
+            "amount": "20.46524"
+        }, {
+            "tid": 2758387,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267602,
+            "price": "183.39",
+            "amount": "11.69112"
+        }, {
+            "tid": 2758384,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267571,
+            "price": "183.31",
+            "amount": "8.47438"
+        }, {
+            "tid": 2758381,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267544,
+            "price": "183.16",
+            "amount": "5.25933"
+        }, {
+            "tid": 2758370,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267511,
+            "price": "183.39",
+            "amount": "26.39043"
+        }, {
+            "tid": 2758366,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267477,
+            "price": "183.33",
+            "amount": "16.84235"
+        }, {
+            "tid": 2758355,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267383,
+            "price": "183.72",
+            "amount": "3.09778"
+        }, {
+            "tid": 2758347,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267292,
+            "price": "183.34",
+            "amount": "21.95808"
+        }, {
+            "tid": 2758340,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267229,
+            "price": "183.81",
+            "amount": "3.21814"
+        }, {
+            "tid": 2758338,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267203,
+            "price": "184.08",
+            "amount": "26.13404"
+        }, {
+            "tid": 2758335,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267174,
+            "price": "184.36",
+            "amount": "21.94885"
+        }, {
+            "tid": 2758332,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267148,
+            "price": "183.46",
+            "amount": "9.03058"
+        }, {
+            "tid": 2758329,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267114,
+            "price": "183.36",
+            "amount": "27.08363"
+        }, {
+            "tid": 2758319,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542267022,
+            "price": "183.68",
+            "amount": "25.59155"
+        }, {
+            "tid": 2758315,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266996,
+            "price": "183.7",
+            "amount": "24.01216"
+        }, {
+            "tid": 2758303,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266880,
+            "price": "183.14",
+            "amount": "0.50796"
+        }, {
+            "tid": 2758297,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266819,
+            "price": "182.81",
+            "amount": "11.36694"
+        }, {
+            "tid": 2758279,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266641,
+            "price": "182.29",
+            "amount": "15.00642"
+        }, {
+            "tid": 2758276,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266616,
+            "price": "182.21",
+            "amount": "16.04465"
+        }, {
+            "tid": 2758267,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266537,
+            "price": "182.1",
+            "amount": "17.53898"
+        }, {
+            "tid": 2758255,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266424,
+            "price": "181.96",
+            "amount": "15.34279"
+        }, {
+            "tid": 2758253,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266397,
+            "price": "182.17",
+            "amount": "24.23122"
+        }, {
+            "tid": 2758250,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266370,
+            "price": "182.01",
+            "amount": "1.72236"
+        }, {
+            "tid": 2758247,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266340,
+            "price": "182.57",
+            "amount": "1.7721"
+        }, {
+            "tid": 2758239,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266285,
+            "price": "182.57",
+            "amount": "11.50974"
+        }, {
+            "tid": 2758237,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266257,
+            "price": "182.87",
+            "amount": "12.83021"
+        }, {
+            "tid": 2758222,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266166,
+            "price": "182.5",
+            "amount": "13.82945"
+        }, {
+            "tid": 2758221,
+            "type": "buy",
+            "trend": "up",
+            "date": 1542266162,
+            "price": "182.77",
+            "amount": "0.0183"
+        }, {
+            "tid": 2758205,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266115,
+            "price": "182.41",
+            "amount": "16.21059"
+        }, {
+            "tid": 2758194,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266050,
+            "price": "181.73",
+            "amount": "7.52181"
+        }, {
+            "tid": 2758190,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542266017,
+            "price": "181.77",
+            "amount": "27.14355"
+        }, {
+            "tid": 2758187,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265984,
+            "price": "181.62",
+            "amount": "24.68405"
+        }, {
+            "tid": 2758184,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265954,
+            "price": "181.41",
+            "amount": "24.65814"
+        }, {
+            "tid": 2758177,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265897,
+            "price": "181.26",
+            "amount": "18.88723"
+        }, {
+            "tid": 2758173,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265870,
+            "price": "181.34",
+            "amount": "19.51668"
+        }, {
+            "tid": 2758171,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265843,
+            "price": "181.28",
+            "amount": "0.44016"
+        }, {
+            "tid": 2758167,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265809,
+            "price": "181.47",
+            "amount": "1.88436"
+        }, {
+            "tid": 2758158,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265713,
+            "price": "181.55",
+            "amount": "1.08746"
+        }, {
+            "tid": 2758154,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265682,
+            "price": "181.72",
+            "amount": "22.67688"
+        }, {
+            "tid": 2758150,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265648,
+            "price": "181.49",
+            "amount": "11.18673"
+        }, {
+            "tid": 2758148,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265617,
+            "price": "181.41",
+            "amount": "2.85613"
+        }, {
+            "tid": 2758143,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265582,
+            "price": "181.33",
+            "amount": "6.38525"
+        }, {
+            "tid": 2758141,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265557,
+            "price": "181.11",
+            "amount": "22.76119"
+        }, {
+            "tid": 2758134,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265496,
+            "price": "181.13",
+            "amount": "1.72259"
+        }, {
+            "tid": 2758128,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265442,
+            "price": "181.41",
+            "amount": "3.32899"
+        }, {
+            "tid": 2758124,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265408,
+            "price": "181.37",
+            "amount": "21.31543"
+        }, {
+            "tid": 2758097,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265174,
+            "price": "180.66",
+            "amount": "27.09036"
+        }, {
+            "tid": 2758093,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265146,
+            "price": "180.86",
+            "amount": "20.346"
+        }, {
+            "tid": 2758089,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265115,
+            "price": "180.73",
+            "amount": "10.59958"
+        }, {
+            "tid": 2758083,
+            "type": "sell",
+            "trend": "down",
+            "date": 1542265051,
+            "price": "180.75",
+            "amount": "11.94352"
+        }];
+        gon.settings = {"maker_fee_percentage": 0.0005, "taker_fee_percentage": 0.0015, "min_order_twd_amount": 10.0};
+        //]]>
+    </script>
+    <link href="https://max.maicoin.com/assets/market-29300c17eb605a8c172e90657cb75d73.css" media="all"
+          rel="stylesheet"/>
+    <script>
+        var _rollbarConfig = {
+            accessToken: "622770156aa04542a8bd721e81406137",
+            captureUncaught: true,
+            captureUnhandledRejections: true,
+            payload: {
+                environment: "production"
+            }
+        };
+        // Rollbar Snippet
+        // v2.3.3: https://github.com/rollbar/rollbar.js/blob/master/examples/snippet.html
+        !function (r) {
+            function o(n) {
+                if (e[n]) return e[n].exports;
+                var t = e[n] = {exports: {}, id: n, loaded: !1};
+                return r[n].call(t.exports, t, t.exports, o), t.loaded = !0, t.exports
+            }
+
+            var e = {};
+            return o.m = r, o.c = e, o.p = "", o(0)
+        }([function (r, o, e) {
+            "use strict";
+            var n = e(1), t = e(4);
+            _rollbarConfig = _rollbarConfig || {}, _rollbarConfig.rollbarJsUrl = _rollbarConfig.rollbarJsUrl || "https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/2.3.3/rollbar.min.js", _rollbarConfig.async = void 0 === _rollbarConfig.async || _rollbarConfig.async;
+            var a = n.setupShim(window, _rollbarConfig), l = t(_rollbarConfig);
+            window.rollbar = n.Rollbar, a.loadFull(window, document, !_rollbarConfig.async, _rollbarConfig, l)
+        }, function (r, o, e) {
+            "use strict";
+
+            function n(r) {
+                return function () {
+                    try {
+                        return r.apply(this, arguments)
+                    } catch (r) {
+                        try {
+                            console.error("[Rollbar]: Internal error", r)
+                        } catch (r) {
+                        }
+                    }
+                }
+            }
+
+            function t(r, o) {
+                this.options = r, this._rollbarOldOnError = null;
+                var e = s++;
+                this.shimId = function () {
+                    return e
+                }, window && window._rollbarShims && (window._rollbarShims[e] = {handler: o, messages: []})
+            }
+
+            function a(r, o) {
+                var e = o.globalAlias || "Rollbar";
+                if ("object" == typeof r[e]) return r[e];
+                r._rollbarShims = {}, r._rollbarWrappedError = null;
+                var t = new p(o);
+                return n(function () {
+                    o.captureUncaught && (t._rollbarOldOnError = r.onerror, i.captureUncaughtExceptions(r, t, !0), i.wrapGlobals(r, t, !0)), o.captureUnhandledRejections && i.captureUnhandledRejections(r, t, !0);
+                    var n = o.autoInstrument;
+                    return o.enabled !== !1 && (void 0 === n || n === !0 || "object" == typeof n && n.network) && r.addEventListener && (r.addEventListener("load", t.captureLoad.bind(t)), r.addEventListener("DOMContentLoaded", t.captureDomContentLoaded.bind(t))), r[e] = t, t
+                })()
+            }
+
+            function l(r) {
+                return n(function () {
+                    var o = this, e = Array.prototype.slice.call(arguments, 0),
+                        n = {shim: o, method: r, args: e, ts: new Date};
+                    window._rollbarShims[this.shimId()].messages.push(n)
+                })
+            }
+
+            var i = e(2), s = 0, d = e(3), c = function (r, o) {
+                return new t(r, o)
+            }, p = d.bind(null, c);
+            t.prototype.loadFull = function (r, o, e, t, a) {
+                var l = function () {
+                    var o;
+                    if (void 0 === r._rollbarDidLoad) {
+                        o = new Error("rollbar.js did not load");
+                        for (var e, n, t, l, i = 0; e = r._rollbarShims[i++];) for (e = e.messages || []; n = e.shift();) for (t = n.args || [], i = 0; i < t.length; ++i) if (l = t[i], "function" == typeof l) {
+                            l(o);
+                            break
+                        }
+                    }
+                    "function" == typeof a && a(o)
+                }, i = !1, s = o.createElement("script"), d = o.getElementsByTagName("script")[0], c = d.parentNode;
+                s.crossOrigin = "", s.src = t.rollbarJsUrl, e || (s.async = !0), s.onload = s.onreadystatechange = n(function () {
+                    if (!(i || this.readyState && "loaded" !== this.readyState && "complete" !== this.readyState)) {
+                        s.onload = s.onreadystatechange = null;
+                        try {
+                            c.removeChild(s)
+                        } catch (r) {
+                        }
+                        i = !0, l()
+                    }
+                }), c.insertBefore(s, d)
+            }, t.prototype.wrap = function (r, o, e) {
+                try {
+                    var n;
+                    if (n = "function" == typeof o ? o : function () {
+                        return o || {}
+                    }, "function" != typeof r) return r;
+                    if (r._isWrap) return r;
+                    if (!r._rollbar_wrapped && (r._rollbar_wrapped = function () {
+                        e && "function" == typeof e && e.apply(this, arguments);
+                        try {
+                            return r.apply(this, arguments)
+                        } catch (e) {
+                            var o = e;
+                            throw"string" == typeof o && (o = new String(o)), o._rollbarContext = n() || {}, o._rollbarContext._wrappedSource = r.toString(), window._rollbarWrappedError = o, o
+                        }
+                    }, r._rollbar_wrapped._isWrap = !0, r.hasOwnProperty)) for (var t in r) r.hasOwnProperty(t) && (r._rollbar_wrapped[t] = r[t]);
+                    return r._rollbar_wrapped
+                } catch (o) {
+                    return r
+                }
+            };
+            for (var u = "log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","), f = 0; f < u.length; ++f) t.prototype[u[f]] = l(u[f]);
+            r.exports = {setupShim: a, Rollbar: p}
+        }, function (r, o) {
+            "use strict";
+
+            function e(r, o, e) {
+                if (r) {
+                    var t;
+                    "function" == typeof o._rollbarOldOnError ? t = o._rollbarOldOnError : r.onerror && !r.onerror.belongsToShim && (t = r.onerror, o._rollbarOldOnError = t);
+                    var a = function () {
+                        var e = Array.prototype.slice.call(arguments, 0);
+                        n(r, o, t, e)
+                    };
+                    a.belongsToShim = e, r.onerror = a
+                }
+            }
+
+            function n(r, o, e, n) {
+                r._rollbarWrappedError && (n[4] || (n[4] = r._rollbarWrappedError), n[5] || (n[5] = r._rollbarWrappedError._rollbarContext), r._rollbarWrappedError = null), o.handleUncaughtException.apply(o, n), e && e.apply(r, n)
+            }
+
+            function t(r, o, e) {
+                if (r) {
+                    "function" == typeof r._rollbarURH && r._rollbarURH.belongsToShim && r.removeEventListener("unhandledrejection", r._rollbarURH);
+                    var n = function (r) {
+                        var e, n, t;
+                        try {
+                            e = r.reason
+                        } catch (r) {
+                            e = void 0
+                        }
+                        try {
+                            n = r.promise
+                        } catch (r) {
+                            n = "[unhandledrejection] error getting `promise` from event"
+                        }
+                        try {
+                            t = r.detail, !e && t && (e = t.reason, n = t.promise)
+                        } catch (r) {
+                            t = "[unhandledrejection] error getting `detail` from event"
+                        }
+                        e || (e = "[unhandledrejection] error getting `reason` from event"), o && o.handleUnhandledRejection && o.handleUnhandledRejection(e, n)
+                    };
+                    n.belongsToShim = e, r._rollbarURH = n, r.addEventListener("unhandledrejection", n)
+                }
+            }
+
+            function a(r, o, e) {
+                if (r) {
+                    var n, t,
+                        a = "EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");
+                    for (n = 0; n < a.length; ++n) t = a[n], r[t] && r[t].prototype && l(o, r[t].prototype, e)
+                }
+            }
+
+            function l(r, o, e) {
+                if (o.hasOwnProperty && o.hasOwnProperty("addEventListener")) {
+                    for (var n = o.addEventListener; n._rollbarOldAdd && n.belongsToShim;) n = n._rollbarOldAdd;
+                    var t = function (o, e, t) {
+                        n.call(this, o, r.wrap(e), t)
+                    };
+                    t._rollbarOldAdd = n, t.belongsToShim = e, o.addEventListener = t;
+                    for (var a = o.removeEventListener; a._rollbarOldRemove && a.belongsToShim;) a = a._rollbarOldRemove;
+                    var l = function (r, o, e) {
+                        a.call(this, r, o && o._rollbar_wrapped || o, e)
+                    };
+                    l._rollbarOldRemove = a, l.belongsToShim = e, o.removeEventListener = l
+                }
+            }
+
+            r.exports = {captureUncaughtExceptions: e, captureUnhandledRejections: t, wrapGlobals: a}
+        }, function (r, o) {
+            "use strict";
+
+            function e(r, o) {
+                this.impl = r(o, this), this.options = o, n(e.prototype)
+            }
+
+            function n(r) {
+                for (var o = function (r) {
+                    return function () {
+                        var o = Array.prototype.slice.call(arguments, 0);
+                        if (this.impl[r]) return this.impl[r].apply(this.impl, o)
+                    }
+                }, e = "log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","), n = 0; n < e.length; n++) r[e[n]] = o(e[n])
+            }
+
+            e.prototype._swapAndProcessMessages = function (r, o) {
+                this.impl = r(this.options);
+                for (var e, n, t; e = o.shift();) n = e.method, t = e.args, this[n] && "function" == typeof this[n] && ("captureDomContentLoaded" === n || "captureLoad" === n ? this[n].apply(this, [t[0], e.ts]) : this[n].apply(this, t));
+                return this
+            }, r.exports = e
+        }, function (r, o) {
+            "use strict";
+            r.exports = function (r) {
+                return function (o) {
+                    if (!o && !window._rollbarInitialized) {
+                        r = r || {};
+                        for (var e, n, t = r.globalAlias || "Rollbar", a = window.rollbar, l = function (r) {
+                            return new a(r)
+                        }, i = 0; e = window._rollbarShims[i++];) n || (n = e.handler), e.handler._swapAndProcessMessages(l, e.messages);
+                        window[t] = n, window._rollbarInitialized = !0
+                    }
+                }
+            }
+        }]);
+        // End Rollbar Snippet
+    </script>
+    <script src="https://max.maicoin.com/assets/market-50dab9292329c9eab660f88d2e99a6eb.js"></script>
+    <script src="https://max.maicoin.com/assets/locales/en-2628b9f30faefd6f9f906d72e09febf7.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://max.maicoin.com/assets/html5-fbac86b751cd648d29d1303b5b1e615d.js"></script>
+    <![endif]--><title>
+    MAX Digital Asset Exchange</title>
+    <meta content="MAX Digital Asset Exchange" property="og:title"/>
+    <meta content="MAX (MaiCoin Asset Exchange), the world&#39;s first digital asset exchange with integrated custodian bank services, provides live trading of cryptocurrencies (coins, tokens) such as Bitcoin (BTC), Ether (ETH), Litecoin (LTC), and Bitcoin Cash (BCH), Mithril (MITH), and Tether (USDT)."
+          name="description"/>
+    <meta content="MAX (MaiCoin Asset Exchange), the world&#39;s first digital asset exchange with integrated custodian bank services, provides live trading of cryptocurrencies (coins, tokens) such as Bitcoin (BTC), Ether (ETH), Litecoin (LTC), and Bitcoin Cash (BCH), Mithril (MITH), and Tether (USDT)."
+          property="og:descrption"/>
+    <meta content="website" property="og:type"/>
+    <meta content="https://max.maicoin.com/markets/ethusdt" property="og:url"/>
+    <meta content="MAX Exchange,Exchange,Cryptocurrency,Digital Asset,Taiwan" name="keywords"/>
+    <meta content="width=device-width,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+    <meta content="https://max.maicoin.com/assets/og-image-3e339558773a04fe0b7aa66734c956ff.jpg" property="og:image"/>
+    <meta content="app-id=1370837255" name="apple-itunes-app"/>
+    <meta content="app-id=com.maicoin.max" name="google-play-app"/>
+    <meta content="authenticity_token" name="csrf-param"/>
+    <meta content="OyF3fqYHtJnb6HepPwNlRLebSgoXTnFFHK4qqyK9P7w=" name="csrf-token"/>
+    <!-- Global site tag (gtag.js) - Google AdWords: 834683825 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-834683825"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'AW-834683825');
+    </script>
+    <!-- Google Analytics -->
+    <script type='text/javascript'>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-109362690-1', 'auto');
+        var member_type = 'type_anonymous';
+        ga('require', 'linkid', 'linkid.js');
+        ga('require', 'eventTracker');
+        ga('require', 'outboundLinkTracker');
+        ga('set', 'dimension1', member_type);
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+    <script type='text/javascript'>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '521083521571251');
+        fbq('track', 'PageView');
+    </script>
 </head>
-<body>
+<body data-lang="en" id="markets-show">
+<header class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left col-xs-24 col-md-18 col-lg-16" id="menu"><a class="navbar-brand" href="/"><span
+                class="logo"><img alt="Logo"
+                                  src="https://max.maicoin.com/assets/logo-6f8e1977752ba82eb471b64faca9f3c1.png"/></span></a>
+            <p class="navbar-text"><span class="market-name">ETH/USDT</span><span class="hidden-tn"
+                                                                                  data-title="Last"><span
+                    class="last"></span></span><span class="hidden-xxs" data-title="24h Volume"><span
+                    class="vol"></span></span><span class="hidden-xxs hidden-xs" data-title="High"><span
+                    class="high"></span></span><span class="hidden-xxs hidden-xs" data-title="Low"><span
+                    class="low"></span></span><span class="hidden-tn" data-title="Change"><span
+                    class="change"></span></span></p></ul>
+        <ul class="nav navbar-nav navbar-right col-xs-24 col-md-6 col-lg-8"><p class="navbar-text"><a
+                class='text-up sign-in' href='/signin'>Sign In</a> <a class='text-up sign-in' href='/signup'>Sign Up</a>
+        </p>
+            <li class="dropdown" id="language"><a class="dropdown-toggle" data-toggle="dropdown" ga-event-action="link"
+                                                  ga-event-category="max-token-landing"
+                                                  ga-event-label="header-language-open" ga-on="click" href="#"><i
+                    class="fa fa-globe fa-fw"></i><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a ga-event-action="link" ga-event-category="max-token-landing"
+                           ga-event-label="header-language-open--zh-TW" ga-on="click" href="?lang=zh-TW">繁體中文 </a></li>
+                    <li><a ga-event-action="link" ga-event-category="max-token-landing"
+                           ga-event-label="header-language-open--en" ga-on="click" href="?lang=en">English <i
+                            aria-hidden="" class="fa fa-check"></i></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
+<div class="container-fluid market-wrapper">
+    <div class="row">
+        <div class="col-md-24">
+            <div class="gutter"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mobile-switch book-panel">
+            <ul class="nav nav-tabs">
+                <li class="nav-item active"><a class="nav-link" data-target="#order_book" data-toggle="tab">Order
+                    Book</a></li>
+                <li class="nav-item"><a class="nav-link" data-click="span.all" data-target="#market_trades"
+                                        data-toggle="tab">Market Trades</a></li>
+            </ul>
+        </div>
+        <div class="mobile-switch orders-panel">
+            <ul class="nav nav-tabs">
+                <li class="nav-item active"><a class="nav-link" data-target="#my_orders_wrapper" data-toggle="tab">My
+                    Orders</a></li>
+                <li class="nav-item"><a class="nav-link" data-click="span.my" data-target="#market_trades"
+                                        data-toggle="tab">My Trades</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-24 col-md-24 col-lg-10 col-xl-4 col-hidable">
+
+            <div class="row trade-panel">
+                <div class="col-md-24">
+                    <div class="panel" id="ticker">
+                        <div class="panel-body">
+                            <div class="bid col-xs-7 pull-left">
+                                <div class="hint">BID</div>
+                                <div class="price"></div>
+                            </div>
+                            <div class="last col-xs-10">
+                                <div class="price"></div>
+                            </div>
+                            <div class="ask col-xs-7 pull-right">
+                                <div class="hint">ASK</div>
+                                <div class="price"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row trade-panel">
+                <div class="col-md-24">
+                    <div class="gutter"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-24 hidden-xs">
+                    <div class="gutter"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-24 col-md-24 col-lg-14 col-xl-8 col-hidable">
+            <div class="row charts-panel">
+                <div class="col-md-24">
+                    <div class="panel panel-default" id="candlestick">
+                        <div class="k-wrapper">
+                            <div class="k-switch">
+                                <div class="col-xs-24">
+                                    <ul class="list-inline switch" data-x="60" id="range_switch">
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="1"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="1m"
+                                                                   ga-on="click" href="#">1m</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="5"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="5m"
+                                                                   ga-on="click" href="#">5m</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="15"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="15m"
+                                                                   ga-on="click" href="#">15m</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="30"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="30m"
+                                                                   ga-on="click" href="#">30m</a></li>
+                                        <li class="text-center"><span>|</span></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="60"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="1h"
+                                                                   ga-on="click" href="#">1h</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="120"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="2h"
+                                                                   ga-on="click" href="#">2h</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="240"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="4h"
+                                                                   ga-on="click" href="#">4h</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="360"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="6h"
+                                                                   ga-on="click" href="#">6h</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="720"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="12h"
+                                                                   ga-on="click" href="#">12h</a></li>
+                                        <li class="text-center"><span>|</span></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="1440"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="1d"
+                                                                   ga-on="click" href="#">1d</a></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="4320"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="3d"
+                                                                   ga-on="click" href="#">3d</a></li>
+                                        <li class="text-center"><span>|</span></li>
+                                        <li class="text-center"><a class="hand-point chart-switch" data-x="10080"
+                                                                   ga-event-action="switch-chart-range"
+                                                                   ga-event-category="markets" ga-event-label="1w"
+                                                                   ga-on="click" href="#">1w</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-24">
+                                    <div class="switch" id="indicator_switch_wrapper">
+                                        <ul class="list-inline">
+                                            <li>
+                                                <ul class="indicator_switch list-inline" data-x="sma"
+                                                    id="main_indicator_switch">
+                                                    <li class="text-center"><a class="hand-point" data-x="sma"
+                                                                               ga-event-action="switch-chart-type"
+                                                                               ga-event-category="markets"
+                                                                               ga-event-label="SMA" ga-on="click"
+                                                                               href="#">SMA</a></li>
+                                                    <li class="text-center"><a class="hand-point" data-x="ema"
+                                                                               ga-event-action="switch-chart-type"
+                                                                               ga-event-category="markets"
+                                                                               ga-event-label="EMA" ga-on="click"
+                                                                               href="#">EMA</a></li>
+                                                    <li class="text-center"><a class="hand-point" data-x="bb"
+                                                                               ga-event-action="switch-chart-type"
+                                                                               ga-event-category="markets"
+                                                                               ga-event-label="BB" ga-on="click"
+                                                                               href="#">BB</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="text-center"><span>|</span></li>
+                                            <li>
+                                                <ul class="indicator_switch list-inline" data-x="macd"
+                                                    id="indicator_switch">
+                                                    <li class="text-center"><a class="hand-point" data-x="macd"
+                                                                               ga-event-action="switch-chart-type"
+                                                                               ga-event-category="markets"
+                                                                               ga-event-label="MACD" ga-on="click"
+                                                                               href="#">MACD</a></li>
+                                                    <li class="text-center"><a class="hand-point" data-x="rsi"
+                                                                               ga-event-action="switch-chart-type"
+                                                                               ga-event-category="markets"
+                                                                               ga-event-label="RSI" ga-on="click"
+                                                                               href="#">RSI</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="k-chart">
+                                <iframe frameborder="0" id="candlestick_chart" scrolling="no"
+                                        src="about:blank"></iframe>
+                                <div class="mask">
+                                    <table>
+                                        <tr>
+                                            <td class="text-center"><i class="fa fa-refresh fa-spin fa-1x"></i><span>Loading ...</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
+        </div>
+    </div>
+</div>
+<div id="mobile_bottom_nav">
+    <ul class="nav">
+        <li class="nav-item trade active"><a class="nav-link" data-body-height="fixed" data-target=".trade-panel"
+                                             data-toggle="tab">Buy/Sell</a></li>
+        <li class="nav-item book"><a class="nav-link" data-body-height="auto" data-target=".book-panel"
+                                     data-toggle="tab">Book</a></li>
+        <li class="nav-item charts"><a class="nav-link" data-body-height="auto" data-target=".charts-panel"
+                                       data-toggle="tab">Charts</a></li>
+    </ul>
+</div>
+<script type="text/javascript">$(function () {
+    //Check for Google Search App
+    var strAppVersion = window.navigator.appVersion;
+    var isGSA = strAppVersion.search('GSA') > 0;
 
-<script src="/ETH/resources/js/tools/jquery-1.12.4.min.js"></script>
-
-<!-- ecc [Start] -->
-<script src="/ETH/resources/js/ecc/bitcore-lib.js"></script>
-<script src="/ETH/resources/js/ecc/bitcore-lib.min.js"></script>
-<script src="/ETH/resources/js/ecc/Crypto.js"></script>
-<script src="/ETH/resources/js/ecc/SHA256-2.5.4.js"></script>
-<script src="/ETH/resources/js/ecc/AES.js"></script>
-<script src="/ETH/resources/js/ecc/Crypto-JS-v2.0.0.js"></script>
-<script src="/ETH/resources/js/ecc/ecdsa-1.4.js"></script>
-<script src="/ETH/resources/js/ecc/encryption-1.3.js"></script>
-<script src="/ETH/resources/js/ecc/bitcoin.js"></script>
-<script src="/ETH/resources/js/ecc/base58.js"></script>
-<script src="/ETH/resources/js/ecc/SecureRandom.js"></script>
-<script src="/ETH/resources/js/ecc/eckey.js"></script>
-<script src="/ETH/resources/js/ecc/address.js"></script>
-<script src="/ETH/resources/js/ecc/util.js"></script>
-<script src="/ETH/resources/js/ecc/ecc.js"></script>
-<!-- ecc [End] -->
-
-<script type="text/javascript">
-
-var test = "3KZwZc4ipWbWYZvAdgmVS5ZTrDgiyHdWRW";
-var msg = Crypto.util.bytesToHex(test);  console.log("msg:" + msg);
-
-var test = '{"nonce":"0x00","gasPrice":"0x098bca5a00","gasLimit":"0x5208","to":"0x4148eb69f5aAD57c620eeDa23d7982977a17a550","value":"0x0de0b6b3a7640000","data":"0x","chainId":1}';
-var msg = Crypto.util.bytesToHex(Bitcoin.Util.dsha256(test));  console.log("msg:" + msg);
-
-function doSign("0x41e319f29b7a69b8567addabb196601d1d7be1e51a06e59fff2fd45a0fe15d22",msg) {
-
-	
-	//var privkey = bitcore.PrivateKey.fromWIF(privatekey);   //console.log("msg2",msg2);
-	var signStr = bitcore.Message.fromString(msg).sign(privkey);  	console.log("sign : ", signStr);
-	
-	return signStr;
-}
-
-
-</script>
+    if (isGSA) {
+        $('body').css({'padding-bottom': '90px'});
+        $('#mobile_bottom_nav').css({'bottom': '45px'});
+    }
+});</script>
 </body>
 </html>

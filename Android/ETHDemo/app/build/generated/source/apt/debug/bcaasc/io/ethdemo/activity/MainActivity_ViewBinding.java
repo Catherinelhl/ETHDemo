@@ -14,17 +14,19 @@ import java.lang.IllegalStateException;
 import java.lang.Override;
 
 public class MainActivity_ViewBinding implements Unbinder {
-  private MainActivity target;
+  private MainNewActivity target;
 
   @UiThread
-  public MainActivity_ViewBinding(MainActivity target) {
+  public MainActivity_ViewBinding(MainNewActivity target) {
     this(target, target.getWindow().getDecorView());
   }
 
   @UiThread
-  public MainActivity_ViewBinding(MainActivity target, View source) {
+  public MainActivity_ViewBinding(MainNewActivity target, View source) {
     this.target = target;
 
+    target.etAddressTo = Utils.findRequiredViewAsType(source, R.id.et_address_to, "field 'etAddressTo'", EditText.class);
+    target.etAmount = Utils.findRequiredViewAsType(source, R.id.et_amount, "field 'etAmount'", EditText.class);
     target.tvAddress = Utils.findRequiredViewAsType(source, R.id.tv_address, "field 'tvAddress'", TextView.class);
     target.btnGetBalance = Utils.findRequiredViewAsType(source, R.id.btn_get_balance, "field 'btnGetBalance'", Button.class);
     target.btnGetTxList = Utils.findRequiredViewAsType(source, R.id.btn_get_tx_list, "field 'btnGetTxList'", Button.class);
@@ -36,10 +38,12 @@ public class MainActivity_ViewBinding implements Unbinder {
   @Override
   @CallSuper
   public void unbind() {
-    MainActivity target = this.target;
+    MainNewActivity target = this.target;
     if (target == null) throw new IllegalStateException("Bindings already cleared.");
     this.target = null;
 
+    target.etAddressTo = null;
+    target.etAmount = null;
     target.tvAddress = null;
     target.btnGetBalance = null;
     target.btnGetTxList = null;

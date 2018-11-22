@@ -5,9 +5,9 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +24,7 @@ import io.reactivex.disposables.Disposable;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,9 +54,12 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
     private MainContract.Presenter presenter;
 
+    //获取当前动态获取的gasPrice
+    private BigInteger gasPrice;
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -66,9 +70,17 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
     private void initView() {
         tvAddress.setText(Constants.address);
-        etAmount.setText("0.003");
+        etAmount.setText("0.0003");
         presenter = new MainPresenterImp(this);
+        //导入钱包
+        getExternalFile();
+        LogTool.d(TAG, file);
+        if (file != null) {
+            checkWriteStoragePermission(MainNewActivity.this);
+        }
+        //连接ETH客户端
         presenter.connectETHClient();
+        presenter.getGasPrice();
     }
 
     private void initListener() {
@@ -130,13 +142,12 @@ public class MainNewActivity extends Activity implements MainContract.View {
                     @Override
                     public void onNext(Object o) {
                         String addressTo = etAddressTo.getText().toString();
-                        LogTool.d(TAG, TextUtils.isEmpty(addressTo));
                         if (TextUtils.isEmpty(addressTo)) {
                             addressTo = Constants.addressTo;
                         }
                         String amountString = etAmount.getText().toString();
                         //开始交易
-                        presenter.publishTX("0.0001", addressTo, amountString);
+                        presenter.publishTX(gasPrice, addressTo, amountString);
 
                     }
 
@@ -159,11 +170,7 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
                     @Override
                     public void onNext(Object o) {
-                        getExternalFile();
-                        LogTool.d(TAG, file);
-                        if (file != null) {
-                            checkWriteStoragePermission(MainNewActivity.this);
-                        }
+                        presenter.checkTXInfo();
                     }
 
                     @Override
@@ -181,6 +188,7 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
     @Override
     public void success(String info) {
+        LogTool.d(TAG, info);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -191,6 +199,7 @@ public class MainNewActivity extends Activity implements MainContract.View {
 
     @Override
     public void failure(String info) {
+        LogTool.e(TAG, info);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -263,4 +272,20 @@ public class MainNewActivity extends Activity implements MainContract.View {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //When you no longer need a Web3j instance you need to call the shutdown method to close resources used by it.
+        presenter.cancelSubscribe();
+    }
+
+    @Override
+    public void gasPriceFailure(String bigInteger) {
+        LogTool.e(TAG, "gasPrice failure:" + bigInteger);
+    }
+
+    @Override
+    public void gasPriceSuccess(BigInteger bigInteger) {
+        gasPrice = bigInteger;
+    }
 }

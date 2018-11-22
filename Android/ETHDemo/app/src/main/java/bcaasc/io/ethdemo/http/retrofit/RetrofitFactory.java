@@ -31,14 +31,9 @@ public class RetrofitFactory {
         }
     }
 
-    //正式
-    private static String baseUrl = "https://mainnet.infura.io/";
-    // 测试
-    private static String testBaseUrl = "https://mainnet.infura.io/";
+    //正式 http://api.etherscan.io/api?module=account&action=txlist&address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken
+    private static String baseUrl = "http://api.etherscan.io";
 
-    /**
-     * AN api
-     */
     public static Retrofit getInstance() {
         initClient();
         instance = new Retrofit.Builder()

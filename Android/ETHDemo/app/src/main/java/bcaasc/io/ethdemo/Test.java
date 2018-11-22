@@ -66,14 +66,14 @@ public class Test {
     private static void createAccount() throws NoSuchAlgorithmException,
             NoSuchProviderException, InvalidAlgorithmParameterException,
             CipherException, IOException {
-        String walletFileName0 = "";//文件名
-        String walletFilePath0 = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore";
+        String walletFileName = "";//文件名
+        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore";
         //钱包文件保持路径，请替换位自己的某文件夹路径
 
-        walletFileName0 = WalletUtils.generateNewWalletFile(Constants.password, new File(walletFilePath0), true);
+        walletFileName = WalletUtils.generateNewWalletFile(Constants.password, new File(walletFilePath), true);
         //WalletUtils.generateFullNewWalletFile("password1",new File(walleFilePath1));
         //WalletUtils.generateLightNewWalletFile("password2",new File(walleFilePath2));
-        System.out.println("walletName: " + walletFileName0);
+        System.out.println("walletName: " + walletFileName);
     }
 
     private static void createBip39Account() throws CipherException, IOException {
