@@ -20,6 +20,7 @@
 		F546AC71219AD71D009D4873 /* ZZYQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F546AC6E219AD71D009D4873 /* ZZYQRCode.bundle */; };
 		F546AC74219ADA62009D4873 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AC72219ADA62009D4873 /* RootViewController.swift */; };
 		F546AC75219ADA62009D4873 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F546AC73219ADA62009D4873 /* RootViewController.xib */; };
+		F550BFFA21A539FA0013A3FB /* EthereumTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F550BFF921A539FA0013A3FB /* EthereumTool.swift */; };
 		F5562B6B219BF0D3005D98AD /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5562B69219BF0D3005D98AD /* QRCodeViewController.swift */; };
 		F5562B6C219BF0D3005D98AD /* QRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5562B6A219BF0D3005D98AD /* QRCodeViewController.xib */; };
 		F5562B6E219C2A21005D98AD /* ETHKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5562B6D219C2A21005D98AD /* ETHKeyStore.swift */; };
@@ -72,6 +73,7 @@
 		F546AC6E219AD71D009D4873 /* ZZYQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZYQRCode.bundle; sourceTree = "<group>"; };
 		F546AC72219ADA62009D4873 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		F546AC73219ADA62009D4873 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
+		F550BFF921A539FA0013A3FB /* EthereumTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumTool.swift; sourceTree = "<group>"; };
 		F5562B69219BF0D3005D98AD /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		F5562B6A219BF0D3005D98AD /* QRCodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeViewController.xib; sourceTree = "<group>"; };
 		F5562B6D219C2A21005D98AD /* ETHKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHKeyStore.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				F546AC6B219AD713009D4873 /* ZZYQRCodeSwift */,
 				F55771A8219985D4004F5CB6 /* BitcoinTool.swift */,
+				F550BFF921A539FA0013A3FB /* EthereumTool.swift */,
 				F55771AB21998987004F5CB6 /* MyExtension.swift */,
 				F55771AD219989A2004F5CB6 /* MyDefine.swift */,
 				F55771B121998BF5004F5CB6 /* LocalData.swift */,
@@ -403,32 +406,40 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ETH_Sample/Pods-ETH_Sample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/BitcoinKit/BitcoinKit.framework",
+				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework",
+				"${BUILT_PRODUCTS_DIR}/web3swift/web3swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BitcoinKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/web3swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -450,6 +461,7 @@
 				F546AC6F219AD71D009D4873 /* UIImage+ZZYQRCodeImage.swift in Sources */,
 				F55771AC21998987004F5CB6 /* MyExtension.swift in Sources */,
 				F5562B6B219BF0D3005D98AD /* QRCodeViewController.swift in Sources */,
+				F550BFFA21A539FA0013A3FB /* EthereumTool.swift in Sources */,
 				F55771A9219985D4004F5CB6 /* BitcoinTool.swift in Sources */,
 				F51CADC62199134D0057DCBA /* AppDelegate.swift in Sources */,
 				F55771B021998AA4004F5CB6 /* BTCKeyStore.swift in Sources */,

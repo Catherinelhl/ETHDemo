@@ -8,7 +8,8 @@ target 'ETH_Sample' do
    pod 'Moya/RxSwift'
    pod 'SwiftyJSON'
    pod 'HandyJSON'
-   pod 'BitcoinKit'
+#   pod 'BitcoinKit'
    pod 'CryptoSwift'
    pod 'Toast-Swift'
+   pod 'web3swift', :git => 'https://github.com/bankex/web3swift.git'
 end

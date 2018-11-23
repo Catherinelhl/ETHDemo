@@ -10,7 +10,8 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import Toast_Swift
-import BitcoinKit
+import web3swift
+import BigInt
 
 class RootViewController: UIViewController {
     @IBOutlet weak var myAddressLabel: UILabel!
@@ -25,6 +26,9 @@ class RootViewController: UIViewController {
     @IBOutlet weak var feesLabel: UILabel!
     
     private var balance:Decimal = 0
+
+    private let web3Main = Web3.init(infura: infura, accessToken: "v3/c716564ad9c346c895e36bae02ea5c8c")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +42,11 @@ class RootViewController: UIViewController {
         myAddressLabel.adjustsFontSizeToFitWidth = true
         feesLabel.adjustsFontSizeToFitWidth = true
         
+        if let keystoreManager = EthereumTool.getKeystoreManager(by: myPrivateKey) {
+            web3Main.addKeystoreManager(keystoreManager)
+        }
         getBalnce()
+        getGasPrice()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -47,12 +55,12 @@ class RootViewController: UIViewController {
     
     @IBAction func getBalanceButtonAction(_ sender: UIButton) {
         getBalnce()
-        
+        getGasPrice()
     }
     
     @IBAction func sendTxButtonAction(_ sender: UIButton) {
         
-        createTx()
+        createAndSendTx()
     }
     
     @IBAction func getTxRecordButtonAction(_ sender: Any) {
@@ -77,29 +85,34 @@ class RootViewController: UIViewController {
     // MARK: - Api request
     // MARK: 获取余额
     private func getBalnce() {
-        ApiManagerProvider.request(.getBalance(address: myAddress)) { (result) in
-            switch result {
-            case .success(let response):
-                do{
-                    let value = try response.mapJSON()
-                    let json = JSON(value)
-                    self.balance = NSDecimalNumber.init(value: json["final_balance"].intValue).decimalValue
-                    self.balanceLabel.text = "\(self.balance / rate)" + " " + currencySymbol
-                    
-                    self.jsonDataTextView.text = "\(value)"
-                    
-                }catch let aError {
-                    MyLog(aError)
-                }
-            case .failure(let aError):
-                MyLog(aError.errorDescription)
-            }
+        
+        web3Main.eth.getBalancePromise(address: myAddress).done {[weak self] (balance) in
+            MyLog("balance:\(balance.description)")
+            let balance = NSDecimalNumber.init(string: balance.description).decimalValue
+            self?.balance = balance
+            self?.balanceLabel.text = "\(balance / rate)" + " " + currencySymbol
+        }.catch { (aError) in
+            MyLog(aError)
+        }
+        
+        
+    }
+    
+    private func getGasPrice() {
+        
+        web3Main.eth.getGasPricePromise().done {[weak self] (price) in
+            MyLog("gesPrice:\(price.description)")
+            gasPrice = NSDecimalNumber(string: price.description).decimalValue
+            self?.feesLabel.text = "手续费：\(fees) " + currencySymbol
+        }.catch { (aError) in
+            MyLog(aError)
         }
     }
     
-    // MARK: 创建交易
-    private func createTx() {
-        guard reciveAddressTextField.text! != "" else {
+    // MARK: 创建&发送交易
+    private func createAndSendTx() {
+        let reciveAddress = reciveAddressTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard reciveAddress != "" else {
             self.view.showToast("收款地址不能为空")
             return
         }
@@ -113,83 +126,41 @@ class RootViewController: UIViewController {
             return
         }
         
-        let reciveAddress = reciveAddressTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard BitcoinTool.validateAddress(reciveAddress) else {
+        guard reciveAddress.isAddress else {
             self.view.makeToast("收款地址格式有误")
             return
         }
         
-        var fee:Int
-        switch coinType {
-        case .bitcoinMain, .bitcoinTest:
-            fee = (fees * rate).intValue
-        case .ethMain, .ethTest:
-            fee = gasPrice.intValue
-        }
+        MyLog("发送交易")
+        let toAddress = Address(reciveAddress)
+        let amountWei = BigUInt((amount * rate).intValue)
+        var options = Web3Options()
+        options.from = Address(myAddress)
+        options.to = toAddress
+        options.gasLimit = BigUInt(21000)
+        options.gasPrice = BigUInt(gasPrice.intValue)
+        options.value = amountWei
         
-        ApiManagerProvider.request(.createTx(fromAddress:myAddress,toAddress: reciveAddressTextField.text!, amount: (amount * rate).intValue, fees:fee )) { (result) in
-            switch result {
-            case .success(let response):
-                do{
-                    let value = try response.mapJSON()
-                    self.jsonDataTextView.text = "\(value)"
-                    let json = JSON(value)
-                    if let errorString = json["errors"].arrayObject {
-                        MyLog(errorString)
-                        return
-                    }
-                    if let errorString = json["error"].string {
-                        MyLog(errorString)
-                        return
-                    }
-                    if let jsonDict = json.dictionaryObject ,
-                        let toSignArr = json["tosign"].arrayObject as? [String] {
-                        var signatures = [String]()
-                        var publicKeys = [String]()
-                        for toSign in toSignArr {
-                            if let signature = BitcoinTool.sign(toSign, privateKey: myPrivateKey) {
-                                signatures.append(signature)
-                                publicKeys.append(myPublicKey)
-                            }
-                        }
-                        self.sendTx(jsonDict, signatures, publicKeys)
-                    }
-                }catch let aError{
-                    MyLog(aError)
-                }
-            case .failure(let aError):
+        do {
+            try web3Main.eth.sendETH(to: toAddress, amount: amountWei, options: options).sendPromise(password: EthereumTool.password).done {[weak self] (sendingResult) in
+                MyLog(sendingResult.transaction.description)
+                MyLog(sendingResult.hash)
+                self?.jsonDataTextView.text = sendingResult.transaction.description + "\n" + sendingResult.hash
+                self?.getBalnce()
+            }.catch { (aError) in
                 MyLog(aError)
             }
+        }catch let aError{
+            MyLog(aError)
         }
+   
         
     }
-    // MARK: 发送交易
-    private func sendTx(_ jsonData:[String:Any],_ signature:[String],_ publicKey:[String]){
-        ApiManagerProvider.request(.sendTx(txJson: jsonData, signatures: signature, publicKeys: publicKey)) { (result) in
-            switch result {
-            case .success(let response):
-                do{
-                    let value = try response.mapJSON()
-                    self.jsonDataTextView.text = "\(value)"
-                    let json = JSON(value)
-                    if let errorString = json["errors"][0]["error"].string {
-                        MyLog(errorString)
-                    }else if let errorString = json["error"].string {
-                        MyLog(errorString)
-                    }else {
-                        self.view.showToast("发送成功")
-                    }
-                }catch let aError{
-                    MyLog(aError)
-                }
-            case .failure(let aError):
-                MyLog(aError)
-            }
-        }
-    }
+ 
     
     // MARK: 获取交易记录
     private func getTxRecord() {
+        
         ApiManagerProvider.request(.getTxRecord(address: myAddress)) { (result) in
             switch result {
             case .success(let response):
@@ -203,7 +174,9 @@ class RootViewController: UIViewController {
                 MyLog(aError)
             }
         }
+        
     }
+ 
 }
 
 

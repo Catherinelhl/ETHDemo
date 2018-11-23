@@ -13,10 +13,10 @@ import SwiftyJSON
 
 
 enum CoinType : String {
-    case bitcoinMain = "/btc/main"
-    case bitcoinTest = "/btc/test3"
-    case ethMain = "/eth/main"
-    case ethTest = "/beth/test"
+    case bitcoinMain = "https://api.blockcypher.com/v1/btc/main"
+    case bitcoinTest = "https://api.blockcypher.com/v1/btc/test3"
+    case ethMain = "https://api.etherscan.io"
+    case ethTest = "https://api-ropsten.etherscan.io"
 }
 
 var coinType:CoinType = .ethMain
@@ -40,42 +40,23 @@ let ApiManagerProvider = MoyaProvider<ApiManager>(requestClosure: { (endpoint:En
 /// - sendTx: 发送交易
 /// - getTxRecord: 获取交易记录
 enum ApiManager {
-    case getBalance(address:String)
-    case createTx(fromAddress:String,toAddress:String,amount:Int,fees:Int?)
-    case sendTx(txJson:[String:Any],signatures:[String],publicKeys:[String]?)
     case getTxRecord(address:String)
 }
 
 extension ApiManager : TargetType {
     var baseURL: URL {
-        let urlString = "https://api.blockcypher.com/v1" + coinType.rawValue
+        let urlString = coinType.rawValue
         return URL(string: urlString)!
     }
     
     var path: String {
-        switch self {
-        case .getBalance(let address):
-            return "/addrs/\(address)/balance"
-        case .createTx(_,_,_,_) :
-            return "/txs/new"
-        case .sendTx(_,_,_):
-            return "/txs/send"
-        case .getTxRecord(let address):
-            switch coinType {
-            case .bitcoinMain, .bitcoinTest:
-                return "/addrs/\(address)/full"
-            case .ethMain, .ethTest:
-                return "/addrs/\(address)"
-            }
-        }
+        return "/api"
     }
     
     var method: Moya.Method {
         switch self {
-        case .getBalance(_) , .getTxRecord(_):
+        case .getTxRecord(_):
             return .get
-        case .createTx(_,_,_,_) ,.sendTx(_,_,_):
-            return .post
         }
     }
     
@@ -84,38 +65,16 @@ extension ApiManager : TargetType {
     }
     
     var task: Task {
-        let urlParam = ["token":"4eaed359b2984580b55e5b004fd0f68d"]
         switch self {
-        case .createTx(let fromAddress,let toAddress, let amount,let fees):
-            var param:[String:Any] = [:]
-            
-            switch coinType {
-            case .bitcoinMain, .bitcoinTest:
-                param["fees"] = fees
-            case .ethMain, .ethTest:
-                param["gas_price"] = fees
-            }
-            
-            param["inputs"] = [["addresses":[fromAddress]]]
-            param["outputs"] = [["addresses":[toAddress],
-                                 "value":amount]]
-            
-            MyLog(JSON(param).rawValue)
-            let jsonData = try! JSON(param).rawData()
-            return .requestCompositeData(bodyData: jsonData, urlParameters: urlParam)
-            
-        case .sendTx(let txJson,let signatures, let publicKeys):
-            var param:[String:Any] = [:]
-            param = txJson
-            param["signatures"] = signatures
-            param["pubkeys"] = publicKeys
-            
-            MyLog(JSON(param).rawValue)
-            let jsonData = try! JSON(param).rawData()
-            return .requestCompositeData(bodyData: jsonData, urlParameters: urlParam)
-            
-        default :
-            return .requestParameters(parameters: urlParam, encoding: URLEncoding.default)
+        case .getTxRecord(let address):
+            let param:[String:Any] = ["module":"account",
+                                     "action":"txlist",
+                                     "address":address,
+                                     "page":1,
+                                     "offset":1000,
+                                     "sort":"desc"]
+            return .requestParameters(parameters: param, encoding: URLEncoding.default)
+
         }
         
     }

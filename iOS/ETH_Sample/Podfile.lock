@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.7.3)
-  - BitcoinKit (1.0.2)
+  - BigInt (3.1.0):
+    - SipHash (~> 1.2)
   - CryptoSwift (0.13.0)
   - HandyJSON (4.2.0)
   - Moya/Core (11.0.2):
@@ -9,16 +10,31 @@ PODS:
   - Moya/RxSwift (11.0.2):
     - Moya/Core
     - RxSwift (~> 4.0)
+  - PromiseKit (6.5.2):
+    - PromiseKit/CorePromise (= 6.5.2)
+    - PromiseKit/Foundation (= 6.5.2)
+    - PromiseKit/UIKit (= 6.5.2)
+  - PromiseKit/CorePromise (6.5.2)
+  - PromiseKit/Foundation (6.5.2):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.5.2):
+    - PromiseKit/CorePromise
   - Result (3.2.4)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
+  - secp256k1.swift (0.1.4)
+  - SipHash (1.2.2)
   - SnapKit (4.0.1)
   - SwiftyJSON (4.2.0)
   - Toast-Swift (4.0.0)
+  - web3swift (2.0.5):
+    - BigInt (~> 3.1)
+    - CryptoSwift (~> 0.12)
+    - PromiseKit (~> 6.4)
+    - secp256k1.swift
 
 DEPENDENCIES:
-  - BitcoinKit
   - CryptoSwift
   - HandyJSON
   - Moya/RxSwift
@@ -26,34 +42,51 @@ DEPENDENCIES:
   - SnapKit
   - SwiftyJSON
   - Toast-Swift
+  - web3swift (from `https://github.com/bankex/web3swift.git`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - BitcoinKit
+    - BigInt
     - CryptoSwift
     - HandyJSON
     - Moya
+    - PromiseKit
     - Result
     - RxCocoa
     - RxSwift
+    - secp256k1.swift
+    - SipHash
     - SnapKit
     - SwiftyJSON
     - Toast-Swift
 
+EXTERNAL SOURCES:
+  web3swift:
+    :git: https://github.com/bankex/web3swift.git
+
+CHECKOUT OPTIONS:
+  web3swift:
+    :commit: 1aaa902a271c0d7f840e2c15aa3f9a4baf239971
+    :git: https://github.com/bankex/web3swift.git
+
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  BitcoinKit: 5502c14d72ab665fbe00dc72abd74439a38ef9bc
+  BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
   HandyJSON: 9dfc026c7d7adc1f0f8ba8b181495f0e0763b0f4
   Moya: a725035953bc1c0eb1be505ab903984501d82440
+  PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
+  SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: 594b5c5e5129f15438e410207e43287f027b3c00
+  web3swift: 2a33b0dd0fc8901f644d8f9234b0e9bc8611dc87
 
-PODFILE CHECKSUM: f9c3d4102b1dca7f6534d563e3424d6e3bd7cb10
+PODFILE CHECKSUM: 1db74c3afedb6c7918a79cbec02afcfd50fd64b1
 
 COCOAPODS: 1.5.3
