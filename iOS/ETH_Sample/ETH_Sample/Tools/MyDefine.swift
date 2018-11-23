@@ -33,18 +33,18 @@ var myPrivateKey:String {
         }
     }
 }
-var myPublicKey:String {
-    get{
-        switch coinType {
-        case .bitcoinTest:
-            return "04b33ac0f3c51e5a197a77b55998c1da575e0ef9e52b75056885dcd59d78bb340a0f8c25b4b7eaca07c242bb71d56507b887f1957999ff2565b9fbee238d6e756e"
-        case.bitcoinMain:
-            return "0417032639bfaa86d0ce949a7cfa3113e2f303a1a143d63b23d8a9f8e4082727c00ca6184832a58fc9397f142c41bb99b38cb679ce9205ad35bdbe195c13109428"
-        case .ethMain, .ethTest:
-            return "04ec8dfc59cab16380fefa556c08df339209ef91427809eb2b1475299f4090df18216f934782895fdda9b5532ac55ab87b3f22a9c1e01e534ed828eeac0688c287"
-        }
-    }
-}
+//var myPublicKey:String {
+//    get{
+//        switch coinType {
+//        case .bitcoinTest:
+//            return "04b33ac0f3c51e5a197a77b55998c1da575e0ef9e52b75056885dcd59d78bb340a0f8c25b4b7eaca07c242bb71d56507b887f1957999ff2565b9fbee238d6e756e"
+//        case.bitcoinMain:
+//            return "0417032639bfaa86d0ce949a7cfa3113e2f303a1a143d63b23d8a9f8e4082727c00ca6184832a58fc9397f142c41bb99b38cb679ce9205ad35bdbe195c13109428"
+//        case .ethMain, .ethTest:
+//            return "04ec8dfc59cab16380fefa556c08df339209ef91427809eb2b1475299f4090df18216f934782895fdda9b5532ac55ab87b3f22a9c1e01e534ed828eeac0688c287"
+//        }
+//    }
+//}
 
 var rate:Decimal {
     get{
