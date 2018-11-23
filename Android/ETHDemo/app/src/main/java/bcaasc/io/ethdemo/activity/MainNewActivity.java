@@ -91,9 +91,9 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        getCameraPermission();
         initView();
         initListener();
+        getCameraPermission();
 
     }
 
@@ -142,7 +142,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
 
     private void initView() {
-        tvAddress.setText(Constants.address);
+        tvAddress.setText("Address:" + Constants.address);
         etAmount.setText("0.0003");
         tvFee.setText("Fee:" + Constants.feeString + " ETH");
         tvToAddress.setText(Constants.addressTo);
