@@ -20,4 +20,5 @@ public class Constants {
     public static final String amountString = "0.0021";
 
     public static String password = "123456";
+    public static String privateKey="101233875057005438239658919013501011727368307284946832848498204629504449734998";
 }
