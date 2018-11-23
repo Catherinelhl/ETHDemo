@@ -419,6 +419,7 @@ public class MainPresenterImp implements MainContract.Presenter {
                             LogTool.d(TAG, "status: " + send.getStatus());
                             transactionHash = send.getTransactionHash();
                             view.success(transactionHash);
+                            view.getHashRaw(transactionHash);
                         }
                     }
                 }, new Consumer<Throwable>() {

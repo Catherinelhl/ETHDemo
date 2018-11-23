@@ -20,7 +20,9 @@ public abstract class BaseCallback<T extends Object> implements retrofit2.Callba
                 || code == MessageConstants.CODE_400) {
             LogTool.d(TAG, "internet response: " + MessageConstants.CODE_404);
             onNotFound();
-        } else {
+        } else if(code == MessageConstants.CODE_500){
+            httpException();
+        }else {
             if (response.raw().isSuccessful()) {
                 onSuccess(response);
             }
@@ -38,4 +40,8 @@ public abstract class BaseCallback<T extends Object> implements retrofit2.Callba
     public void onNotFound() {
         return;
     }
+    public void httpException() {
+        return;
+    }
+
 }

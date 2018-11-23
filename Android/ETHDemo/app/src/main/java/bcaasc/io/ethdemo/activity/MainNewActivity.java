@@ -458,4 +458,9 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     public void getBalanceSFailure(String balance) {
 
     }
+
+    @Override
+    public void getHashRaw(String hashRaw) {
+        tvTxHash.setText(hashRaw);
+    }
 }

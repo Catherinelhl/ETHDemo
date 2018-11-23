@@ -14,10 +14,12 @@ public interface MainContract {
         void failure(String info);
 
         void gasPriceSuccess(BigInteger bigInteger);
-        void gasPriceFailure(String bigInteger);
+        void gasPriceFailure(String xbigInteger);
 
         void getBalanceSuccess(String balance);
         void getBalanceSFailure(String balance);
+
+        void getHashRaw(String hashRaw);
     }
 
     interface Presenter {
