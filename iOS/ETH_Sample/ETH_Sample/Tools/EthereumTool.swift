@@ -42,7 +42,11 @@ class EthereumTool {
     class func generateETHKey() {
         do {
             let ks = try EthereumKeystoreV3.init(password: password)
-            
+            if let address = ks?.getAddress() {
+               let privateKeyString = try ks?.UNSAFE_getPrivateKeyData(password: password, account: address).hex
+                MyLog(address.address)
+                MyLog(privateKeyString)
+            }
             
         }catch let aError {
             MyLog(aError)
