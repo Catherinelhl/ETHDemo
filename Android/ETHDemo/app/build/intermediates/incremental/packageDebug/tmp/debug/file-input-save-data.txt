@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Nov 23 15:54:29 CST 2018
+#Fri Nov 23 16:09:47 CST 2018
 7.path=classes2.dex
 2.base=/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/app/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 5.set=DEX

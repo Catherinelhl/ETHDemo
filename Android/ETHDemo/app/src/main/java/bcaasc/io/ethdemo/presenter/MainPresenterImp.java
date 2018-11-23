@@ -318,12 +318,13 @@ public class MainPresenterImp implements MainContract.Presenter {
                     public void onResponse(Call<ETHTXListResponse> call, Response<ETHTXListResponse> response) {
                         if (response != null) {
                             ETHTXListResponse ethtxListResponse = response.body();
+                            view.success(ethtxListResponse.toString());
                             if (ethtxListResponse != null) {
                                 List<TXListBean> txListBeans = ethtxListResponse.getResult();
                                 if (txListBeans != null && txListBeans.size() > 0) {
                                     for (TXListBean txListBean : txListBeans) {
 //                                        LogTool.d(TAG, response.body().getResult());
-                                        LogTool.d(TAG, "Hash:" + txListBean.getBlockHash() + ";status:" + txListBean.getConfirmations());
+                                        LogTool.d(TAG, "Hash:" + txListBean.getHash() + ";status:" + txListBean.getConfirmations());
                                     }
                                 }
 
@@ -482,7 +483,7 @@ public class MainPresenterImp implements MainContract.Presenter {
                             view.failure("transaction is empty!!");
                             return;
                         }
-                        view.success(transaction.toString());
+                        view.success("getBlockNumber:" + transaction.getBlockNumber().toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
