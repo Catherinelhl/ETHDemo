@@ -15,6 +15,9 @@ public interface MainContract {
 
         void gasPriceSuccess(BigInteger bigInteger);
         void gasPriceFailure(String bigInteger);
+
+        void getBalanceSuccess(String balance);
+        void getBalanceSFailure(String balance);
     }
 
     interface Presenter {
@@ -25,7 +28,7 @@ public interface MainContract {
         void getBalance();
         void getTXList();
         void publishTX(BigInteger bigInteger,String addressTo,String amountString);
-        void checkTXInfo();
+        void checkTXInfo(String txHash);
         void cancelSubscribe();
     }
 }

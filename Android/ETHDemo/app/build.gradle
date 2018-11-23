@@ -63,4 +63,7 @@ dependencies {
     
     /*Android方法数methods超过65536*/
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation project(':qrcode')
+
 }

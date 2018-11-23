@@ -206,7 +206,7 @@ public class MainPresenterImp implements MainContract.Presenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        view.failure(throwable.getCause().toString());
+                        view.failure(throwable.getMessage());
                     }
                 });
     }
@@ -251,9 +251,15 @@ public class MainPresenterImp implements MainContract.Presenter {
                         EthGetBalance ethGetBalance = ethGetBalanceFuture.get();
                         //格式转化 wei-ether
                         String balanceETH = Convert.fromWei(ethGetBalance.getBalance().toString(), Convert.Unit.ETHER).toPlainString().concat(" ether");
-                        view.success("Balance：" + balanceETH);
+                        view.getBalanceSuccess(balanceETH);
                         LogTool.d(TAG, balanceETH);
 
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        LogTool.e(TAG, throwable.getMessage());
+                        view.getBalanceSFailure(throwable.getMessage());
                     }
                 });
     }
@@ -427,14 +433,16 @@ public class MainPresenterImp implements MainContract.Presenter {
     }
 
     @Override
-    public void checkTXInfo() {
-        transactionHash = "0x0504eceb6e80d5a5d510e25d3327db5ad1d7b53968466544e4783190758b07b1";
+    public void checkTXInfo(String txHash) {
+        if (TextUtils.isEmpty(txHash)) {
+            txHash = "0x0504eceb6e80d5a5d510e25d3327db5ad1d7b53968466544e4783190758b07b1";
+        }
         if (web3j == null) return;
-        if (TextUtils.isEmpty(transactionHash)) {
+        if (TextUtils.isEmpty(txHash)) {
             view.failure("transactionHash is empty!!");
             return;
         }
-        Disposable subscribe = Observable.just(web3j.ethGetTransactionByHash(transactionHash))
+        Disposable subscribe = Observable.just(web3j.ethGetTransactionByHash(txHash))
                 .map(new Function<Request<?, EthTransaction>, Future<EthTransaction>>() {
 
                     @Override
@@ -478,7 +486,7 @@ public class MainPresenterImp implements MainContract.Presenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        LogTool.e(TAG, throwable.getCause().toString());
+                        LogTool.e(TAG, throwable.getMessage());
                         view.failure(throwable.getMessage());
                     }
                 });

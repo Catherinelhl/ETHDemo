@@ -65,11 +65,12 @@ public class Test {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        System.out.println("Fee:" + Convert.fromWei(String.valueOf(new BigInteger("6000000000").multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER));
         System.out.println("---------");
         System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));
-        String privateKey="7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee";
+        String privateKey = "7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee";
         System.out.println(privateKey.length());
-        String privateKey2="101233875057005438239658919013501011727368307284946832848498204629504449734998";
+        String privateKey2 = "101233875057005438239658919013501011727368307284946832848498204629504449734998";
 
         byte[] array = new BigInteger(privateKey2).toByteArray();
         if (array[0] == 0) {
@@ -77,8 +78,8 @@ public class Test {
             System.arraycopy(array, 1, tmp, 0, tmp.length);
             array = tmp;
         }
-        String privateKeyConvert=Hex.toHexString(array);
-        System.out.println("privateKeyConvert:"+privateKeyConvert);
+        String privateKeyConvert = Hex.toHexString(array);
+        System.out.println("privateKeyConvert:" + privateKeyConvert);
         //"7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee"
         Credentials credentials = Credentials.create(privateKeyConvert);
         System.out.println(credentials.getAddress());

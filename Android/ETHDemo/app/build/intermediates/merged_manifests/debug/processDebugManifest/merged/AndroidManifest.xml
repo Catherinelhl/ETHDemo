@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -22,13 +24,18 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="bcaasc.io.ethdemo.activity.MainNewActivity" >
+        <activity
+            android:name="bcaasc.io.ethdemo.activity.MainNewActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="bcaasc.io.ethdemo.activity.QrCodeActivity"
+            android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -39,6 +46,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity
+            android:name="com.obt.qrcode.activity.CaptureActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
