@@ -14,8 +14,10 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import kotlin.Deprecated;
+import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -94,6 +96,18 @@ public class MainPresenterImp implements MainContract.Presenter {
      */
     @Override
     public void loadWallet(File file) {
+//        loadWalletByKeystore(file);
+        loadWalletByPrivateKey();
+
+
+    }
+
+    /**
+     * 通过加载Keystore文件来得到当前钱包的元数据
+     *
+     * @param file
+     */
+    private void loadWalletByKeystore(File file) {
         String keystore = "{\"address\":\"07757733653a6670a4f7b8d30704378cb4cf89b2\",\"id\":\"428e5938-f0b3-41be-9957-de7c014581fb\",\"version\":3,\"crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"275e9e1c3ad350b5ac9b85d1cb826ea1a786817ee58bc096016f1f91e8be6d81\",\"cipherparams\":{\"iv\":\"cd8c8e0089f105a2575699be756b9a01\"},\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":4096,\"p\":6,\"r\":8,\"salt\":\"6dc98ae0c90c575529417ac932f6a91edaa2f7bdb0a7827edec7843803b953be\"},\"mac\":\"1b2062c587a2ba1444dc574d1f8d2c65c40ef36ad45f8cda851cf142e79620ac\"}}";
 
         writeKeyStoreToFile(keystore, file);
@@ -108,11 +122,29 @@ public class MainPresenterImp implements MainContract.Presenter {
         String address = credentials.getAddress();
         BigInteger publicKey = credentials.getEcKeyPair().getPublicKey();
         BigInteger privateKey = credentials.getEcKeyPair().getPrivateKey();
-
         LogTool.d(TAG, "address=" + address);
-        LogTool.d(TAG, "public key=" + publicKey);
-        LogTool.d(TAG, "private key=" + privateKey);
+        LogTool.d(TAG, "hex public key=" + Hex.toHexString(publicKey.toByteArray()));
+        LogTool.d(TAG, "hex public key=" + privateKey.toByteArray().length);
+        LogTool.d(TAG, "hex private key=" + Hex.toHexString(privateKey.toByteArray(), 1, 32));
+    }
 
+
+    /**
+     * 通过加载私钥来得到当前钱包的元数据
+     */
+    private void loadWalletByPrivateKey() {
+
+        byte[] array = new BigInteger(Constants.privateKey).toByteArray();
+        if (array[0] == 0) {
+            byte[] tmp = new byte[array.length - 1];
+            System.arraycopy(array, 1, tmp, 0, tmp.length);
+            array = tmp;
+        }
+        String privateKeyConvert = Hex.toHexString(array);
+        credentials = Credentials.create(privateKeyConvert);
+        LogTool.d(TAG, "address=" + credentials.getAddress());
+        LogTool.d(TAG, " public key=" + credentials.getEcKeyPair().getPublicKey());
+        LogTool.d(TAG, " private key=" + credentials.getEcKeyPair().getPrivateKey());
     }
 
     /*存储钱包信息*/
@@ -396,7 +428,7 @@ public class MainPresenterImp implements MainContract.Presenter {
 
     @Override
     public void checkTXInfo() {
-        transactionHash = "0x30eade438fc33f5de3c03514d760cde3fdefdbe343fd323508f51d3d3a2c9558";
+        transactionHash = "0x0504eceb6e80d5a5d510e25d3327db5ad1d7b53968466544e4783190758b07b1";
         if (web3j == null) return;
         if (TextUtils.isEmpty(transactionHash)) {
             view.failure("transactionHash is empty!!");
@@ -426,6 +458,7 @@ public class MainPresenterImp implements MainContract.Presenter {
                         LogTool.d(TAG, "getHash:" + transaction.getHash());
                         LogTool.d(TAG, "getInput:" + transaction.getInput());
                         LogTool.d(TAG, "getNonceRaw:" + transaction.getNonceRaw());
+                        LogTool.d(TAG, "getNonce:" + transaction.getNonce());
                         LogTool.d(TAG, "getS:" + transaction.getS());
                         LogTool.d(TAG, "getR:" + transaction.getR());
                         LogTool.d(TAG, "getRaw:" + transaction.getRaw());
