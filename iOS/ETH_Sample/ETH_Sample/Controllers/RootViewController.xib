@@ -74,7 +74,7 @@
                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                 </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4kh-6j-9kE">
-                    <rect key="frame" x="16" y="213" width="343" height="434"/>
+                    <rect key="frame" x="16" y="204" width="343" height="443"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -156,9 +156,9 @@
                 <constraint firstItem="hCE-YX-IXk" firstAttribute="leading" secondItem="QAC-MM-Jvk" secondAttribute="leading" id="Bwy-F9-4ht"/>
                 <constraint firstItem="yeR-PJ-j8J" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="2" id="GeV-vr-WNM"/>
                 <constraint firstItem="4kh-6j-9kE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="I90-tY-1oN"/>
-                <constraint firstItem="4kh-6j-9kE" firstAttribute="top" secondItem="742-UQ-mDq" secondAttribute="bottom" constant="25" id="JAr-Qc-WFK"/>
                 <constraint firstItem="ZZ4-rL-PWa" firstAttribute="top" secondItem="FBw-fo-7j0" secondAttribute="top" id="LrO-rJ-vgi"/>
                 <constraint firstItem="QAC-MM-Jvk" firstAttribute="bottom" secondItem="dYA-Hm-9MV" secondAttribute="bottom" id="MGo-LT-i5J"/>
+                <constraint firstItem="4kh-6j-9kE" firstAttribute="top" secondItem="742-UQ-mDq" secondAttribute="bottom" constant="16" id="NhB-R5-uUZ"/>
                 <constraint firstItem="ZJx-5y-Nqt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Nip-K5-NPS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QAC-MM-Jvk" secondAttribute="trailing" constant="16" id="Np7-uC-dpe"/>
                 <constraint firstItem="ZA5-2y-akr" firstAttribute="bottom" secondItem="hCE-YX-IXk" secondAttribute="bottom" id="PPP-Qf-whn"/>
