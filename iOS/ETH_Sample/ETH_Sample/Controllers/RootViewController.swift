@@ -24,6 +24,7 @@ class RootViewController: UIViewController {
     
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var feesLabel: UILabel!
+//    @IBOutlet weak var txHashTextField: UITextField!
     
     private var balance:Decimal = 0
 
@@ -56,6 +57,7 @@ class RootViewController: UIViewController {
     @IBAction func getBalanceButtonAction(_ sender: UIButton) {
         getBalnce()
         getGasPrice()
+//        EthereumTool.generateETHKey()
     }
     
     @IBAction func sendTxButtonAction(_ sender: UIButton) {
@@ -80,6 +82,9 @@ class RootViewController: UIViewController {
         self.present(UINavigationController(rootViewController: scanVc), animated: true, completion: nil)
     }
     
+//    @IBAction func getTxDetailButtonAction(_ sender: UIButton) {
+//
+//    }
     
     
     // MARK: - Api request
@@ -176,6 +181,22 @@ class RootViewController: UIViewController {
         }
         
     }
+    
+//    // MARK: 通过交易hash获取交易详情
+//    private func getTxDetail() {
+//        let txHash = txHashTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+//        guard txHash != "" else {
+//            self.view.showToast("交易hash值不能为空")
+//            return
+//        }
+//
+//        web3Main.eth.getTransactionDetailsPromise(txHash).done { (txDetail) in
+//
+//        }.catch { (aError) in
+//            MyLog(aError)
+//        }
+//
+//    }
  
 }
 

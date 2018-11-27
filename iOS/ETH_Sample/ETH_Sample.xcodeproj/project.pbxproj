@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7810ABA5633EF5482CEF8543 /* Pods_ETH_Sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAF4C33033736BC7AAAF63F /* Pods_ETH_Sample.framework */; };
+		ACF7E51521A797B00093C3FA /* EthereumTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F550BFF921A539FA0013A3FB /* EthereumTool.swift */; };
 		F51CADC62199134D0057DCBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51CADC52199134D0057DCBA /* AppDelegate.swift */; };
 		F51CADCB2199134D0057DCBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F51CADC92199134D0057DCBA /* Main.storyboard */; };
 		F51CADCD2199134E0057DCBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F51CADCC2199134E0057DCBA /* Assets.xcassets */; };
@@ -20,7 +21,6 @@
 		F546AC71219AD71D009D4873 /* ZZYQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F546AC6E219AD71D009D4873 /* ZZYQRCode.bundle */; };
 		F546AC74219ADA62009D4873 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F546AC72219ADA62009D4873 /* RootViewController.swift */; };
 		F546AC75219ADA62009D4873 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F546AC73219ADA62009D4873 /* RootViewController.xib */; };
-		F550BFFA21A539FA0013A3FB /* EthereumTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F550BFF921A539FA0013A3FB /* EthereumTool.swift */; };
 		F5562B6B219BF0D3005D98AD /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5562B69219BF0D3005D98AD /* QRCodeViewController.swift */; };
 		F5562B6C219BF0D3005D98AD /* QRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5562B6A219BF0D3005D98AD /* QRCodeViewController.xib */; };
 		F5562B6E219C2A21005D98AD /* ETHKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5562B6D219C2A21005D98AD /* ETHKeyStore.swift */; };
@@ -461,7 +461,7 @@
 				F546AC6F219AD71D009D4873 /* UIImage+ZZYQRCodeImage.swift in Sources */,
 				F55771AC21998987004F5CB6 /* MyExtension.swift in Sources */,
 				F5562B6B219BF0D3005D98AD /* QRCodeViewController.swift in Sources */,
-				F550BFFA21A539FA0013A3FB /* EthereumTool.swift in Sources */,
+				ACF7E51521A797B00093C3FA /* EthereumTool.swift in Sources */,
 				F55771A9219985D4004F5CB6 /* BitcoinTool.swift in Sources */,
 				F51CADC62199134D0057DCBA /* AppDelegate.swift in Sources */,
 				F55771B021998AA4004F5CB6 /* BTCKeyStore.swift in Sources */,

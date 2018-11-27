@@ -41,6 +41,7 @@ let ApiManagerProvider = MoyaProvider<ApiManager>(requestClosure: { (endpoint:En
 /// - getTxRecord: 获取交易记录
 enum ApiManager {
     case getTxRecord(address:String)
+//    case getTxDetail(txHash:String)
 }
 
 extension ApiManager : TargetType {
