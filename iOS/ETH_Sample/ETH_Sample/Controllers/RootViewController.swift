@@ -56,6 +56,7 @@ class RootViewController: UIViewController {
     @IBAction func getBalanceButtonAction(_ sender: UIButton) {
         getBalnce()
         getGasPrice()
+//        EthereumTool.generateETHKey()
     }
     
     @IBAction func sendTxButtonAction(_ sender: UIButton) {

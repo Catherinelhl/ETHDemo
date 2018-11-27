@@ -1,8 +1,5 @@
 package bcaasc.io.ethdemo;
 
-import bcaasc.io.ethdemo.constants.Constants;
-import bcaasc.io.ethdemo.tool.LogTool;
-import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.Bip39Wallet;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
@@ -13,7 +10,6 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
-import org.web3j.utils.Numeric;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +17,8 @@ import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+
+import bcaasc.io.ethdemo.constants.Constants;
 
 /**
  * @author catherine.brainwilliam
@@ -42,7 +40,7 @@ public class Test {
 //                | IOException e) {
 //            e.printStackTrace();
 //        }
-//
+
 //        try {
 //            createBip39Account();
 //        } catch (CipherException | IOException e) {
@@ -65,26 +63,26 @@ public class Test {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("Fee:" + Convert.fromWei(String.valueOf(new BigInteger("6000000000").multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER));
-        System.out.println("---------");
-        System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));
-        String privateKey = "7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee";
-        System.out.println(privateKey.length());
-        String privateKey2 = "101233875057005438239658919013501011727368307284946832848498204629504449734998";
-
-        byte[] array = new BigInteger(privateKey2).toByteArray();
-        if (array[0] == 0) {
-            byte[] tmp = new byte[array.length - 1];
-            System.arraycopy(array, 1, tmp, 0, tmp.length);
-            array = tmp;
-        }
-        String privateKeyConvert = Hex.toHexString(array);
-        System.out.println("privateKeyConvert:" + privateKeyConvert);
-        //"7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee"
-        Credentials credentials = Credentials.create(privateKeyConvert);
-        System.out.println(credentials.getAddress());
-        System.out.println(credentials.getEcKeyPair().getPublicKey());
-        System.out.println(credentials.getEcKeyPair().getPrivateKey());
+//        System.out.println("Fee:" + Convert.fromWei(String.valueOf(new BigInteger("6000000000").multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER));
+//        System.out.println("---------");
+//        System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));
+//        String privateKey = "7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee";
+//        System.out.println(privateKey.length());
+//        String privateKey2 = "101233875057005438239658919013501011727368307284946832848498204629504449734998";
+//
+//        byte[] array = new BigInteger(privateKey2).toByteArray();
+//        if (array[0] == 0) {
+//            byte[] tmp = new byte[array.length - 1];
+//            System.arraycopy(array, 1, tmp, 0, tmp.length);
+//            array = tmp;
+//        }
+//        String privateKeyConvert = Hex.toHexString(array);
+//        System.out.println("privateKeyConvert:" + privateKeyConvert);
+//        //"7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee"
+//        Credentials credentials = Credentials.create(privateKeyConvert);
+//        System.out.println(credentials.getAddress());
+//        System.out.println(credentials.getEcKeyPair().getPublicKey());
+//        System.out.println(credentials.getEcKeyPair().getPrivateKey());
     }
 
 
@@ -93,7 +91,8 @@ public class Test {
             NoSuchProviderException, InvalidAlgorithmParameterException,
             CipherException, IOException {
         String walletFileName = "";//文件名
-        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore";
+//        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore";
+        String walletFilePath = "/Users/pengyiqiao/Desktop/Works/OrangeBlock/git_repository/ThirdpartySample/ETH/Android/ETHDemo/";
         //钱包文件保持路径，请替换位自己的某文件夹路径
 
         walletFileName = WalletUtils.generateLightNewWalletFile(Constants.password, new File(walletFilePath));
@@ -112,7 +111,8 @@ public class Test {
 
     /********加载钱包文件**********/
     private static void loadWallet() throws IOException, CipherException {
-        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore/UTC--2018-11-22T16-36-21.334--aafb94e607bd1e6d1c6d94e5f78f59efc835af5f.json";
+//        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore/UTC--2018-11-22T16-36-21.334--aafb94e607bd1e6d1c6d94e5f78f59efc835af5f.json";
+        String walletFilePath = "/Users/pengyiqiao/Desktop/Works/OrangeBlock/git_repository/ThirdpartySample/ETH/Android/ETHDemo/UTC--2018-11-23T18-26-47.672--61f23c8f28f7bc19144c3178faacc81031107861.json";
         Credentials credentials = WalletUtils.loadCredentials(Constants.password, walletFilePath);
         String address = credentials.getAddress();
         BigInteger publicKey = credentials.getEcKeyPair().getPublicKey();

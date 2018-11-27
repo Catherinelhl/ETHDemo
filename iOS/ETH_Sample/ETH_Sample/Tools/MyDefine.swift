@@ -17,7 +17,7 @@ var myAddress:String {
         case.bitcoinMain:
             return "13WVtuUFwoEp3wsBmocRA1KDQ8C95P5wS3"
         case .ethMain, .ethTest:
-            return "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0"
+            return "0x3b8332b7E9B4dCb85d7f4E93642d563cA2E783DC"
         }
     }
 }
@@ -29,7 +29,7 @@ var myPrivateKey:String {
         case.bitcoinMain:
             return "5JoXZk5nh3FRpfHEFeZmeYimCCjPwvFUgWBAKdSTr6WREe6i9vW"
         case .ethMain, .ethTest:
-            return "7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee"
+            return "b899621ffeac06f4b6ae6e1b5f04f365de1e0e822e890830759373383179f5f5"
         }
     }
 }
