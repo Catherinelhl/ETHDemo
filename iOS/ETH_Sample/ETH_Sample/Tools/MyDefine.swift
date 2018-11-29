@@ -46,23 +46,27 @@ var myPrivateKey:String {
 //    }
 //}
 
+/// 货币最小单位的和基本单位之间的汇率
 var rate:Decimal {
     get{
         switch coinType {
         case .bitcoinMain,.bitcoinTest:
             return pow(10, 8)
         case .ethMain, .ethTest:
+            // 1 ETH = 10^18 wei 
             return pow(10, 18)
         }
     }
 }
 
+/// 手续费
 var fees:Decimal {
     get{
         switch coinType {
         case .bitcoinMain, .bitcoinTest:
             return 0.00001
         case .ethMain, .ethTest:
+            // 单位是ETH
             return (gasPrice * 21000) / rate
         }
     }
