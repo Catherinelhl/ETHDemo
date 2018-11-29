@@ -28,6 +28,7 @@ class RootViewController: UIViewController {
     
     private var balance:Decimal = 0
 
+    /// 初始化 web3Main
     private let web3Main = Web3.init(infura: infura, accessToken: "v3/c716564ad9c346c895e36bae02ea5c8c")
 
     
@@ -43,9 +44,11 @@ class RootViewController: UIViewController {
         myAddressLabel.adjustsFontSizeToFitWidth = true
         feesLabel.adjustsFontSizeToFitWidth = true
         
+        // 向Web3对象中添加keystore数据（用于私钥签名交易）
         if let keystoreManager = EthereumTool.getKeystoreManager(by: myPrivateKey) {
             web3Main.addKeystoreManager(keystoreManager)
         }
+        // 获取余额 api返回数据单位为 wei （1 ETH = 10^18 wei）
         getBalnce()
         getGasPrice()
     }
@@ -101,7 +104,7 @@ class RootViewController: UIViewController {
         
         
     }
-    
+    // MARK: 获取gas_price
     private func getGasPrice() {
         
         web3Main.eth.getGasPricePromise().done {[weak self] (price) in
@@ -134,17 +137,23 @@ class RootViewController: UIViewController {
             self.view.makeToast("收款地址格式有误")
             return
         }
-        
+        // 设置交易参数
         MyLog("发送交易")
         let toAddress = Address(reciveAddress)
         let amountWei = BigUInt((amount * rate).intValue)
         var options = Web3Options()
+        // 发送地址
         options.from = Address(myAddress)
+        // 接收地址
         options.to = toAddress
+        // gasLimit
         options.gasLimit = BigUInt(21000)
+        // gas_price
         options.gasPrice = BigUInt(gasPrice.intValue)
+        // 发送金额
         options.value = amountWei
         
+        // 发送交易
         do {
             try web3Main.eth.sendETH(to: toAddress, amount: amountWei, options: options).sendPromise(password: EthereumTool.password).done {[weak self] (sendingResult) in
                 MyLog(sendingResult.transaction.description)
