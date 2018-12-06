@@ -9,7 +9,7 @@
 $(function() {
 	$.ajax({
 		data : "",
-		url : "/eth/getGasPrice",
+		url : "getGasPrice",
 		type : "post",
 		dataType : "json",
 		success : function(data) {
@@ -49,7 +49,7 @@ $('#createWalletBtn').click(function() {
 			"createWalletFile" : createWalletFile,
 			"addressPassword" : addressPassword
 		},
-		url : "/eth/creatWallet",
+		url : "creatWallet",
 		type : "post",
 		dataType : "json",
 		success : function(data) {
@@ -90,7 +90,7 @@ $('#loadWalletBtn').click(function() {
 			"selectWalletFile" : selectWalletFile,
 			"addressPassword" : addressPassword
 		},
-		url : "/eth/loadWallet",
+		url : "loadWallet",
 		type : "post",
 		dataType : "json",
 		success : function(data) {
@@ -125,7 +125,7 @@ $('#selectAllMoneyBtn').click(function() {
 		data : {
 			"address" : myAddress
 		},
-		url : "/eth/getBlance",
+		url : "getBlance",
 		type : "post",
 		dataType : "json",
 		success : function(data) {
@@ -182,7 +182,7 @@ $('#sendMoneyBtn').click(
 					"selectWalletFile" : selectWalletFile,
 					"addressPassword" : addressPassword
 				},
-				url : "/eth/transTo",
+				url : "transTo",
 				type : "post",
 				dataType : "json",
 				success : function(data) {
@@ -211,7 +211,7 @@ $('#selectChangeMessBtn').click(function() {
 		data : {
 			"address" : myAddress
 		},
-		url : "/eth/getAllTransactions",
+		url : "getAllTransactions",
 		type : "post",
 		dataType : "json",
 		success : function(data) {

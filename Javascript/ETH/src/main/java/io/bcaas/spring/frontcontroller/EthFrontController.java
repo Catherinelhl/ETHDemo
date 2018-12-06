@@ -14,7 +14,7 @@ import org.web3j.utils.Convert.Unit;
 import io.bcaas.spring.controller.EthController;
 
 @Controller
-@RequestMapping(value = "/eth/")
+@RequestMapping(value = "/eth")
 public class EthFrontController {
 
 	// 进入主页面
@@ -75,7 +75,7 @@ public class EthFrontController {
 	@ResponseBody
 	public Object getBlance(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
-		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
 		String address = httpServletRequest.getParameter("address");
 
 		EthController ethController = new EthController();
@@ -95,7 +95,7 @@ public class EthFrontController {
 	@ResponseBody
 	public Object transTo(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
-		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
 
 		String walleFilePath = httpServletRequest.getParameter("selectWalletFile");
 		String password = httpServletRequest.getParameter("addressPassword");
@@ -121,7 +121,7 @@ public class EthFrontController {
 	@ResponseBody
 	public Object getGasPrice(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
-		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
 
 		EthController ethController = new EthController();
 		Object data = null;

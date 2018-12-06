@@ -4,26 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="/resources/css/eth.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/eth.css">
 <!-- js -->
 <!-- tools [Start] -->
-<script src="/resources/js/tools/jquery-1.12.4.min.js"></script>
-<script src="/resources/js/tools/jquery.hoverDelay.js"></script>
-<script src="/resources/js/tools/jquery.hoverDelay.min.js"></script>
-<script src="/resources/js/tools/jquery-ui-1.12.1.min.js"></script>
-<script src="/resources/js/tools/jquery.sprintf.js"></script>
-<script src="/resources/js/tools/jquery.cookie.js"></script>
-<script src="/resources/js/tools/aes.js"></script>
-<script src="/resources/js/tools/aes-min.js"></script>
-<script src="/resources/js/tools/qrcode.min.js"></script>
-<script src="/resources/js/tools/clipboard.min.js"></script>
-<script src="/resources/js/tools/clipboard.js"></script>
-<script src="/resources/js/tools/jquery-migrate-1.2.1.min.js"></script>
-<script src="/resources/js/tools/jquery.jqprint-0.3.js"></script>
-<script src="/resources/js/tools/decimal.js"></script>
-<script src="/resources/js/tools/decimal.min.js"></script>
-<script src="/resources/js/tools/BigDecimal.js"></script>
-<script src="/resources/js/eth/eth.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery.hoverDelay.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery.hoverDelay.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery-ui-1.12.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery.sprintf.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery.cookie.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/aes.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/aes-min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/qrcode.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/clipboard.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/clipboard.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery-migrate-1.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/jquery.jqprint-0.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/decimal.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/decimal.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/tools/BigDecimal.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/eth/eth.js"></script>
 <!-- js-end -->
 
 <title>ETH</title>
@@ -78,7 +78,7 @@
 	<!-- 显示交易信息记录 -->
 	<div id="changeMess" class="txDiv"></div>
 
-	<script src="/resources/js/eth/eth.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/eth/eth.js"></script>
 
 
 </body>
