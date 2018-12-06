@@ -1,0 +1,15 @@
+/* 
+* 
+	eth.css
+	
+* 
+*/
+input {
+	width: 300px;
+}
+
+.txDiv {
+	max-width: 500px;
+	min-width: 100px;
+	word-wrap: break-word;
+}
