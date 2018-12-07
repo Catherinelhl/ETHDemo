@@ -66,8 +66,8 @@
       <file leaf-file-name="MainPresenterImp.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/bcaasc/io/ethdemo/presenter/MainPresenterImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="476" column="101" selection-start-line="476" selection-start-column="79" selection-end-line="476" selection-end-column="101" />
+            <state relative-caret-position="289">
+              <caret line="459" column="27" selection-start-line="459" selection-start-column="27" selection-end-line="459" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -3943,7 +3943,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -3952,8 +3952,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -4000,6 +3998,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
     </panes>
   </component>
@@ -4209,6 +4209,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/bcaasc/io/ethdemo/presenter/MainPresenterImp.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7310">
+          <caret line="473" column="69" selection-start-line="473" selection-start-column="63" selection-end-line="473" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/bcaasc/io/ethdemo/activity/MainNewActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4641">
+          <caret line="302" column="40" selection-start-line="302" selection-start-column="40" selection-end-line="302" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/bcaasc/io/ethdemo/contract/MainContract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.web3j/core/3.3.1-android/f157130e4d6eb449f6fcfc3bec8c492046dc6bbe/core-3.3.1-android-sources.jar!/org/web3j/tx/Transfer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="103" column="42" selection-start-line="103" selection-start-column="42" selection-end-line="103" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/bcaasc/io/ethdemo/presenter/MainPresenterImp.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6018">
           <caret line="397" column="70" selection-start-line="397" selection-start-column="70" selection-end-line="397" selection-end-column="70" />
         </state>
@@ -4295,8 +4333,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/bcaasc/io/ethdemo/presenter/MainPresenterImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="476" column="101" selection-start-line="476" selection-start-column="79" selection-end-line="476" selection-end-column="101" />
+        <state relative-caret-position="289">
+          <caret line="459" column="27" selection-start-line="459" selection-start-column="27" selection-end-line="459" selection-end-column="27" />
         </state>
       </provider>
     </entry>
