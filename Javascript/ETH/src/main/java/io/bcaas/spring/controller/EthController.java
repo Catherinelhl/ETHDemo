@@ -57,10 +57,10 @@ public class EthController {
 	 * @throws Exception
 	 */
 	public Object loadWallet(String password, String walleFilePath) {
-		String address="";
+		String address = "";
 		try {
-		    Credentials credentials = WalletUtils.loadCredentials(password, walleFilePath);
-		    address = credentials.getAddress();
+			Credentials credentials = WalletUtils.loadCredentials(password, walleFilePath);
+			address = credentials.getAddress();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -73,7 +73,7 @@ public class EthController {
 	 * @throws IOException
 	 */
 	public void conectETHclient() {
-		Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
+		Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io"));
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class EthController {
 	 * 获取指定账号的交易记录
 	 * 
 	 * @param address
-	 *            钱包
+	 *            钱包地址
 	 * @return
 	 */
 	public static String getAllTransactions(String address) {
@@ -182,7 +182,7 @@ public class EthController {
 			// TODO Auto-generated catch block
 			exception.printStackTrace();
 		}
-		return "";
+		return null;
 	}
 
 }
