@@ -14,7 +14,6 @@ import org.web3j.utils.Convert.Unit;
 import io.bcaas.spring.controller.EthController;
 
 @Controller
-@RequestMapping(value = "/eth")
 public class EthFrontController {
 
 	// 进入主页面
@@ -36,16 +35,19 @@ public class EthFrontController {
 		String password = httpServletRequest.getParameter("addressPassword");
 
 		Object data = null;
-		Object json = "";
+		Object json = null;
 		try {
 			EthController ethController = new EthController();
 			data = ethController.creatWallet(password, walleFilePath, false);
 			json = "{" + "\"walletFileName\": \"" + data + "\"" + "}";
 			System.out.println("/creatWallet--data==" + data);
+			if(data.equals("")) {
+				json = "{" + "\"walletFileName\": \"" + "err" + "\"" + "}";
+			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
+			return null;
 		}
-
 		return json;
 	}
 
@@ -63,10 +65,13 @@ public class EthFrontController {
 			Object data = ethController.loadWallet(password, walleFilePath);
 			json = "{" + "\"Walletaddress\": \"" + data + "\"" + "}";
 			System.out.println("/loadWallet---data:" + json);
+			if(data.equals("")) {
+				json = "{" + "\"Walletaddress\": \"" + "err" + "\"" + "}";
+			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
+			return null;
 		}
-
 		return json;
 	}
 
@@ -85,8 +90,8 @@ public class EthFrontController {
 			data = ethController.getBlance(web3j, address);
 		} catch (Exception exception) {
 			exception.printStackTrace();
+			return null;
 		}
-
 		return data;
 	}
 
@@ -112,6 +117,7 @@ public class EthFrontController {
 
 		} catch (Exception exception) {
 			exception.printStackTrace();
+			return null;
 		}
 		return json;
 	}
@@ -129,6 +135,7 @@ public class EthFrontController {
 			data = ethController.getGasPrice(web3j);
 		} catch (Exception exception) {
 			exception.printStackTrace();
+			return null;
 		}
 		return data;
 	}
@@ -146,25 +153,9 @@ public class EthFrontController {
 			data = ethController.getAllTransactions(address);
 		} catch (Exception exception) {
 			exception.printStackTrace();
+			return null;
 		}
 		return data;
-	}
-
-	/**
-	 * 测试web3js前端实现测试
-	 * 
-	 * @param httpServletRequest
-	 * @param httpServletResponse
-	 * @param modelMap
-	 * @return
-	 */
-	@RequestMapping(value = "/eth2/", method = RequestMethod.GET)
-	public String eth2(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-			ModelMap modelMap) {
-
-		// Get parameters & Set parameters
-
-		return "jsp/eth2";
 	}
 
 }

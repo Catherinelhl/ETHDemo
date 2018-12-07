@@ -156,7 +156,7 @@ public class Demo {
 		// web3.ethSendRawTransaction(hexValue).send();
 		//
 
-		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
 		String walleFilePath = "/Users/yimi/Desktop/myWallet/UTC--2018-11-29T05-42-41.351000000Z--e4d869165c4251f4b65c891774131072ed1a2af8.json";
 		String passWord = "123456";
 		Credentials credentials = WalletUtils.loadCredentials(passWord, walleFilePath);
@@ -281,62 +281,60 @@ public class Demo {
 		// chainId, privateKey);
 	}
 
-	 public static void main(String[] args) throws Exception {
-	 Demo demo=new Demo();
-	// demo.conectETHclient();
-	// demo.getBlanceOf();
-	// demo.testTx();
-	// demo.loadWallet();
-	 demo.transto();
-	 //	String seed = UUID.randomUUID().toString();
-	 //  JSONObject result = process(seed); // get a json containing private key and address
+//	 public static void main(String[] args) throws Exception {
+//	 Demo demo=new Demo();
+//	// demo.conectETHclient();
+//	// demo.getBlanceOf();
+//	// demo.testTx();
+//	// demo.loadWallet();
+//	 demo.transto();
+//	 //	String seed = UUID.randomUUID().toString();
+//	 //  JSONObject result = process(seed); // get a json containing private key and address
+//	
+//	 }
 	
-	 }
+	// 测试带签名的转账(可自定义矿工费用)
+	public static void main(String[] args) throws Exception {
+		// 设置需要的矿工费
+		BigInteger GAS_PRICE = BigInteger.valueOf(22_000_000_000L);//22Gwei
+		BigInteger GAS_LIMIT = BigInteger.valueOf(21000L);
 
-	
-	// 测试带签名的转账(可自定义矿工费用,可以不需要token)
-//	public static void main(String[] args) throws Exception {
-//		// 设置需要的矿工费
-//		BigInteger GAS_PRICE = BigInteger.valueOf(22_000_000_000L);//22Gwei
-//		BigInteger GAS_LIMIT = BigInteger.valueOf(21000L);
-//
-//		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
-//		// 转账人账户地址
-//		String ownAddress = "0xe4d869165c4251f4b65c891774131072ed1a2af8";
-//		// 接受人账户地址
-//		String toAddress = "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0";
-//		// 转账人私钥
-//		//1私钥的形式(三种)
-////		BigInteger privateKey = new BigInteger("48720043169805750595012787903631596162466927398976498574556887910912704215634", 16);
-////		BigInteger publicKey = new BigInteger("4732634301386064809375711616131879978825255988073844903514572124860663802539217019239286274283719724363771215996631683197188825846647125772392298911916762", 16);
-////		ECKeyPair pair = new ECKeyPair(privateKey,publicKey);
-//	//	Credentials credentials = Credentials.create(pair);
-//		//2加载钱包文件的形式
-//		Credentials credentials = WalletUtils.loadCredentials("123456",
-//				"/Users/yimi/Desktop/myWallet/UTC--2018-11-29T05-42-41.351000000Z--e4d869165c4251f4b65c891774131072ed1a2af8.json");
-//
-//		// getNonce
-//		EthGetTransactionCount ethGetTransactionCount = web3j
-//				.ethGetTransactionCount(ownAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
-//		BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-//
-//		// 创建交易
-//		BigInteger value = Convert.toWei("0.0000000003", Convert.Unit.ETHER).toBigInteger();
-//		RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, GAS_PRICE, GAS_LIMIT, toAddress,
-//				value);
-//
-//		// 签名Transaction，这里要对交易做签名
-//		byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-//		String hexValue = Numeric.toHexString(signedMessage);
-//
-//		// 发送交易
-//		EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
-//		String transactionHash = ethSendTransaction.getTransactionHash();
-//
-//		// 获得到transactionHash后就可以到以太坊的网站上查询这笔交易的状态了
-//		System.out.println(transactionHash);
-//		//0x300f6ca434d847f930bb12c86b08bbd2e2ebebc291a58428f9430c328237de99
-//		//0xcd2de674c1c33d1c75d41cd47669620de7adee37c520691609b75b3c7799607e
-//	}
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
+		// 转账人账户地址
+		String ownAddress = "0xe4d869165c4251f4b65c891774131072ed1a2af8";
+		// 接受人账户地址
+		String toAddress = "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0";
+		// 转账人私钥
+		//1私钥的形式
+//		BigInteger privateKey = new BigInteger("48720043169805750595012787903631596162466927398976498574556887910912704215634", 16);
+//		BigInteger publicKey = new BigInteger("4732634301386064809375711616131879978825255988073844903514572124860663802539217019239286274283719724363771215996631683197188825846647125772392298911916762", 16);
+//		ECKeyPair pair = new ECKeyPair(privateKey,publicKey);
+	//	Credentials credentials = Credentials.create(pair);
+		//2加载钱包文件的形式
+		Credentials credentials = WalletUtils.loadCredentials("123456",
+				"/Users/yimi/Desktop/myWallet/UTC--2018-11-29T05-42-41.351000000Z--e4d869165c4251f4b65c891774131072ed1a2af8.json");
+
+		// getNonce
+		EthGetTransactionCount ethGetTransactionCount = web3j
+				.ethGetTransactionCount(ownAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
+		BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+
+		// 创建交易
+		BigInteger value = Convert.toWei("0.0000000003", Convert.Unit.ETHER).toBigInteger();
+		RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, GAS_PRICE, GAS_LIMIT, toAddress,
+				value);
+
+		// 签名Transaction，这里要对交易做签名
+		byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+		String hexValue = Numeric.toHexString(signedMessage);
+
+		// 发送交易
+		EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
+		String transactionHash = ethSendTransaction.getTransactionHash();
+
+		System.out.println(transactionHash);
+		//0x300f6ca434d847f930bb12c86b08bbd2e2ebebc291a58428f9430c328237de99
+		//0xcd2de674c1c33d1c75d41cd47669620de7adee37c520691609b75b3c7799607e
+	}
 
 }
