@@ -5,11 +5,29 @@
 * 
 */
 input {
-	width: 300px;
+	width: 400px;
 }
 
 .txDiv {
 	max-width: 500px;
 	min-width: 100px;
 	word-wrap: break-word;
+}
+
+.inputLength{
+	width: 800px;
+}
+
+.qrcode {
+  width:100px;
+  height:100px;
+  margin-top:15px;
+} 
+ 
+img{
+	width:100px;
+  	height:100px;
+}
+canvas{
+	height:100px;
 }
