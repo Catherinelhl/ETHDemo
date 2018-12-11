@@ -46,23 +46,23 @@ public class Test {
 //        } catch (CipherException | IOException e) {
 //            e.printStackTrace();
 //        }
-
-        try {
-            loadWallet();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CipherException e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            loadWallet();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (CipherException e) {
+//            e.printStackTrace();
+//        }
 
 //        System.out.println("hex private key=" + Hex.toHexString(new BigInteger(101233875057005438239658919013501011727368307284946832848498204629504449734998).toByteArray()));
 
 
-//        try {
-//            new Test().connectETHClient();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            new Test().connectETHClient();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //        System.out.println("Fee:" + Convert.fromWei(String.valueOf(new BigInteger("6000000000").multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER));
 //        System.out.println("---------");
 //        System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));

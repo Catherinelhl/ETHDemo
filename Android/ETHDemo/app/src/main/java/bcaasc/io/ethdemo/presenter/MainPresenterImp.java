@@ -184,7 +184,7 @@ public class MainPresenterImp implements MainContract.Presenter {
         //test net
 //        web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
         //main net
-        web3j = Web3jFactory.build(new HttpService("https://mainnet.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
+        web3j = Web3jFactory.build(new HttpService("https://mainnet.infura.io/v3/02d4666497a41f9b9dce844f03b4457"));
 
         Disposable subscribe = Observable.just(web3j.web3ClientVersion())
                 .map(new Function<Request<?, Web3ClientVersion>, String>() {
