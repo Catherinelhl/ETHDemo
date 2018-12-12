@@ -17,7 +17,9 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.RawTransactionManager;
@@ -137,7 +139,7 @@ public class EthController {
 	public static String getAllTransactions(String address) {
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
-		String url = "https://api.etherscan.io/api?module=account&action=txlist&address=" + address;
+		String url = "https://api.etherscan.io/api?module=account&action=txlist&sort=desc&address=" + address;
 		HttpGet request = new HttpGet(url);
 		try {
 			HttpResponse response = client.execute(request);
@@ -150,6 +152,56 @@ public class EthController {
 		return null;
 	}
 
+	/**根据交易的哈希值获取交易信息(方式一)
+	 * @param web3j Web3j对象
+	 * @param txHash 传入查询的哈希值
+	 * @return EthTransaction对象
+	 */
+	public static EthTransaction getTransactionByHash(Web3j web3j, String txHash) {
+		EthTransaction ethTransaction = null;
+		try {
+			ethTransaction = web3j.ethGetTransactionByHash(txHash).send();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+		return ethTransaction;
+	}
+
+	/**根据交易的哈希值获取交易信息(方式二)
+	 * @param web3j Web3j对象
+	 * @param txHash 传入查询的哈希值
+	 * @return EthGetTransactionReceipt对象
+	 */
+	public static EthGetTransactionReceipt getTransactionByHash2(Web3j web3j, String txHash) {
+		EthGetTransactionReceipt ethGetTransactionReceipt = null;
+		try {
+			ethGetTransactionReceipt = web3j.ethGetTransactionReceipt(txHash).send();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+		return ethGetTransactionReceipt;
+	}
+		
+	/**根据交易的哈希值获取交易信息(方式三)
+	 * @param txHash 传入查询的哈希值
+	 * @return json结果
+	 */
+	public static String getTransactionByHash3(String txHash) {
+		StringBuilder builder = new StringBuilder();
+		HttpClient client = new DefaultHttpClient();
+		String url = "https://api.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash=" + txHash;
+		HttpGet request = new HttpGet(url);
+		try {
+			HttpResponse response = client.execute(request);
+			String result = EntityUtils.toString(response.getEntity());
+			System.out.println("交易信息--------------------:" + result);
+			return result;
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * 发送交易(使用系统自定义矿工费用)
 	 * 

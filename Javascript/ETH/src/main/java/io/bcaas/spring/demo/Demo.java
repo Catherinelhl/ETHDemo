@@ -7,16 +7,12 @@ import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import org.web3j.crypto.Bip39Wallet;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
@@ -37,12 +33,9 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.ChainId;
 import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.Transfer;
-import org.web3j.tx.response.NoOpProcessor;
-import org.web3j.tx.response.TransactionReceiptProcessor;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
@@ -112,7 +105,7 @@ public class Demo {
 	/******* 连接以太坊客户端 **************/
 	public void conectETHclient() throws IOException {
 		// 连接方式1：使用infura 提供的客户端
-		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io/v3/a53a28a37ec943f6aa4ba5bbf8e1d24c"));
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
 		// 连接方式2：使用本地客户端
 		// Web3j web3j = Web3j.build(new HttpService("127.0.0.1:8545"));
 		// 测试是否连接成功
@@ -123,17 +116,13 @@ public class Demo {
 	/*********** 查询指定地址的余额 ***********/
 	public void getBlanceOf() throws IOException {
 		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
-		// Web3j web3j = Web3j.build(new HttpService());
-		if (web3j == null)
-			return;
-		String address = "0xe4d869165c4251f4b65c891774131072ed1a2af8";// 等待查询余额的地址
-		// 第二个参数：区块的参数，建议选最新区块
-		EthGetBalance balance = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send();
+		if (web3j == null) return;
+		EthGetBalance balance = web3j.ethGetBalance("0x5836cc7b00696fd24e33f01c85f50371d87e9fd0", DefaultBlockParameterName.LATEST).send();
+		System.out.println("balance="+balance);
 		// 格式转化 wei-ether
 		String blanceETH = Convert.fromWei(new BigDecimal(balance.getBalance()), Convert.Unit.ETHER).toPlainString()
 				.concat("ether");
 		System.out.println(blanceETH);
-
 	}
 
 	// 简单交易(使用系统自定义矿工费用)
@@ -206,9 +195,6 @@ public class Demo {
 			System.out.println("errorCode=" + ethSendTransaction.getError().getCode());
 		}
 		System.out.println("TxHash=" + transactionHash);
-		// 0x300f6ca434d847f930bb12c86b08bbd2e2ebebc291a58428f9430c328237de99
-		// 0xcd2de674c1c33d1c75d41cd47669620de7adee37c520691609b75b3c7799607e
-		// 0xc4d2f703964c59bd3c502b5ca7cdf11fc7cb2de3a29c3d85f72c90dbd6974e3d
 	}
 
 	// 不带签名（可自定义矿工费用2）
@@ -278,34 +264,30 @@ public class Demo {
 		Demo demo = new Demo();
 		// 调用带签名的交易（加载钱包文件的方式）
 		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
-		// Credentials credentials = WalletUtils.loadCredentials("123456",
-		// "/Users/yimi/Desktop/myWallet/UTC--2018-11-29T05-42-41.351000000Z--e4d869165c4251f4b65c891774131072ed1a2af8.json");
-		// BigInteger GAS_PRICE = BigInteger.valueOf(2_000_000_000L);// 2Gwei
-		// BigInteger GAS_LIMIT = BigInteger.valueOf(22000L);
-		// String fromAddress = "0xe4d869165c4251f4b65c891774131072ed1a2af8";
-		// String toAddress = "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0";
-		// String value = "0.0000000000002";
-		// demo.transTo3(web3j, credentials, GAS_PRICE, GAS_LIMIT, fromAddress,
-		// toAddress, value);
-		// demo.transTo2(web3j, credentials, GAS_PRICE, GAS_LIMIT, toAddress, new
-		// BigDecimal("0.000000001"));
+		 Credentials credentials = WalletUtils.loadCredentials("123456",
+		 "/Users/yimi/Desktop/myWallet/UTC--2018-11-29T05-42-41.351000000Z--e4d869165c4251f4b65c891774131072ed1a2af8.json");
+		 BigInteger GAS_PRICE = BigInteger.valueOf(2_000_000_000L);// 2Gwei
+		 BigInteger GAS_LIMIT = BigInteger.valueOf(22000L);
+		 String fromAddress = "0xe4d869165c4251f4b65c891774131072ed1a2af8";
+		 String toAddress = "0x5836cc7b00696fd24e33f01c85f50371d87e9fd0";
+		 String value = "0.000000000000033";
+		 //demo.transTo3(web3j, credentials, GAS_PRICE, GAS_LIMIT, fromAddress,toAddress, value);
+		// demo.transTo2(web3j, credentials, GAS_PRICE, GAS_LIMIT, toAddress, new BigDecimal("0.000000001"));
 
 		/** 根据交易哈希值查询交易状态 **/
-		// GetTransactionByHash返回的gas是传过去的值 blocknumber有可能为空（正在进行的交易，blocknumber为null）
-		// GetTransactionReceipt 返回的gas是真实交易消耗的 blocknumber不为空(正在进行的交易查询不到)
-		// EthTransaction a=
-		// web3j.ethGetTransactionByHash("0x7dd68e57e501aa08aee62773347bdd3a0da195aadf41ac4c98e0a706369b976b").send();
-		// System.out.println(a.getTransaction());
-		// System.out.println(a.getResult());
-		// System.out.println(a.getError());
-		// EthGetTransactionReceipt b =
-		// web3j.ethGetTransactionReceipt("0x7dd68e57e501aa08aee62773347bdd3a0da195aadf41ac4c98e0a706369b976b").send();
-		// System.out.println(b.getResult());
-		// System.out.println(b.getError());
-		// System.out.println(b.getResult());
+	//	 GetTransactionByHash返回的gas是传过去的值 blocknumber有可能为空（正在进行的交易，blocknumber为null）
+	//	 GetTransactionReceipt 返回的gas是真实交易消耗的 blocknumber不为空(正在进行的交易查询不到)
+		 EthTransaction a = web3j.ethGetTransactionByHash("0x9216bf5a69664be357ab0ff53a8c21cb138589f983510937e439bfc89ab2b803").send();
+		 System.out.println(a.getTransaction());
+		 System.out.println(a.getResult());
+		 System.out.println(a.getError());
+		 EthGetTransactionReceipt b = web3j.ethGetTransactionReceipt("0x9216bf5a69664be357ab0ff53a8c21cb138589f983510937e439bfc89ab2b803").send();
+		 System.out.println(b.getResult());
+		 System.out.println(b.getError());
+		 System.out.println(b.getResult());
 
 		// 对于失败的交易记录，不能查询到交易信息。现在采用接API的方式：
-		// demo.getTransactionByHash("0xbac0a4af9c0731b9d0fcf0ea9d927596de43cf3f1fe207aeff160e28b50764fc");
+		 demo.getTransactionByHash("0x9216bf5a69664be357ab0ff53a8c21cb138589f983510937e439bfc89ab2b803");
 		// 错误交易或没有被确认的交易
 		// {"status":"1","message":"OK","result":{"status":""}}
 		// 成功的交易
@@ -316,7 +298,6 @@ public class Demo {
 		// BigInteger("48720043169805750595012787903631596162466927398976498574556887910912704215634",
 		// 16);
 		// ECKeyPair aPair = ECKeyPair.create(privateKeyInBT);
-
 		// BigInteger privateKey = new
 		// BigInteger("4732634301386064809375711616131879978825255988073844903514572124860663802539217019239286274283719724363771215996631683197188825846647125772392298911916762",
 		// 16);
@@ -326,22 +307,21 @@ public class Demo {
 		// ECKeyPair pair = new ECKeyPair(privateKey, publicKey);
 		// pair.sign("".getBytes());
 		// Credentials credential = Credentials.create(pair);
-		Credentials credential = Credentials.create(
-				"4732634301386064809375711616131879978825255988073844903514572124860663802539217019239286274283719724363771215996631683197188825846647125772392298911916762");
-
-		BigInteger GAS_PRICE = BigInteger.valueOf(2_000_000_000L);// 2Gwei
-		BigInteger GAS_LIMIT = BigInteger.valueOf(22000L);
-		TransactionManager transactionManager = new RawTransactionManager(web3j, credential);
-		Transfer transfer = new Transfer(web3j, transactionManager);
-		TransactionReceipt send = null;
-		try {
-			send = transfer.sendFunds("0x5836cc7b00696fd24e33f01c85f50371d87e9fd0", new BigDecimal("0.0000000001"),
-					Convert.Unit.ETHER, GAS_PRICE, GAS_LIMIT).send();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-		System.out.println("Transaction complete:");
-
+//		Credentials credential = Credentials.create(
+//				"4732634301386064809375711616131879978825255988073844903514572124860663802539217019239286274283719724363771215996631683197188825846647125772392298911916762");
+//
+//		BigInteger GAS_PRICE = BigInteger.valueOf(2_000_000_000L);// 2Gwei
+//		BigInteger GAS_LIMIT = BigInteger.valueOf(22000L);
+//		TransactionManager transactionManager = new RawTransactionManager(web3j, credential);
+//		Transfer transfer = new Transfer(web3j, transactionManager);
+//		TransactionReceipt send = null;
+//		try {
+//			send = transfer.sendFunds("0x5836cc7b00696fd24e33f01c85f50371d87e9fd0", new BigDecimal("0.0000000001"),
+//					Convert.Unit.ETHER, GAS_PRICE, GAS_LIMIT).send();
+//		} catch (Exception exception) {
+//			exception.printStackTrace();
+//		}
+		
 	}
 
 }
