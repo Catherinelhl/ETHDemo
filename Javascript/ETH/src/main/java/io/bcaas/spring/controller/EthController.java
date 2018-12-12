@@ -79,7 +79,7 @@ public class EthController {
 	 * 
 	 */
 	public void conectETHclient() {
-		Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io"));
+		Web3j web3j = Web3j.build(new HttpService("https://mainnet.infura.io"));
 	}
 
 	/**
