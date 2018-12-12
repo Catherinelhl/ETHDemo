@@ -228,21 +228,27 @@ $('#selectChangeMessBtn').click(function() {
 });
 
 // 生成钱包二维码图片
-var qrcode = new QRCode("qrcode");
-function makeCode() {
-	var elText = document.getElementById("myAddress");
-	if (!elText.value) {
-		alert("请输入要生成二维码的钱包地址");
-		elText.focus();
-		return;
-	}
-	qrcode.makeCode(elText.value);
-}
+window.onload = function () {
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width: 100,
+        height: 100
+    });
+    function makeCode() {
+    	var elText = document.getElementById("myAddress");
+    	if (!elText.value) {
+    		alert("请输入要生成二维码的钱包地址");
+    		elText.focus();
+    		return;
+    	}
+    	qrcode.makeCode(elText.value);
+    }
+    $('#createQRCode').click(function() {
+    	makeCode();
+    }).on("keydown", function(e) {
+    	if (e.keyCode == 13) {
+    		makeCode();
+    	}
+    });
+};
 
-$('#createQRCode').click(function() {
-	makeCode();
-}).on("keydown", function(e) {
-	if (e.keyCode == 13) {
-		makeCode();
-	}
-});
+
