@@ -9,10 +9,16 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
@@ -22,12 +28,15 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.ChainId;
 import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.Convert.Unit;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 /***
  * 
@@ -152,55 +161,6 @@ public class EthController {
 		return null;
 	}
 
-	/**根据交易的哈希值获取交易信息(方式一)
-	 * @param web3j Web3j对象
-	 * @param txHash 传入查询的哈希值
-	 * @return EthTransaction对象
-	 */
-	public static EthTransaction getTransactionByHash(Web3j web3j, String txHash) {
-		EthTransaction ethTransaction = null;
-		try {
-			ethTransaction = web3j.ethGetTransactionByHash(txHash).send();
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-		return ethTransaction;
-	}
-
-	/**根据交易的哈希值获取交易信息(方式二)
-	 * @param web3j Web3j对象
-	 * @param txHash 传入查询的哈希值
-	 * @return EthGetTransactionReceipt对象
-	 */
-	public static EthGetTransactionReceipt getTransactionByHash2(Web3j web3j, String txHash) {
-		EthGetTransactionReceipt ethGetTransactionReceipt = null;
-		try {
-			ethGetTransactionReceipt = web3j.ethGetTransactionReceipt(txHash).send();
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-		return ethGetTransactionReceipt;
-	}
-		
-	/**根据交易的哈希值获取交易信息(方式三)
-	 * @param txHash 传入查询的哈希值
-	 * @return json结果
-	 */
-	public static String getTransactionByHash3(String txHash) {
-		StringBuilder builder = new StringBuilder();
-		HttpClient client = new DefaultHttpClient();
-		String url = "https://api.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash=" + txHash;
-		HttpGet request = new HttpGet(url);
-		try {
-			HttpResponse response = client.execute(request);
-			String result = EntityUtils.toString(response.getEntity());
-			System.out.println("交易信息--------------------:" + result);
-			return result;
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-		return null;
-	}
 	
 	/**
 	 * 发送交易(使用系统自定义矿工费用)
@@ -344,4 +304,167 @@ public class EthController {
 		return transactionHash;
 	}
 
+	
+	//以下为项目中暂时没有用到的另一种方案
+	/**
+	 * 创建钱包（不生成file文件，生成json文件形式）
+	 *
+	 * @param password 密码
+	 *            
+	 */
+	public static void createWallet(String password) {
+		WalletFile walletFile = null;
+		ECKeyPair ecKeyPair = null;
+		try {
+			ecKeyPair = Keys.createEcKeyPair();
+			walletFile = Wallet.createStandard(password, ecKeyPair);
+			System.out.println("address = " +"0x"+ walletFile.getAddress());
+			ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+			String jsonStr = objectMapper.writeValueAsString(walletFile);
+			System.out.println("keystore json file " + jsonStr);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+
+	/**
+	 * 解密keystore 得到私钥及公钥
+	 *
+	 * @param keystore 钱包生成的json文件
+	 * @param password 创建钱包时的密码
+	 */
+	public static String decryptWallet(String keystore, String password) {
+		String privateKey = null;
+		String publicKey = null;
+		ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+		try {
+			WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
+			ECKeyPair ecKeyPair = null;
+			ecKeyPair = Wallet.decrypt(password, walletFile);
+			privateKey = ecKeyPair.getPrivateKey().toString(16);
+			System.out.println("privateKey = " + privateKey);
+			publicKey = ecKeyPair.getPublicKey().toString(16);
+			System.out.println("publicKey = " + publicKey);
+		} catch (CipherException e) {
+			if ("Invalid password provided".equals(e.getMessage())) {
+				System.out.println("密码错误");
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return privateKey;
+	}
+
+	/***
+	 * 利用私钥发送交易
+	 * @param web3j Web3j对象
+	 * @param GAS_PRICE 燃料价格
+	 * @param GAS_LIMIT 燃料最大限度
+	 * @param fromAddress 发送交易者钱包地址
+	 * @param toAddress 接受交易者钱包地址
+	 * @param value 交易的eth金额
+	 * @param privateKey 发送者私钥
+	 */
+	public static void transToByPrivateKey(Web3j web3j, BigInteger GAS_PRICE, BigInteger GAS_LIMIT,
+			String fromAddress, String toAddress, String value,String privateKey) {
+		BigInteger nonce = null;
+		EthGetTransactionCount ethGetTransactionCount = null;
+		try {
+			ethGetTransactionCount = web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.PENDING).send();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (ethGetTransactionCount == null)
+			return;
+		nonce = ethGetTransactionCount.getTransactionCount();
+		BigInteger valueEther = Convert.toWei(new BigDecimal(value), Convert.Unit.ETHER).toBigInteger();
+		String data = "";
+		byte chainId = ChainId.MAINNET;//主网络
+		String signedData;
+		try {
+			signedData = signTransaction(nonce, GAS_PRICE, GAS_LIMIT, toAddress, valueEther, data, chainId, privateKey);
+			if (signedData != null) {
+				EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(signedData).send();
+				System.out.println("txHash=" + ethSendTransaction.getTransactionHash());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 利用私钥签名交易
+	 */
+	public static String signTransaction(BigInteger nonce, BigInteger GAS_PRICE, BigInteger GAS_LIMIT, String to,
+			BigInteger value, String data, byte chainId, String privateKey) throws IOException {
+		byte[] signedMessage;
+		RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, GAS_PRICE, GAS_LIMIT, to, value, data);
+
+		if (privateKey.startsWith("0x")) {
+			privateKey = privateKey.substring(2);
+		}
+		ECKeyPair ecKeyPair = ECKeyPair.create(new BigInteger(privateKey, 16));
+		Credentials credentials = Credentials.create(ecKeyPair);
+
+		if (chainId > ChainId.NONE) {
+			signedMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials);
+		} else {
+			signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+		}
+
+		String hexValue = Numeric.toHexString(signedMessage);
+		return hexValue;
+	}
+
+	/**根据交易的哈希值获取交易信息(方式一)
+	 * @param web3j Web3j对象
+	 * @param txHash 传入查询的哈希值
+	 * @return EthTransaction对象
+	 */
+	public static EthTransaction getTransactionByHash(Web3j web3j, String txHash) {
+		EthTransaction ethTransaction = null;
+		try {
+			ethTransaction = web3j.ethGetTransactionByHash(txHash).send();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+		return ethTransaction;
+	}
+
+	/**根据交易的哈希值获取交易信息(方式二)
+	 * @param web3j Web3j对象
+	 * @param txHash 传入查询的哈希值
+	 * @return EthGetTransactionReceipt对象
+	 */
+	public static EthGetTransactionReceipt getTransactionByHash2(Web3j web3j, String txHash) {
+		EthGetTransactionReceipt ethGetTransactionReceipt = null;
+		try {
+			ethGetTransactionReceipt = web3j.ethGetTransactionReceipt(txHash).send();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+		return ethGetTransactionReceipt;
+	}
+		
+	/**根据交易的哈希值获取交易信息(方式三)
+	 * @param txHash 传入查询的哈希值
+	 * @return json结果
+	 */
+	public static String getTransactionByHash3(String txHash) {
+		StringBuilder builder = new StringBuilder();
+		HttpClient client = new DefaultHttpClient();
+		String url = "https://api.etherscan.io/api?module=transaction&action=gettxreceiptstatus&txhash=" + txHash;
+		HttpGet request = new HttpGet(url);
+		try {
+			HttpResponse response = client.execute(request);
+			String result = EntityUtils.toString(response.getEntity());
+			System.out.println("交易信息--------------------:" + result);
+			return result;
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return null;
+	}
+	
 }
