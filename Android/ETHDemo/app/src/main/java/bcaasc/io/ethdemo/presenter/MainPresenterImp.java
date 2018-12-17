@@ -184,7 +184,7 @@ public class MainPresenterImp implements MainContract.Presenter {
         //test net
 //        web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/v3/02d45666497a41f9b9dce844f03b4457"));
         //main net
-        web3j = Web3jFactory.build(new HttpService("https://mainnet.infura.io/v3/02d4666497a41f9b9dce844f03b4457"));
+        web3j = Web3jFactory.build(new HttpService("https://mainnet.infura.io/v3/7c4ebc9898924f0aa003ab19df9c36eb"));
 
         Disposable subscribe = Observable.just(web3j.web3ClientVersion())
                 .map(new Function<Request<?, Web3ClientVersion>, String>() {
@@ -456,9 +456,21 @@ public class MainPresenterImp implements MainContract.Presenter {
                 .subscribe(new Consumer<Future<EthTransaction>>() {
                     @Override
                     public void accept(Future<EthTransaction> ethTransactionFuture) throws Exception {
+                        LogTool.d(TAG, "ethTransactionFuture:" + ethTransactionFuture);
+                        if (ethTransactionFuture == null) {
+                            return;
+
+                        }
                         EthTransaction ethTransaction = ethTransactionFuture.get();
+                        LogTool.d(TAG, "ethTransaction:" + ethTransaction);
+                        if (ethTransaction == null) {
+                            return;
+                        }
                         Transaction transaction = ethTransaction.getTransaction();
-                        LogTool.d(TAG, transaction);
+                        LogTool.d(TAG, "transaction:" + transaction);
+                        if (transaction == null) {
+                            return;
+                        }
                         LogTool.d(TAG, "getBlockNumber:" + transaction.getBlockNumber());
                         LogTool.d(TAG, "getBlockHash:" + transaction.getBlockHash());
                         LogTool.d(TAG, "getBlockNumberRaw:" + transaction.getBlockNumberRaw());
