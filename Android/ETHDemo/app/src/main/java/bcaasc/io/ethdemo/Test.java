@@ -47,13 +47,13 @@ public class Test {
 //            e.printStackTrace();
 //        }
 //
-//        try {
-//            loadWallet();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (CipherException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            loadWallet();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CipherException e) {
+            e.printStackTrace();
+        }
 
 //        System.out.println("hex private key=" + Hex.toHexString(new BigInteger(101233875057005438239658919013501011727368307284946832848498204629504449734998).toByteArray()));
 
@@ -111,8 +111,8 @@ public class Test {
 
     /********加载钱包文件**********/
     private static void loadWallet() throws IOException, CipherException {
-//        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore/UTC--2018-11-22T16-36-21.334--aafb94e607bd1e6d1c6d94e5f78f59efc835af5f.json";
-        String walletFilePath = "/Users/pengyiqiao/Desktop/Works/OrangeBlock/git_repository/ThirdpartySample/ETH/Android/ETHDemo/UTC--2018-11-23T18-26-47.672--61f23c8f28f7bc19144c3178faacc81031107861.json";
+        String walletFilePath = "/Users/catherine.brainwilliam/AndroidOBTExample/eth_wallet_keystore/UTC--2018-11-15T11-31-38.809--07757733653a6670a4f7b8d30704378cb4cf89b2.json";
+//        String walletFilePath = "/Users/pengyiqiao/Desktop/Works/OrangeBlock/git_repository/ThirdpartySample/ETH/Android/ETHDemo/UTC--2018-11-15T11-31-38.809--07757733653a6670a4f7b8d30704378cb4cf89b2.json";
         Credentials credentials = WalletUtils.loadCredentials(Constants.password, walletFilePath);
         String address = credentials.getAddress();
         BigInteger publicKey = credentials.getEcKeyPair().getPublicKey();
