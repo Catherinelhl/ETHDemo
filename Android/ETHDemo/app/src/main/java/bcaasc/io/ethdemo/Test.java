@@ -46,7 +46,7 @@ public class Test {
 //        }
 //
 
-        createAccount2();
+//        createAccount2();
 //        try {
 //            loadWallet();
 //        } catch (IOException e) {
@@ -68,16 +68,7 @@ public class Test {
 //        System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));
 //        String privateKey = "7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee";
 //        System.out.println(privateKey.length());
-        String privateKey2 = "93404604165627305237506758501941880052707940482279758688425570060514417761703";
-//
-        byte[] array = new BigInteger(privateKey2).toByteArray();
-        if (array[0] == 0) {
-            byte[] tmp = new byte[array.length - 1];
-            System.arraycopy(array, 1, tmp, 0, tmp.length);
-            array = tmp;
-        }
-        String privateKeyConvert = Hex.toHexString(array);
-        System.out.println("privateKeyConvert:" + privateKeyConvert);
+
 //        //"7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee"
 //        Credentials credentials = Credentials.create(privateKeyConvert);
 //        System.out.println(credentials.getAddress());
@@ -85,31 +76,10 @@ public class Test {
 //        System.out.println(credentials.getEcKeyPair().getPrivateKey());
     }
 
-    private static void createAccount2() {
-//        getPrivateKey:93404604165627305237506758501941880052707940482279758688425570060514417761703
-//        getPublicKey:5844477941964801410770440994525710578888595566947139544635674607832205511794825877748516610915272426905159928728731499761605127998476624441197806023812719
-//        address:e27fca937aae4fdde35a69630125eb087d4eb695
-        try {
-            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
-            System.out.println(ecKeyPair.getPrivateKey().toString(16));
-//            BigInteger privateKey = ecKeyPair.getPrivateKey();
-//            BigInteger privateKey = BigInteger.parseBigInteger(93404604165627305237506758501941880052707940482279758688425570060514417761703);
-            //93404604165627305237506758501941880052707940482279758688425570060514417761703;
-            System.out.println("getPrivateKey:" + ecKeyPair.getPrivateKey());
-            System.out.println("getPublicKey:" + ecKeyPair.getPublicKey());
-            try {
-                System.out.println("address:" + Wallet.createStandard("12345678", ecKeyPair).getAddress());
-                System.out.println("address:" + Keys.getAddress(ecKeyPair));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static void createAccount3() {
+    /**
+     * 直接创建钱包
+     */
+    private static void createAccountDirectly() {
         try {
             ECKeyPair ecKeyPair = Keys.createEcKeyPair();
             System.out.println("PrivateKey:" + ecKeyPair.getPrivateKey());
@@ -118,7 +88,42 @@ public class Test {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * 因为生成出来的钱包私钥是BigInteger的格式，而BigInteger又是10进制。所以这里要将其转换成16进制的字符串；与iOS统一，
+     * 也与我们自己的钱包或者BTC的钱包私钥格式统一
+     */
+    private static void bigIntegerConvertString() {
+        /*method 1:*/
+        String privateKey = "93404604165627305237506758501941880052707940482279758688425570060514417761703";
+//
+        byte[] array = new BigInteger(privateKey).toByteArray();
+        if (array[0] == 0) {
+            byte[] tmp = new byte[array.length - 1];
+            System.arraycopy(array, 1, tmp, 0, tmp.length);
+            array = tmp;
+        }
+        String privateKeyConvert = Hex.toHexString(array);
+        System.out.println("privateKeyConvert:" + privateKeyConvert);
+        /*method 2:*/
+        try {
+            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
+            //将当前10进制的私钥转换为16进制的格式，这样与iOS同步
+            System.out.println(ecKeyPair.getPrivateKey().toString(16));
+//            BigInteger privateKey = BigInteger.parseBigInteger(93404604165627305237506758501941880052707940482279758688425570060514417761703);
+            //93404604165627305237506758501941880052707940482279758688425570060514417761703;
+            System.out.println("getPublicKey:" + ecKeyPair.getPublicKey());
+            try {
+//                System.out.println("address:" + Wallet.createStandard("12345678", ecKeyPair).getAddress());
+                System.out.println("address:" + Keys.getAddress(ecKeyPair));
+                System.out.println("address:" + Keys.getAddress(privateKey));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*************创建一个钱包文件**************/
