@@ -1,9 +1,7 @@
 package bcaasc.io.ethdemo;
 
-import org.web3j.crypto.Bip39Wallet;
-import org.web3j.crypto.CipherException;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.WalletUtils;
+import org.spongycastle.util.encoders.Hex;
+import org.web3j.crypto.*;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -47,13 +45,15 @@ public class Test {
 //            e.printStackTrace();
 //        }
 //
-        try {
-            loadWallet();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CipherException e) {
-            e.printStackTrace();
-        }
+
+//        createAccount2();
+//        try {
+//            loadWallet();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (CipherException e) {
+//            e.printStackTrace();
+//        }
 
 //        System.out.println("hex private key=" + Hex.toHexString(new BigInteger(101233875057005438239658919013501011727368307284946832848498204629504449734998).toByteArray()));
 
@@ -68,16 +68,7 @@ public class Test {
 //        System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));
 //        String privateKey = "7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee";
 //        System.out.println(privateKey.length());
-//        String privateKey2 = "101233875057005438239658919013501011727368307284946832848498204629504449734998";
-//
-//        byte[] array = new BigInteger(privateKey2).toByteArray();
-//        if (array[0] == 0) {
-//            byte[] tmp = new byte[array.length - 1];
-//            System.arraycopy(array, 1, tmp, 0, tmp.length);
-//            array = tmp;
-//        }
-//        String privateKeyConvert = Hex.toHexString(array);
-//        System.out.println("privateKeyConvert:" + privateKeyConvert);
+
 //        //"7ba2c387f7f35b6e97f2bc34fe7785a51b89939fbaa525f830e912bbc2aa6dee"
 //        Credentials credentials = Credentials.create(privateKeyConvert);
 //        System.out.println(credentials.getAddress());
@@ -85,6 +76,55 @@ public class Test {
 //        System.out.println(credentials.getEcKeyPair().getPrivateKey());
     }
 
+    /**
+     * 直接创建钱包
+     */
+    private static void createAccountDirectly() {
+        try {
+            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
+            System.out.println("PrivateKey:" + ecKeyPair.getPrivateKey());
+            System.out.println("PublicKey:" + ecKeyPair.getPublicKey());
+            System.out.println("Address:" + Keys.getAddress(ecKeyPair));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 因为生成出来的钱包私钥是BigInteger的格式，而BigInteger又是10进制。所以这里要将其转换成16进制的字符串；与iOS统一，
+     * 也与我们自己的钱包或者BTC的钱包私钥格式统一
+     */
+    private static void bigIntegerConvertString() {
+        /*method 1:*/
+        String privateKey = "93404604165627305237506758501941880052707940482279758688425570060514417761703";
+//
+        byte[] array = new BigInteger(privateKey).toByteArray();
+        if (array[0] == 0) {
+            byte[] tmp = new byte[array.length - 1];
+            System.arraycopy(array, 1, tmp, 0, tmp.length);
+            array = tmp;
+        }
+        String privateKeyConvert = Hex.toHexString(array);
+        System.out.println("privateKeyConvert:" + privateKeyConvert);
+        /*method 2:*/
+        try {
+            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
+            //将当前10进制的私钥转换为16进制的格式，这样与iOS同步
+            System.out.println(ecKeyPair.getPrivateKey().toString(16));
+//            BigInteger privateKey = BigInteger.parseBigInteger(93404604165627305237506758501941880052707940482279758688425570060514417761703);
+            //93404604165627305237506758501941880052707940482279758688425570060514417761703;
+            System.out.println("getPublicKey:" + ecKeyPair.getPublicKey());
+            try {
+//                System.out.println("address:" + Wallet.createStandard("12345678", ecKeyPair).getAddress());
+                System.out.println("address:" + Keys.getAddress(ecKeyPair));
+                System.out.println("address:" + Keys.getAddress(privateKey));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /*************创建一个钱包文件**************/
     private static void createAccount() throws NoSuchAlgorithmException,
