@@ -18,7 +18,7 @@ public class SecureRandomTools {
         SECURE_RANDOM = new SecureRandom();
     }
 
-    static SecureRandom secureRandom() {
+    public static SecureRandom secureRandom() {
         return SECURE_RANDOM;
     }
 

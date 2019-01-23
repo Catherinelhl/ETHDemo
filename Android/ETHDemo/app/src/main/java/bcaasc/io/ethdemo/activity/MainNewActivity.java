@@ -11,9 +11,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.*;
 import bcaasc.io.ethdemo.R;
 import bcaasc.io.ethdemo.constants.Constants;
+import bcaasc.io.ethdemo.constants.ETHParamConstants;
+import bcaasc.io.ethdemo.constants.MessageConstants;
 import bcaasc.io.ethdemo.contract.MainContract;
 import bcaasc.io.ethdemo.presenter.MainPresenterImp;
 import bcaasc.io.ethdemo.tool.LogTool;
@@ -27,7 +30,6 @@ import org.web3j.utils.Convert;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 
@@ -36,14 +38,9 @@ import java.util.concurrent.TimeUnit;
  * @since 2018/11/15
  */
 public class MainNewActivity extends AppCompatActivity implements MainContract.View {
-
-    @BindView(R.id.tv_fee)
-    TextView tvFee;
     private String TAG = MainNewActivity.class.getSimpleName();
-    @BindView(R.id.tv_address)
-    TextView tvAddress;
-    @BindView(R.id.ib_receive)
-    ImageButton ibReceive;
+    @BindView(R.id.et_address)
+    EditText etAddress;
     @BindView(R.id.ll_my_address)
     LinearLayout llMyAddress;
     @BindView(R.id.tv_get_balance)
@@ -54,12 +51,12 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     LinearLayout llMyBalance;
     @BindView(R.id.et_amount)
     EditText etAmount;
-    @BindView(R.id.btn_to_address)
-    TextView btnToAddress;
-    @BindView(R.id.tv_to_address)
-    TextView tvToAddress;
+    @BindView(R.id.et_to_address)
+    EditText etToAddress;
     @BindView(R.id.ib_scan)
     ImageButton ibScan;
+    @BindView(R.id.ib_scan_address)
+    ImageButton ibScanAddress;
     @BindView(R.id.ll_to_send_address)
     LinearLayout llToSendAddress;
     @BindView(R.id.btn_push)
@@ -78,6 +75,18 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     LinearLayout llQuery;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.et_fee)
+    EditText etFee;
+    @BindView(R.id.cb_switch_net)
+    CheckBox cbSwitchNet;
+    @BindView(R.id.et_private_key)
+    EditText etPrivateKey;
+    @BindView(R.id.ib_scan_private_key)
+    ImageButton ibScanPrivateKey;
+    @BindView(R.id.ll_my_private_key)
+    LinearLayout llMyPrivateKey;
+    @BindView(R.id.ll_send_amount)
+    LinearLayout llSendAmount;
 
 
     private MainContract.Presenter presenter;
@@ -110,9 +119,11 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
         }
     }
 
-    public static final int REQUEST_CODE_CAMERA_OK = 0x001;
+    public static final int REQUEST_CODE_SCAN_RECEIVE_ADDRESS_OK = 0x001;
     public static final int REQUEST_CODE_SCAN_HASH_OK = 0x003;
     public static final int REQUEST_CODE_CAMERA_Permission_OK = 0x002;
+    public static final int REQUEST_CODE_SCAN_ADDRESS_OK = 0x004;
+    public static final int REQUEST_CODE_SCAN_PRIVATE_KEY_OK = 0x005;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -121,20 +132,32 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
             if (data == null) {
                 return;
             }
-            if (requestCode == REQUEST_CODE_CAMERA_OK) {
-                // 如果当前是照相机扫描回来
-                Bundle bundle = data.getExtras();
-                if (bundle != null) {
-                    String result = bundle.getString("result");
-                    tvToAddress.setText(result);
-                }
-            } else if (requestCode == REQUEST_CODE_SCAN_HASH_OK) {
-                // 如果当前是照相机扫描回来
-                Bundle bundle = data.getExtras();
-                if (bundle != null) {
-                    String result = bundle.getString("result");
-                    tvTxHash.setText(result);
-                }
+            Bundle bundle = data.getExtras();
+            if (bundle == null) {
+                return;
+            }
+            String result = bundle.getString("result");
+            switch (requestCode) {
+                case REQUEST_CODE_SCAN_ADDRESS_OK:
+                    if (etAddress != null) {
+                        etAddress.setText(result);
+                    }
+                    break;
+                case REQUEST_CODE_SCAN_RECEIVE_ADDRESS_OK:
+                    if (etToAddress != null) {
+                        etToAddress.setText(result);
+                    }
+                    break;
+                case REQUEST_CODE_SCAN_HASH_OK:
+                    if (tvTxHash != null) {
+                        tvTxHash.setText(result);
+                    }
+                    break;
+                case REQUEST_CODE_SCAN_PRIVATE_KEY_OK:
+                    if (etPrivateKey != null) {
+                        etPrivateKey.setText(result);
+                    }
+                    break;
             }
 
         }
@@ -142,50 +165,39 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
 
     private void initView() {
-        tvAddress.setText("Address:" + Constants.address);
         etAmount.setText("0.0003");
-        tvFee.setText("Fee:" + Constants.feeString + " ETH");
-        tvToAddress.setText(Constants.addressTo);
+        etFee.setText(Constants.feeString);
         presenter = new MainPresenterImp(this);
+        //连接ETH客户端
+        presenter.connectETHClient();
+        presenter.getGasPrice();
+    }
+
+    @Deprecated
+    private void loadingWalletByFile() {
         //导入钱包
         getExternalFile();
         LogTool.d(TAG, file);
         if (file != null) {
             checkWriteStoragePermission(MainNewActivity.this);
         }
-        //连接ETH客户端
-        presenter.connectETHClient();
-        presenter.getGasPrice();
+
     }
 
     private void initListener() {
-        RxView.clicks(ibReceive).throttleFirst(Constants.SleepTime800, TimeUnit.MILLISECONDS)
-                .subscribe(new Observer<Object>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        cbSwitchNet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //刷新当前界面
+                etAddress.setText(MessageConstants.EMPTY);
+                etAddress.setText(MessageConstants.EMPTY);
+                tvTxHash.setText(MessageConstants.EMPTY);
+                tvContent.setText(MessageConstants.EMPTY);
 
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-                        Intent intent = new Intent();
-                        intent.setClass(MainNewActivity.this, QrCodeActivity.class);
-                        startActivity(intent);
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogTool.e(TAG, e.getMessage());
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                //切换网络
+                ETHParamConstants.isTest = !isChecked;
+            }
+        });
         RxView.clicks(ibScan).throttleFirst(Constants.SleepTime800, TimeUnit.MILLISECONDS)
                 .subscribe(new Observer<Object>() {
                     @Override
@@ -195,7 +207,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     @Override
                     public void onNext(Object o) {
-                        startActivityForResult(new Intent(MainNewActivity.this, CaptureActivity.class), REQUEST_CODE_CAMERA_OK);
+                        startActivityForResult(new Intent(MainNewActivity.this, CaptureActivity.class), REQUEST_CODE_SCAN_RECEIVE_ADDRESS_OK);
 
                     }
 
@@ -243,7 +255,18 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     @Override
                     public void onNext(Object o) {
-                        presenter.getBalance();
+                        String address = etAddress.getText().toString();
+                        if (TextUtils.isEmpty(address)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String privateKey = etPrivateKey.getText().toString();
+                        if (TextUtils.isEmpty(privateKey)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入私钥", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        presenter.getBalance(address);
 
                     }
 
@@ -262,12 +285,21 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
                 .subscribe(new Observer<Object>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
 
                     @Override
                     public void onNext(Object o) {
-                        presenter.getTXList();
+                        String address = etAddress.getText().toString();
+                        if (TextUtils.isEmpty(address)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String privateKey = etPrivateKey.getText().toString();
+                        if (TextUtils.isEmpty(privateKey)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入私钥", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        presenter.getTXList(address);
 
                     }
 
@@ -291,16 +323,34 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     @Override
                     public void onNext(Object o) {
-                        String addressTo = tvToAddress.getText().toString();
-                        if (TextUtils.isEmpty(addressTo)) {
-                            addressTo = Constants.addressTo;
-                        }
+                        String address = etAddress.getText().toString();
+                        String addressTo = etToAddress.getText().toString();
                         String amountString = etAmount.getText().toString();
+                        String privateKey = etPrivateKey.getText().toString();
+
+                        if (TextUtils.isEmpty(address)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (TextUtils.isEmpty(privateKey)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入私钥", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         if (TextUtils.isEmpty(amountString)) {
                             amountString = Constants.amountString;
+                            Toast.makeText(MainNewActivity.this, "请先输入金额", Toast.LENGTH_SHORT).show();
+
+                            return;
                         }
+                        if (TextUtils.isEmpty(addressTo)) {
+                            Toast.makeText(MainNewActivity.this, "请先输入接收方地址", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        btnPush.setText("Pushing");
                         //开始交易
-                        presenter.publishTX(gasPrice, addressTo, amountString);
+                        presenter.publishTX(gasPrice, addressTo, amountString, privateKey);
 
                     }
 
@@ -343,6 +393,38 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     }
                 });
+
+        ibScanAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MainNewActivity.this, CaptureActivity.class), REQUEST_CODE_SCAN_ADDRESS_OK);
+
+            }
+        });
+        ibScanPrivateKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MainNewActivity.this, CaptureActivity.class), REQUEST_CODE_SCAN_PRIVATE_KEY_OK);
+
+            }
+        });
+
+        ibScanAddress.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String address = etAddress.getText().toString();
+                if (TextUtils.isEmpty(address)) {
+                    Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                Intent intent = new Intent();
+                intent.putExtra("address", address);
+                intent.setClass(MainNewActivity.this, QrCodeActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -363,8 +445,12 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
             @Override
             public void run() {
                 tvContent.setText(info);
+                if (btnPush != null) {
+                    btnPush.setText("Push TX");
+                }
             }
         });
+
     }
 
     //得到需要存储当前keystore信息的文件
@@ -409,7 +495,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
                 // 没有写的权限，去申请写的权限，会弹出对话框
                 ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
             } else {
-                presenter.loadWallet(file);
+//                presenter.loadWallet(file);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -423,7 +509,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
             case REQUEST_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //这里已经获取到了摄像头的权限，想干嘛干嘛了可以
-                    presenter.loadWallet(file);
+//                    presenter.loadWallet(file);
                 } else {
                     //这里是拒绝给APP摄像头权限，给个提示什么的说明一下都可以。
                 }
@@ -446,7 +532,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     @Override
     public void gasPriceSuccess(BigInteger bigInteger) {
         gasPrice = bigInteger;
-        tvFee.setText("Fee:" + Convert.fromWei(String.valueOf(gasPrice.multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER) + " ETH");
+        etFee.setText(String.valueOf(Convert.fromWei(String.valueOf(gasPrice.multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER)));
     }
 
     @Override
@@ -462,5 +548,15 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     @Override
     public void getHashRaw(String hashRaw) {
         tvTxHash.setText(hashRaw);
+        if (btnPush != null) {
+            btnPush.setText("Push TX");
+        }
+    }
+
+    @Override
+    public void getAddressSuccess(String address) {
+        if (etAddress != null) {
+            etAddress.setText(address);
+        }
     }
 }

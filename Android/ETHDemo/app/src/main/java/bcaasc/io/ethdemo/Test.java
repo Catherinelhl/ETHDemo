@@ -1,5 +1,7 @@
 package bcaasc.io.ethdemo;
 
+import org.spongycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey;
+import org.spongycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
 import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.*;
 import org.web3j.protocol.Web3j;
@@ -12,11 +14,13 @@ import org.web3j.utils.Convert;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.security.*;
+import java.security.spec.ECGenParameterSpec;
+import java.util.Arrays;
 
 import bcaasc.io.ethdemo.constants.Constants;
+
+import static bcaasc.io.ethdemo.tool.SecureRandomTools.secureRandom;
 
 /**
  * @author catherine.brainwilliam
@@ -58,11 +62,12 @@ public class Test {
 //        System.out.println("hex private key=" + Hex.toHexString(new BigInteger(101233875057005438239658919013501011727368307284946832848498204629504449734998).toByteArray()));
 
 
-        try {
-            new Test().connectETHClient();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            new Test().connectETHClient();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        createKeyPair();
 //        System.out.println("Fee:" + Convert.fromWei(String.valueOf(new BigInteger("6000000000").multiply(BigInteger.valueOf(21000))), Convert.Unit.ETHER));
 //        System.out.println("---------");
 //        System.out.println(Numeric.toBigInt("dfd057c031940800a306fb895fccc4659a063aee0a37526bcb784119ddd26956"));
@@ -81,6 +86,7 @@ public class Test {
      */
     private static void createAccountDirectly() {
         try {
+
             ECKeyPair ecKeyPair = Keys.createEcKeyPair();
             System.out.println("PrivateKey:" + ecKeyPair.getPrivateKey());
             System.out.println("PublicKey:" + ecKeyPair.getPublicKey());
@@ -88,6 +94,38 @@ public class Test {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void createKeyPair() {
+        KeyPairGenerator keyPairGenerator = null;
+        try {
+            keyPairGenerator = KeyPairGenerator.getInstance("ECDSA", "CS");
+            ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec("secp256k1");
+            try {
+                keyPairGenerator.initialize(ecGenParameterSpec, secureRandom());
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            }
+            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+            BCECPrivateKey privateKey = (BCECPrivateKey) keyPair.getPrivate();
+            BCECPublicKey publicKey = (BCECPublicKey) keyPair.getPublic();
+
+            BigInteger privateKeyValue = privateKey.getD();
+
+            // Ethereum does not use encoded public keys like bitcoin - see
+            // https://en.bitcoin.it/wiki/Elliptic_Curve_Digital_Signature_Algorithm for details
+            // Additionally, as the first bit is a constant prefix (0x04) we ignore this value
+            byte[] publicKeyBytes = publicKey.getQ().getEncoded(false);
+            BigInteger publicKeyValue =
+                    new BigInteger(1, Arrays.copyOfRange(publicKeyBytes, 1, publicKeyBytes.length));
+            ECKeyPair ecKeyPair = new ECKeyPair(privateKeyValue, publicKeyValue);
+            System.out.println("PrivateKey:" + ecKeyPair.getPrivateKey());
+            System.out.println("PublicKey:" + ecKeyPair.getPublicKey());
+            System.out.println("Address:" + Keys.getAddress(ecKeyPair));
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import bcaasc.io.ethdemo.R;
-import bcaasc.io.ethdemo.constants.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.obt.qrcode.encoding.EncodingUtils;
@@ -31,12 +30,20 @@ public class QrCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
         ButterKnife.bind(this);
-        makeQRCodeByAddress();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String address = bundle.getString("address");
+            makeQRCodeByAddress(address);
+
+        } else {
+
+        }
+
     }
 
-    private void makeQRCodeByAddress() {
+    private void makeQRCodeByAddress(String address) {
 //        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-        Bitmap qrCode = EncodingUtils.createQRCode(Constants.address, 200,
+        Bitmap qrCode = EncodingUtils.createQRCode(address, 200,
                 200, null, foregroundColorOfQRCode, backgroundColorOfQRCode);
         ivQrCode.setImageBitmap(qrCode);
     }

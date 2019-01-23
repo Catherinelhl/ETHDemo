@@ -1,6 +1,5 @@
 package bcaasc.io.ethdemo.contract;
 
-import java.io.File;
 import java.math.BigInteger;
 
 /**
@@ -20,16 +19,17 @@ public interface MainContract {
         void getBalanceSFailure(String balance);
 
         void getHashRaw(String hashRaw);
+
+        void getAddressSuccess(String address);
     }
 
     interface Presenter {
-        void createAccount();
+        void createWallet();
         void getGasPrice();
-        void loadWallet(File file);
         void connectETHClient();
-        void getBalance();
-        void getTXList();
-        void publishTX(BigInteger bigInteger,String addressTo,String amountString);
+        void getBalance(String address);
+        void getTXList(String address);
+        void publishTX(BigInteger bigInteger,String addressTo,String amountString,String privateKey);
         void checkTXInfo(String txHash);
         void cancelSubscribe();
     }
