@@ -19,7 +19,7 @@ enum CoinType : String {
     case ethTest = "https://api-ropsten.etherscan.io"
 }
 
-var coinType:CoinType = .ethMain
+var coinType:CoinType = .ethTest
 
 let ApiManagerProvider = MoyaProvider<ApiManager>(requestClosure: { (endpoint:Endpoint, done: @escaping MoyaProvider.RequestResultClosure) in
     do{
