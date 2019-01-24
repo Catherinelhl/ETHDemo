@@ -58,7 +58,7 @@ class RootViewController: UIViewController {
     }
     
     private func setNavigationItem() {
-        self.title = "BTC测试网络"
+        self.title = "ETH测试网络"
         let switchButton = UISwitch()
         switchButton.isOn = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: switchButton)
@@ -194,10 +194,16 @@ class RootViewController: UIViewController {
             self.view.makeToast("收款地址格式有误")
             return
         }
+        
+        guard let amountWei = BigUInt((amount * rate).stringValue) else {
+            self.view.makeToast("输入金额有误")
+            return
+        }
+        
         // 设置交易参数
         MyLog("发送交易")
         let toAddress = Address(reciveAddress)
-        let amountWei = BigUInt((amount * rate).intValue)
+        
         var options = Web3Options()
         // 发送地址
         options.from = Address(myAddress)
@@ -206,7 +212,7 @@ class RootViewController: UIViewController {
         // gasLimit
         options.gasLimit = BigUInt(21000)
         // gas_price
-        options.gasPrice = BigUInt(gasPrice.intValue)
+        options.gasPrice = BigUInt(gasPrice.stringValue)
         // 发送金额
         options.value = amountWei
         

@@ -60,4 +60,8 @@ extension Decimal {
             return NSDecimalNumber(decimal: self).doubleValue
         }
     }
+    
+    var stringValue:String {
+        return NSDecimalNumber(decimal: self).stringValue
+    }
 }
