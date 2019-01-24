@@ -25,6 +25,7 @@ public interface MainContract {
 
     interface Presenter {
         void createWallet();
+        void loadWalletByPrivateKey(String privateKey);
         void getGasPrice();
         void connectETHClient();
         void getBalance(String address);

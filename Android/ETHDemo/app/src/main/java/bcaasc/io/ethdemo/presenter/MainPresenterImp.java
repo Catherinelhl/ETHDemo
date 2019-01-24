@@ -78,7 +78,8 @@ public class MainPresenterImp implements MainContract.Presenter {
     /**
      * 通过加载私钥来得到当前钱包的元数据
      */
-    private void loadWalletByPrivateKey(String privateKey) {
+    @Override
+    public void loadWalletByPrivateKey(String privateKey) {
 
         byte[] array = new BigInteger(privateKey).toByteArray();
         if (array[0] == 0) {

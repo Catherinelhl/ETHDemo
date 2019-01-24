@@ -39,10 +39,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainNewActivity extends AppCompatActivity implements MainContract.View {
     private String TAG = MainNewActivity.class.getSimpleName();
-    @BindView(R.id.et_address)
-    EditText etAddress;
-    @BindView(R.id.ll_my_address)
-    LinearLayout llMyAddress;
     @BindView(R.id.tv_get_balance)
     TextView tvGetBalance;
     @BindView(R.id.tv_balance)
@@ -55,8 +51,6 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     EditText etToAddress;
     @BindView(R.id.ib_scan)
     ImageButton ibScan;
-    @BindView(R.id.ib_scan_address)
-    ImageButton ibScanAddress;
     @BindView(R.id.ll_to_send_address)
     LinearLayout llToSendAddress;
     @BindView(R.id.btn_push)
@@ -87,6 +81,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     LinearLayout llMyPrivateKey;
     @BindView(R.id.ll_send_amount)
     LinearLayout llSendAmount;
+    private String privateKey;
 
 
     private MainContract.Presenter presenter;
@@ -122,7 +117,6 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
     public static final int REQUEST_CODE_SCAN_RECEIVE_ADDRESS_OK = 0x001;
     public static final int REQUEST_CODE_SCAN_HASH_OK = 0x003;
     public static final int REQUEST_CODE_CAMERA_Permission_OK = 0x002;
-    public static final int REQUEST_CODE_SCAN_ADDRESS_OK = 0x004;
     public static final int REQUEST_CODE_SCAN_PRIVATE_KEY_OK = 0x005;
 
     @Override
@@ -138,12 +132,6 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
             }
             String result = bundle.getString("result");
             switch (requestCode) {
-                case REQUEST_CODE_SCAN_ADDRESS_OK:
-                    if (etAddress != null) {
-                        etAddress.setText(result);
-                    }
-                    presenter.getBalance(result);
-                    break;
                 case REQUEST_CODE_SCAN_RECEIVE_ADDRESS_OK:
                     if (etToAddress != null) {
                         etToAddress.setText(result);
@@ -155,9 +143,9 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
                     }
                     break;
                 case REQUEST_CODE_SCAN_PRIVATE_KEY_OK:
-                    if (etPrivateKey != null) {
-                        etPrivateKey.setText(result);
-                    }
+                    privateKey = result;
+                    presenter.loadWalletByPrivateKey(result);
+
                     break;
             }
 
@@ -191,11 +179,11 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 switchNet.setText(isChecked ? "ETH测试网络" : "ETH主网络");
                 //刷新当前界面
-                etAddress.setText(MessageConstants.EMPTY);
                 etToAddress.setText(MessageConstants.EMPTY);
                 etPrivateKey.setText(MessageConstants.EMPTY);
                 tvTxHash.setText(MessageConstants.EMPTY);
                 tvContent.setText(MessageConstants.EMPTY);
+                privateKey = MessageConstants.EMPTY;
                 //切换网络
                 ETHParamConstants.isTest = isChecked;
             }
@@ -258,13 +246,8 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     @Override
                     public void onNext(Object o) {
-                        String address = etAddress.getText().toString();
+                        String address = etPrivateKey.getText().toString();
                         if (TextUtils.isEmpty(address)) {
-                            Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        String privateKey = etPrivateKey.getText().toString();
-                        if (TextUtils.isEmpty(privateKey)) {
                             Toast.makeText(MainNewActivity.this, "请先输入私钥", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -292,13 +275,8 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     @Override
                     public void onNext(Object o) {
-                        String address = etAddress.getText().toString();
+                        String address = etPrivateKey.getText().toString();
                         if (TextUtils.isEmpty(address)) {
-                            Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        String privateKey = etPrivateKey.getText().toString();
-                        if (TextUtils.isEmpty(privateKey)) {
                             Toast.makeText(MainNewActivity.this, "请先输入私钥", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -326,22 +304,16 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
 
                     @Override
                     public void onNext(Object o) {
-                        String address = etAddress.getText().toString();
                         String addressTo = etToAddress.getText().toString();
                         String amountString = etAmount.getText().toString();
-                        String privateKey = etPrivateKey.getText().toString();
+                        String address = etPrivateKey.getText().toString();
 
                         if (TextUtils.isEmpty(address)) {
-                            Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if (TextUtils.isEmpty(privateKey)) {
                             Toast.makeText(MainNewActivity.this, "请先输入私钥", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         if (TextUtils.isEmpty(amountString)) {
-                            amountString = Constants.amountString;
                             Toast.makeText(MainNewActivity.this, "请先输入金额", Toast.LENGTH_SHORT).show();
 
                             return;
@@ -397,13 +369,6 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
                     }
                 });
 
-        ibScanAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(MainNewActivity.this, CaptureActivity.class), REQUEST_CODE_SCAN_ADDRESS_OK);
-
-            }
-        });
         ibScanPrivateKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -412,10 +377,10 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
             }
         });
 
-        ibScanAddress.setOnLongClickListener(new View.OnLongClickListener() {
+        ibScanPrivateKey.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                String address = etAddress.getText().toString();
+                String address = etPrivateKey.getText().toString();
                 if (TextUtils.isEmpty(address)) {
                     Toast.makeText(MainNewActivity.this, "请先输入地址", Toast.LENGTH_SHORT).show();
                     return false;
@@ -554,12 +519,20 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
         if (btnPush != null) {
             btnPush.setText("Push TX");
         }
+        if (presenter != null) {
+            String address = etPrivateKey.getText().toString();
+            if (TextUtils.isEmpty(address)) {
+                return;
+            }
+            presenter.getBalance(address);
+        }
     }
 
     @Override
     public void getAddressSuccess(String address) {
-        if (etAddress != null) {
-            etAddress.setText(address);
+        if (etPrivateKey != null) {
+            etPrivateKey.setText(address);
         }
+        presenter.getBalance(address);
     }
 }
