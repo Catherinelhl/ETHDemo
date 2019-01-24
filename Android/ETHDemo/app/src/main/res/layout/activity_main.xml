@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
     <Switch android:layout_width="wrap_content"
             android:minWidth="200dp"
-            android:text="BTC主网络"
+            android:text="ETH主网络"
             android:id="@+id/switch_net"
             android:textSize="18sp"
             android:switchMinWidth="48dp"
