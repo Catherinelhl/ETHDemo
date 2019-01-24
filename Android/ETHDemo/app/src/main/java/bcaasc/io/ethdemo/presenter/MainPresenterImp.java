@@ -88,7 +88,7 @@ public class MainPresenterImp implements MainContract.Presenter {
         }
         String privateKeyConvert = Hex.toHexString(array);
         credentials = Credentials.create(privateKeyConvert);
-        String address=credentials.getAddress();
+        String address = credentials.getAddress();
         LogTool.d(TAG, "address=" + address);
         view.getAddressSuccess(address);
         LogTool.d(TAG, " public key=" + credentials.getEcKeyPair().getPublicKey());
@@ -354,9 +354,6 @@ public class MainPresenterImp implements MainContract.Presenter {
 
     @Override
     public void checkTXInfo(String txHash) {
-        if (TextUtils.isEmpty(txHash)) {
-            txHash = "0x0504eceb6e80d5a5d510e25d3327db5ad1d7b53968466544e4783190758b07b1";
-        }
         if (web3j == null) return;
         if (TextUtils.isEmpty(txHash)) {
             view.failure("transactionHash is empty!!");

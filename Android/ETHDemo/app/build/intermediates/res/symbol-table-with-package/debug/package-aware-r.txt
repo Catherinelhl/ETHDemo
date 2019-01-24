@@ -630,8 +630,6 @@ drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable bg_qr_grey
-drawable ic_launcher_background
-drawable ic_launcher_foreground
 drawable icon_receive_f
 drawable icon_scan_f
 drawable img_scan_code
@@ -648,6 +646,12 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable scan_line
+drawable shape_switch
+drawable shape_switch_green
+drawable shape_switch_grey
+drawable thumb
+drawable thumb_green
+drawable thumb_grey
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT

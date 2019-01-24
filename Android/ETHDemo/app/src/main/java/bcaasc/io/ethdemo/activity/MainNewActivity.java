@@ -142,6 +142,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
                     if (etAddress != null) {
                         etAddress.setText(result);
                     }
+                    presenter.getBalance(result);
                     break;
                 case REQUEST_CODE_SCAN_RECEIVE_ADDRESS_OK:
                     if (etToAddress != null) {
@@ -188,6 +189,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
         switchNet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switchNet.setText(isChecked ? "ETH测试网络" : "ETH主网络");
                 //刷新当前界面
                 etAddress.setText(MessageConstants.EMPTY);
                 etToAddress.setText(MessageConstants.EMPTY);
@@ -195,7 +197,7 @@ public class MainNewActivity extends AppCompatActivity implements MainContract.V
                 tvTxHash.setText(MessageConstants.EMPTY);
                 tvContent.setText(MessageConstants.EMPTY);
                 //切换网络
-                ETHParamConstants.isTest = !isChecked;
+                ETHParamConstants.isTest = isChecked;
             }
         });
 
