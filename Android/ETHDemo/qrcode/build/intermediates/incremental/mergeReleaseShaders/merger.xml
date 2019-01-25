@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD:Android/ETHDemo/qrcode/build/intermediates/incremental/mergeDebugShaders/merger.xml
-<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/pengyiqiao/Desktop/Works/OrangeBlock/git_repository/ThirdpartySample/ETH/Android/ETHDemo/qrcode/src/main/shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/pengyiqiao/Desktop/Works/OrangeBlock/git_repository/ThirdpartySample/ETH/Android/ETHDemo/qrcode/src/debug/shaders"/></dataSet></merger>
-=======
 <merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/qrcode/src/main/shaders"/></dataSet><dataSet config="release" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/catherine.brainwilliam/AndroidOBTProject/ETH/Android/ETHDemo/qrcode/src/release/shaders"/></dataSet></merger>
->>>>>>> f8b02991866bd40972acccb9086dd3081f72b7de:Android/ETHDemo/qrcode/build/intermediates/incremental/mergeReleaseShaders/merger.xml
